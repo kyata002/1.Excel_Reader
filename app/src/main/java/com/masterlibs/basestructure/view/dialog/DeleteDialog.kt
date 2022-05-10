@@ -12,7 +12,7 @@ class DeleteDialog(override val layoutId: Int = R.layout.dialog_delete) : BaseAc
     companion object {
         var callback: OnActionCallback? = null
 
-        fun start(context: Context, onActionCallback: OnActionCallback) {
+        fun start(context: Context, onActionCallback1: String, onActionCallback: OnActionCallback) {
             callback = onActionCallback
             context.startActivity(Intent(context, DeleteDialog::class.java))
         }

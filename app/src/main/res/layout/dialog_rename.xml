@@ -13,28 +13,36 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="16dp"
+            android:background="@drawable/ic_renamesvg"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="16dp"
             android:text="Rename"
-            android:textColor="#FFF"
+            android:textColor="#000"
             android:textFontWeight="700"
             android:textSize="@dimen/_16sdp" />
-
-
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_12sdp"
+            android:text="Enter a name for the file"
+            android:paddingLeft="@dimen/_35sdp"
+            />
         <com.common.control.widget.CustomEdittext
             android:id="@+id/edit_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="45dp"
-            android:layout_marginTop="8dp"
             android:background="@drawable/bg_search"
             android:backgroundTint="#FFF"
             android:hint="Enter name"
-
             android:imeOptions="actionDone"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
@@ -42,7 +50,6 @@
             android:textColor="#3C3C3C"
             android:textFontWeight="500"
             android:textSize="@dimen/_12sdp">
-
             <requestFocus />
         </com.common.control.widget.CustomEdittext>
 
@@ -58,16 +65,18 @@
                 android:layout_height="40dp"
                 android:layout_margin="16dp"
                 android:layout_weight="1"
-                android:background="@drawable/bg_action"
-                android:backgroundTint="#FFF"
+                android:backgroundTint="#fff"
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_dialog_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
                     android:text="Cancel"
-                    android:textColor="#000"
+                    android:textColor="#6E7175"
                     android:textFontWeight="600"
                     android:textSize="@dimen/_12sdp" />
             </LinearLayout>
@@ -80,14 +89,14 @@
                 android:layout_marginEnd="16dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_action"
-                android:backgroundTint="#7197F9"
+                android:backgroundTint="#00733B"
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Save"
+                    android:text="Done"
                     android:textColor="#FFF"
                     android:textFontWeight="600"
                     android:textSize="@dimen/_12sdp" />
