@@ -29,14 +29,14 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         rcvExcel.layoutManager = linearLayoutManager
         mlist = getFileList("xlsx")
         btn_allfile.setOnClickListener {
+            btn_favourite.setBackgroundResource(R.drawable.ic_bg_btn_no)
+            btn_allfile.setBackgroundResource(R.drawable.ic_bg_btn_yes)
             executeLoadFile();
             rcvExcel.adapter = fileadapter
-            btn_favourite.background(R.drawable.ic_btn_nofavourite)
-            btn_allfile.background(R.drawable.ic_btn_allfile)
         }
         btn_favourite.setOnClickListener{
-            btn_allfile.background(R.drawable.ic_btn_noallfile)
-            btn_favourite.background(R.drawable.ic_btn_favourite)
+            btn_allfile.setBackgroundResource(R.drawable.ic_bg_btn_no)
+            btn_favourite.setBackgroundResource(R.drawable.ic_bg_btn_yes)
         }
 
 

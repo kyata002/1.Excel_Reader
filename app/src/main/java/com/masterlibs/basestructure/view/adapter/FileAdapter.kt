@@ -50,89 +50,120 @@ import kotlin.collections.ArrayList
         holder.date_file.text = Date(File(myFile.path).lastModified()).toString()
 //        sizeOfFile = ((File(myFile.path).length() / (1024.0 * 1024)).toFloat())
 
-//        holder.sizeFile.text = "%.2f Mb".format(sizeOfFile)
-        holder.favorite_checked.setOnClickListener {
+        if (!myFile.isFavorite){
+            holder.favorite_checked.setButtonDrawable(R.drawable.ic_favorite)
 
+        }
+        else{
+            holder.favorite_checked.setButtonDrawable(R.drawable.ic_favorite_true)
+
+        }
+//        holder.sizeFile.text = "%.2f Mb".format(sizeOfFile)
+        holder.favorite_checked.setOnCheckedChangeListener { compoundButton, b ->
+            myFile.isFavorite = b
+
+            notifyDataSetChanged()
         }
 //        holder.itemView.setOnClickListener {
 //            showRead(myFile)
 //        }
 
-//        holder.more_options.setOnClickListener {
-//            val pm = PopupMenu(context, holder.more_options)
-//            pm.menuInflater.inflate(R.menu.popup_menu_more, pm.menu)
-//            pm.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener {
-//                when (it.itemId) {
+
+        holder.more_options.setOnClickListener {
+            val pm = PopupMenu(context, holder.more_options)
+            pm.menuInflater.inflate(R.menu.popup_menu_more, pm.menu)
+            pm.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener {
+                when (it.itemId) {
 //                    R.id.delete -> showDelete(myFile)
 //                    R.id.rename -> showRename(myFile)
 //                    R.id.read -> showRead(myFile)
 //                    R.id.detail -> showDetail(myFile)
-//                }
-//                true
-//            })
-////            pm.show()
-//            val ph = MenuPopupHelper(context, pm.menu as MenuBuilder, holder.more_options)
-//            ph.setForceShowIcon(true)
-//            ph.show()
-//        }
+                }
+                true
+            })
+//            pm.show()
+            val ph = MenuPopupHelper(context, pm.menu as MenuBuilder, holder.more_options)
+            ph.setForceShowIcon(true)
+            ph.show()
+        }
     }
 
-//    fun sortByNameAZ() {
-//        for (i in 0 until mList?.size!!) {
-//            for (j in i + 1 until mList?.size!!) {
-//                if (File(mList!![i].path).name[0] > File(mList!![j].path).name[0]) {
-//                    var a: MyFile = mList!![i]
-//                    mList!![i] = mList!![j]
-//                    mList!![j] = a
-//                }
-//            }
-//
-//        }
-//        notifyDataSetChanged()
-//    }
-//
-//    fun sortByNameZA() {
-//
-//        for (i in 0 until mList?.size!!) {
-//            for (j in i + 1 until mList?.size!!) {
-//                if (File(mList!![i].path).name[0] < File(mList!![j].path).name[0]) {
-//                    var a: MyFile = mList!![i]
-//                    mList!![i] = mList!![j]
-//                    mList!![j] = a
-//                }
-//            }
-//
-//        }
-//        notifyDataSetChanged()
-//    }
-//
-//    fun sortBySize() {
-//        for (i in 0 until mList?.size!!) {
-//            for (j in i + 1 until mList?.size!!) {
-//                if (File(mList!![i].path).length() < File(mList!![j].path).length()) {
-//                    var a: MyFile = mList!![i]
-//                    mList!![i] = mList!![j]
-//                    mList!![j] = a
-//                }
-//            }
-//        }
-//        notifyDataSetChanged()
-//    }
-//
-//    fun sortByDate() {
-//
-//        for (i in 0 until mList?.size!!) {
-//            for (j in i + 1 until mList?.size!!) {
-//                if (Date(File(mList!![i].path).lastModified()).time < Date(File(mList!![j].path).lastModified()).time) {
-//                    var a: MyFile = mList!![i]
-//                    mList!![i] = mList!![j]
-//                    mList!![j] = a
-//                }
-//            }
-//        }
-//        notifyDataSetChanged()
-//    }
-//
+    fun sortByNameAZ() {
+        for (i in 0 until mList?.size!!) {
+            for (j in i + 1 until mList?.size!!) {
+                var n = 0
+                if (File(mList!![i].path).name.length < File(mList!![j].path).name.length){
+                    n = File(mList!![i].path).name.length
+                }
+                else{
+                    n = File(mList!![j].path).name.length
+                }
+                for (k in 0 until n){
+                    if (File(mList!![i].path).name[k] > File(mList!![j].path).name[k]) {
+                        var a: MyFile = mList!![i]
+                        mList!![i] = mList!![j]
+                        mList!![j] = a
+                    }
+                }
+
+            }
+
+        }
+        notifyDataSetChanged()
+    }
+
+    fun sortByNameZA() {
+
+        for (i in 0 until mList?.size!!) {
+            for (j in i + 1 until mList?.size!!) {
+                var n = 0
+                if (File(mList!![i].path).name.length < File(mList!![j].path).name.length){
+                    n = File(mList!![i].path).name.length
+                }
+                else{
+                    n = File(mList!![j].path).name.length
+                }
+                for (k in 0 until n){
+                    if (File(mList!![i].path).name[k] < File(mList!![j].path).name[k]) {
+                        var a: MyFile = mList!![i]
+                        mList!![i] = mList!![j]
+                        mList!![j] = a
+                    }
+                }
+
+            }
+
+        }
+        notifyDataSetChanged()
+    }
+
+    fun sortBySize() {
+        for (i in 0 until mList?.size!!) {
+            for (j in i + 1 until mList?.size!!) {
+                if (File(mList!![i].path).length() < File(mList!![j].path).length()) {
+                    var a: MyFile = mList!![i]
+                    mList!![i] = mList!![j]
+                    mList!![j] = a
+                }
+            }
+        }
+        notifyDataSetChanged()
+    }
+
+    fun sortByDate() {
+
+        for (i in 0 until mList?.size!!) {
+            for (j in i + 1 until mList?.size!!) {
+                if (Date(File(mList!![i].path).lastModified()).time < Date(File(mList!![j].path).lastModified()).time) {
+                    var a: MyFile = mList!![i]
+                    mList!![i] = mList!![j]
+                    mList!![j] = a
+                }
+            }
+        }
+        notifyDataSetChanged()
+    }
+
 //    override fun getFilter(): Filter {
 //        return object : Filter() {
 //            override fun performFiltering(p0: CharSequence?): FilterResults {
@@ -164,14 +195,14 @@ import kotlin.collections.ArrayList
     inner class FViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val img_view: ImageView
 
-        //val more_options: Button
+        val more_options: Button
         val name_view: TextView
         val date_file: TextView
         val favorite_checked: CheckBox
 
         init {
             img_view = itemView.findViewById(R.id.img_view_file)
-            //more_options = itemView.findViewById(R.id.more_options)
+            more_options = itemView.findViewById(R.id.more_options)
             name_view = itemView.findViewById(R.id.name_file)
             date_file = itemView.findViewById(R.id.date_file)
             favorite_checked = itemView.findViewById(R.id.favorite_checked)
@@ -260,6 +291,6 @@ import kotlin.collections.ArrayList
     }
 
      override fun getFilter(): Filter {
-         TODO("Not yet implemented")
+         return filter
      }
  }
