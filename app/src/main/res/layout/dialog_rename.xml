@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#99000000">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:background="@drawable/bg_dialog"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="16dp"
+            android:text="Rename"
+            android:textColor="#FFF"
+            android:textFontWeight="700"
+            android:textSize="@dimen/_16sdp" />
+
+
+        <com.common.control.widget.CustomEdittext
+            android:id="@+id/edit_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="45dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_search"
+            android:backgroundTint="#FFF"
+            android:hint="Enter name"
+
+            android:imeOptions="actionDone"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:singleLine="true"
+            android:textColor="#3C3C3C"
+            android:textFontWeight="500"
+            android:textSize="@dimen/_12sdp">
+
+            <requestFocus />
+        </com.common.control.widget.CustomEdittext>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginVertical="16dp">
+
+            <LinearLayout
+                android:id="@+id/bt_cancel"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="16dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_action"
+                android:backgroundTint="#FFF"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cancel"
+                    android:textColor="#000"
+                    android:textFontWeight="600"
+                    android:textSize="@dimen/_12sdp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/bt_save"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginVertical="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_action"
+                android:backgroundTint="#7197F9"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Save"
+                    android:textColor="#FFF"
+                    android:textFontWeight="600"
+                    android:textSize="@dimen/_12sdp" />
+            </LinearLayout>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
