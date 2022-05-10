@@ -41,7 +41,7 @@
             <LinearLayout
                 android:layout_marginRight="@dimen/_8sdp"
                 android:layout_marginLeft="@dimen/_8sdp"
-                android:background="#3C3C3C"
+                android:background="@drawable/shape"
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_30sdp"
@@ -69,6 +69,7 @@
         </LinearLayout>
     </FrameLayout>
     <LinearLayout
+
         android:layout_marginTop="@dimen/_8sdp"
         android:paddingLeft="@dimen/_8sdp"
         android:layout_marginBottom="@dimen/_8sdp"

@@ -26,8 +26,16 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
     override fun initView() {
         val linearLayoutManager = LinearLayoutManager(this)
         rcvExcel.layoutManager = linearLayoutManager
-        executeLoadFile()
-        rcvExcel.adapter = fileadapter
+        btn_allfile.setOnClickListener {
+            btn_allfile.setBackgroundResource(R.drawable.ic_bg_btn_yes)
+            btn_favourite.setBackgroundResource(R.drawable.ic_bg_btn_no)
+            executeLoadFile()
+            rcvExcel.adapter = fileadapter
+        }
+        btn_favourite.setOnClickListener {
+            btn_favourite.setBackgroundResource(R.drawable.ic_bg_btn_yes)
+            btn_allfile.setBackgroundResource(R.drawable.ic_bg_btn_no)
+        }
         sort_btn.setOnClickListener {
             val pm = PopupMenu(this, sort_btn)
             pm.menuInflater.inflate(R.menu.popup_sort, pm.menu)
