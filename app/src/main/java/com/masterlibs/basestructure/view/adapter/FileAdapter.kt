@@ -18,7 +18,9 @@ import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
 import com.documentmaster.documentscan.OnActionCallback
 import com.docxmaster.docreader.base.BaseAdapter
+import com.masterlibs.basestructure.App
 import com.masterlibs.basestructure.R
+import com.masterlibs.basestructure.model.FileModel
 import com.masterlibs.basestructure.utils.MyFile
 //import com.masterlibs.basestructure.view.activity.DocReaderActivity
 //import com.masterlibs.basestructure.view.activity.ReadFile
@@ -32,9 +34,9 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
- class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
+class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
     BaseAdapter<MyFile>(mList, context), Filterable {
-//    var sizeOfFile: Float = 0f
+    //    var sizeOfFile: Float = 0f
     private var temp: ArrayList<MyFile> = mList!!
     override fun viewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_file, parent, false)
@@ -51,18 +53,19 @@ import kotlin.collections.ArrayList
         holder.date_file.text = Date(File(myFile.path).lastModified()).toString()
 //        sizeOfFile = ((File(myFile.path).length() / (1024.0 * 1024)).toFloat())
 
-        if (!myFile.isFavorite){
+        if (!checkFavourite(myFile.path)) {
             holder.favorite_checked.setButtonDrawable(R.drawable.ic_favorite)
-
-        }
-        else{
+        } else {
             holder.favorite_checked.setButtonDrawable(R.drawable.ic_favorite_true)
-
         }
 //        holder.sizeFile.text = "%.2f Mb".format(sizeOfFile)
         holder.favorite_checked.setOnCheckedChangeListener { compoundButton, b ->
             myFile.isFavorite = b
-
+            if (b){
+                App.database?.favoriteDAO()?.add(myFile)
+            }else{
+                App.database?.favoriteDAO()?.delete(myFile.path)
+            }
             notifyDataSetChanged()
         }
 //        holder.itemView.setOnClickListener {
@@ -88,17 +91,20 @@ import kotlin.collections.ArrayList
         }
     }
 
+    private fun checkFavourite(path: String?): Boolean {
+        return App.database?.favoriteDAO()?.getFile(path) != null
+    }
+
     fun sortByNameAZ() {
         for (i in 0 until mList?.size!!) {
             for (j in i + 1 until mList?.size!!) {
                 var n = 0
-                if (File(mList!![i].path).name.length < File(mList!![j].path).name.length){
+                if (File(mList!![i].path).name.length < File(mList!![j].path).name.length) {
                     n = File(mList!![i].path).name.length
-                }
-                else{
+                } else {
                     n = File(mList!![j].path).name.length
                 }
-                for (k in 0 until n){
+                for (k in 0 until n) {
                     if (File(mList!![i].path).name[k] > File(mList!![j].path).name[k]) {
                         var a: MyFile = mList!![i]
                         mList!![i] = mList!![j]
@@ -117,13 +123,12 @@ import kotlin.collections.ArrayList
         for (i in 0 until mList?.size!!) {
             for (j in i + 1 until mList?.size!!) {
                 var n = 0
-                if (File(mList!![i].path).name.length < File(mList!![j].path).name.length){
+                if (File(mList!![i].path).name.length < File(mList!![j].path).name.length) {
                     n = File(mList!![i].path).name.length
-                }
-                else{
+                } else {
                     n = File(mList!![j].path).name.length
                 }
-                for (k in 0 until n){
+                for (k in 0 until n) {
                     if (File(mList!![i].path).name[k] < File(mList!![j].path).name[k]) {
                         var a: MyFile = mList!![i]
                         mList!![i] = mList!![j]
@@ -174,14 +179,14 @@ import kotlin.collections.ArrayList
                 } else {
                     var list: ArrayList<MyFile> = ArrayList()
                     temp.forEach {
-                        for (i in 0 until text.toLowerCase().length){
+                        for (i in 0 until text.toLowerCase().length) {
                             if (File(it.path).name.toLowerCase().contains(text.toLowerCase()[i])) {
                                 checked = true
                                 continue
                             }
                             checked = false
                         }
-                        if (checked){
+                        if (checked) {
                             list.add(it)
                         }
                     }
@@ -218,36 +223,37 @@ import kotlin.collections.ArrayList
     }
 
     fun showDelete(myFile: MyFile) {
-        val view = View.inflate(context,R.layout.dialog_delete,null)
-        val builder = AlertDialog.Builder(context)
-        builder.setView(view)
-        val tvNameFile : TextView = view.findViewById(R.id.tvNameDelete)
-        tvNameFile.text = "Are you sure you want to delete"+"\n"+ File(myFile.path).name
-        val  dialog = builder.create()
-        view.bt_cancel.setOnClickListener {
+//        val view = View.inflate(context,R.layout.dialog_delete,null)
+//        val builder = AlertDialog.Builder(context)
+//        builder.setView(view)
+//        val tvNameFile : TextView = view.findViewById(R.id.tvNameDelete)
+//        tvNameFile.text = "Are you sure you want to delete"+"\n"+ File(myFile.path).name
+//        val  dialog = builder.create()
+//        view.bt_cancel.setOnClickListener {
+//
+//        }
+//        view.bt_delete.setOnClickListener {
+//
+//        }
+//        dialog.show()
 
-        }
-        view.bt_delete.setOnClickListener {
-
-        }
-        dialog.show()
-
-        DeleteDialog.start(context, myFile.path, object : OnActionCallback {
-            override fun callback(key: String?, vararg data: Any?) {
-                //var listFileAdapter : ListFileAdapter? = null
-                when {
-                    key.equals("delete") -> {
-                        File(myFile.path).delete()
-                        mList?.indexOf(myFile)?.let { notifyItemRemoved(it) }
-                        mList?.remove(myFile)
-                        //bắn thông báo có thằng myfile đc xóa cho thằng Main để update lại data
-                    }
-                    key.equals("cancel") -> {
-
-                    }
-                }
-            }
-        })
+//        DeleteDialog.start(context, myFile.path, object : OnActionCallback {
+//            override fun callback(key: String?, vararg data: Any?) {
+//                //var listFileAdapter : ListFileAdapter? = null
+//                when {
+//                    key.equals("delete") -> {
+//                        File(myFile.path).delete()
+//                        mList?.indexOf(myFile)?.let { notifyItemRemoved(it) }
+//                        mList?.remove(myFile)
+//                        //bắn thông báo có thằng myfile đc xóa cho thằng Main để update lại data
+//                    }
+//                    key.equals("cancel") -> {
+//
+//                    }
+//                }
+//            }
+//        })
+        //App.database?.historyDao()?.add(FileModel("",myFile.path))
     }
 
     fun showDetail(myFile: MyFile) {
@@ -279,7 +285,7 @@ import kotlin.collections.ArrayList
                 val file = File(myFile.path)
                 val newFile = File(file.parent + "/" + newName)
                 file.renameTo(newFile)
-                myFile.path=newFile.path
+                myFile.path = newFile.path
                 notifyDataSetChanged()
                 context.sendBroadcast(
                     Intent(
@@ -296,4 +302,4 @@ import kotlin.collections.ArrayList
 //    }
 
 
- }
+}
