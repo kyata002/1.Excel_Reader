@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#02723B">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_logo_splash"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_96sdp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="Welcome to Excel Reader"
+        android:textSize="@dimen/_20sdp"
+        android:fontFamily="sans-serif"
+        android:textFontWeight="600"
+        android:layout_marginTop="@dimen/_24sdp"
+        android:textColor="@color/white"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_loading_splash"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_200sdp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="This action can contain ads..."
+        android:textFontWeight="400"
+        android:textSize="@dimen/_12sdp"
+        android:textColor="@color/white"
+        android:fontFamily="sans-serif"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/_8sdp"/>
+
+</LinearLayout>
