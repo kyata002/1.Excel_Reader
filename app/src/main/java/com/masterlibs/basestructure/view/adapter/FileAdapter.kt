@@ -5,7 +5,6 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
-import android.graphics.drawable.Icon
 import android.net.Uri
 import android.os.Build
 import android.view.LayoutInflater
@@ -25,6 +24,8 @@ import com.masterlibs.basestructure.utils.MyFile
 //import com.masterlibs.basestructure.view.activity.ReadFile
 import com.masterlibs.basestructure.view.dialog.DeleteDialog
 import com.masterlibs.basestructure.view.dialog.RenameDialog
+import kotlinx.android.synthetic.main.dialog_delete.view.*
+import kotlinx.android.synthetic.main.dialog_detail.view.*
 //import kotlinx.android.synthetic.main.dialog_detail.view.*
 import java.io.File
 import java.util.*
@@ -74,10 +75,9 @@ import kotlin.collections.ArrayList
             pm.menuInflater.inflate(R.menu.popup_menu_more, pm.menu)
             pm.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener {
                 when (it.itemId) {
-//                    R.id.delete -> showDelete(myFile)
-//                    R.id.rename -> showRename(myFile)
-//                    R.id.read -> showRead(myFile)
-//                    R.id.detail -> showDetail(myFile)
+                    R.id.delete -> showDelete(myFile)
+                    R.id.rename -> showRename(myFile)
+                    R.id.detail -> showDetail(myFile)
                 }
                 true
             })
@@ -164,33 +164,41 @@ import kotlin.collections.ArrayList
         notifyDataSetChanged()
     }
 
-//    override fun getFilter(): Filter {
-//        return object : Filter() {
-//            override fun performFiltering(p0: CharSequence?): FilterResults {
-//                var text = p0.toString()
-//                mList = if (text.isEmpty()) {
-//                    temp
-//                } else {
-//                    var list: ArrayList<MyFile> = ArrayList()
-//                    temp.forEach {
-//                        if (File(it.path).name.toLowerCase().contains(text.toLowerCase())) {
-//                            list.add(it)
-//                        }
-//                    }
-//                    list
-//                }
-//                var filterResult = FilterResults()
-//                filterResult.values = mList
-//                return filterResult
-//            }
-//
-//            override fun publishResults(p0: CharSequence?, p1: FilterResults?) {
-//                mList = p1?.values as ArrayList<MyFile>
-//                notifyDataSetChanged()
-//            }
-//
-//        }
-//    }
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(p0: CharSequence?): FilterResults {
+                var checked = false
+                var text = p0.toString()
+                mList = if (text.isEmpty()) {
+                    temp
+                } else {
+                    var list: ArrayList<MyFile> = ArrayList()
+                    temp.forEach {
+                        for (i in 0 until text.toLowerCase().length){
+                            if (File(it.path).name.toLowerCase().contains(text.toLowerCase()[i])) {
+                                checked = true
+                                continue
+                            }
+                            checked = false
+                        }
+                        if (checked){
+                            list.add(it)
+                        }
+                    }
+                    list
+                }
+                var filterResult = FilterResults()
+                filterResult.values = mList
+                return filterResult
+            }
+
+            override fun publishResults(p0: CharSequence?, p1: FilterResults?) {
+                mList = p1?.values as ArrayList<MyFile>
+                notifyDataSetChanged()
+            }
+
+        }
+    }
 
     inner class FViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val img_view: ImageView
@@ -210,87 +218,82 @@ import kotlin.collections.ArrayList
     }
 
     fun showDelete(myFile: MyFile) {
-//        val view = View.inflate(context,R.layout.dialog_delete,null)
-//        val builder = AlertDialog.Builder(context)
-//        builder.setView(view)
-//        val tvNameFile : TextView = view.findViewById(R.id.tvNameDelete)
-//        tvNameFile.text = "Are you sure you want to delete"+"\n"+ string
-//        val  dialog = builder.create()
-//        view.bt_cancel.setOnClickListener {
-//
-//        }
-//        view.bt_delete.setOnClickListener {
-//
-//        }
-//        dialog.show()
+        val view = View.inflate(context,R.layout.dialog_delete,null)
+        val builder = AlertDialog.Builder(context)
+        builder.setView(view)
+        val tvNameFile : TextView = view.findViewById(R.id.tvNameDelete)
+        tvNameFile.text = "Are you sure you want to delete"+"\n"+ File(myFile.path).name
+        val  dialog = builder.create()
+        view.bt_cancel.setOnClickListener {
 
-//        DeleteDialog.start(context, myFile.path, object : OnActionCallback {
+        }
+        view.bt_delete.setOnClickListener {
+
+        }
+        dialog.show()
+
+        DeleteDialog.start(context, myFile.path, object : OnActionCallback {
+            override fun callback(key: String?, vararg data: Any?) {
+                //var listFileAdapter : ListFileAdapter? = null
+                when {
+                    key.equals("delete") -> {
+                        File(myFile.path).delete()
+                        mList?.indexOf(myFile)?.let { notifyItemRemoved(it) }
+                        mList?.remove(myFile)
+                        //bắn thông báo có thằng myfile đc xóa cho thằng Main để update lại data
+                    }
+                    key.equals("cancel") -> {
+
+                    }
+                }
+            }
+        })
+    }
+
+    fun showDetail(myFile: MyFile) {
+        val view = View.inflate(context, R.layout.dialog_detail, null)
+        val builder = AlertDialog.Builder(context)
+        val file = File(myFile.path)
+        val sizeOfFile = (file.length() / (1024.0 * 1024))
+        builder.setView(view)
+        view.tvNameFile.text = file.name
+        view.tvPathFile.text = file.path
+        view.tvDateFile.text = Date(file.lastModified()).toString()
+        view.tvSizeFile.text = "%.2f Mb".format(sizeOfFile)
+        val dialog = builder.create()
+        dialog.show()
+//        DetailDialog.start(context, pathFile , object :OnActionCallback{
 //            override fun callback(key: String?, vararg data: Any?) {
-//                //var listFileAdapter : ListFileAdapter? = null
-//                when {
-//                    key.equals("delete") -> {
-//                        File(myFile.path).delete()
-//                        mList?.indexOf(myFile)?.let { notifyItemRemoved(it) }
-//                        mList?.remove(myFile)
-//                        //bắn thông báo có thằng myfile đc xóa cho thằng Main để update lại data
-//                    }
-//                    key.equals("cancel") -> {
+//                if (key.equals("ok")) {
 //
-//                    }
 //                }
 //            }
-//        })
-//    }
-//
-//    fun showDetail(myFile: MyFile) {
-//        val view = View.inflate(context, R.layout.dialog_detail, null)
-//        val builder = AlertDialog.Builder(context)
-//        val file = File(myFile.path)
-//        val sizeOfFile = (file.length() / (1024.0 * 1024))
-//        builder.setView(view)
-//        view.tvNameFile.text = file.name
-//        view.tvPathFile.text = file.path
-//        view.tvDateFile.text = Date(file.lastModified()).toString()
-//        view.tvSizeFile.text = "%.2f Mb".format(sizeOfFile)
-//        val dialog = builder.create()
-//        dialog.show()
-////        DetailDialog.start(context, pathFile , object :OnActionCallback{
-////            override fun callback(key: String?, vararg data: Any?) {
-////                if (key.equals("ok")) {
-////
-////                }
-////            }
-////
-////        })
-//    }
-//
-//    fun showRename(myFile: MyFile) {
-//        RenameDialog.start(context, myFile.path, object : OnActionCallback {
-//            override fun callback(key: String?, vararg data: Any?) {
-//                val newName = data[0] as String
-//                val file = File(myFile.path)
-//                val newFile = File(file.parent + "/" + newName)
-//                file.renameTo(newFile)
-//                myFile.path=newFile.path
-//                notifyDataSetChanged()
-//                context.sendBroadcast(
-//                    Intent(
-//                        Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(newFile)
-//                    )
-//                )
-//            }
 //
 //        })
-//    }
-//
+    }
+
+    fun showRename(myFile: MyFile) {
+        RenameDialog.start(context, myFile.path, object : OnActionCallback {
+            override fun callback(key: String?, vararg data: Any?) {
+                val newName = data[0] as String
+                val file = File(myFile.path)
+                val newFile = File(file.parent + "/" + newName)
+                file.renameTo(newFile)
+                myFile.path=newFile.path
+                notifyDataSetChanged()
+                context.sendBroadcast(
+                    Intent(
+                        Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(newFile)
+                    )
+                )
+            }
+
+        })
+    }
+
 //    private fun showRead(myFile: MyFile) {
 //        DocReaderActivity.start(context, myFile.path)
 //    }
 
 
-    }
-
-     override fun getFilter(): Filter {
-         return filter
-     }
  }
