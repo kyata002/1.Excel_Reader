@@ -16,6 +16,7 @@ import com.masterlibs.basestructure.utils.FileAdapter
 import com.masterlibs.basestructure.utils.LoadFile
 import com.masterlibs.basestructure.utils.MyFile
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.item_file.*
 
 class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseActivity() {
     var mlist: ArrayList<MyFile> = ArrayList()
@@ -25,8 +26,12 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         val linearLayoutManager = LinearLayoutManager(this)
         rcvExcel.layoutManager = linearLayoutManager
         mlist = getFileList("xlsx")
-        executeLoadFile()
-        rcvExcel.adapter = fileadapter
+        if(mlist.size!=0){
+            executeLoadFile()
+            rcvExcel.adapter = fileadapter
+        }else{
+            img_NoFile.setImageResource(R.drawable.ic_no_file)
+        }
 
     }
     companion object {
