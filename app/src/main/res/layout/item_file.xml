@@ -12,15 +12,15 @@
         android:id="@+id/img_view_file"
         android:layout_width="@dimen/_40sdp"
         android:layout_height="@dimen/_40sdp"
-        android:background="@drawable/ic_file_excel"
+        android:background="@drawable/ic_xlsx"
         android:layout_gravity="center"
         />
 
     <LinearLayout
-        android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_width="0dp">
 
         <TextView
             android:id="@+id/name_file"
@@ -37,13 +37,13 @@
         <TextView
             android:id="@+id/date_file"
             android:layout_width="150dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginStart="@dimen/_8sdp"
             android:fontFamily="sans-serif-thin"
             android:singleLine="true"
             android:text="@string/app_name"
             android:textColor="@color/black"
-            android:textSize="@dimen/_8sdp"
+            android:textSize="@dimen/_10sdp"
             android:textStyle="bold" />
 
     </LinearLayout>
@@ -54,7 +54,7 @@
         android:layout_marginStart="@dimen/_8sdp"
         android:layout_marginTop="@dimen/_11sdp"
         android:layout_marginRight="@dimen/_8sdp"
-        android:button="@drawable/checkbox"
+        android:button="@drawable/ic_favorite_check"
         android:checked="false"
         tools:ignore="TouchTargetSizeCheck" />
 

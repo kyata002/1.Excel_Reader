@@ -39,6 +39,9 @@
                     tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
             </LinearLayout>
             <LinearLayout
+                android:layout_marginRight="@dimen/_8sdp"
+                android:layout_marginLeft="@dimen/_8sdp"
+                android:background="@drawable/shape"
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_30sdp"
@@ -66,16 +69,46 @@
         </LinearLayout>
     </FrameLayout>
     <LinearLayout
+
+        android:layout_marginTop="@dimen/_8sdp"
+        android:paddingLeft="@dimen/_8sdp"
+        android:layout_marginBottom="@dimen/_8sdp"
+        android:weightSum="101"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <Button
+            android:background="@drawable/ic_bg_btn_yes"
+            android:text="All File"
+            android:textSize="@dimen/_16sdp"
+            android:textColor="#fff"
+            android:id="@+id/btn_allfile"
+            android:layout_weight="50"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+        <Button
+            android:background="@drawable/ic_bg_btn_no"
+            android:text="Favorite"
+            android:textSize="@dimen/_16sdp"
+            android:textColor="#000"
+            android:id="@+id/btn_favourite"
+            android:layout_marginLeft="@dimen/_8sdp"
+            android:layout_weight="50"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+
+        <Button
             android:id="@+id/sort_btn"
             android:layout_width="@dimen/_36sdp"
+            android:layout_gravity="center"
             android:layout_height="@dimen/_36sdp"
-            android:background="@drawable/ic_sort"/>
+            android:layout_marginLeft="@dimen/_8sdp"
+            android:layout_marginRight="@dimen/_8sdp"
+            android:layout_weight="1"
+            android:background="@drawable/ic_sort" />
     </LinearLayout>
     <LinearLayout
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <androidx.recyclerview.widget.RecyclerView
