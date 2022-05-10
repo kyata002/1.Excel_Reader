@@ -8,6 +8,8 @@ import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.Settings
+import android.widget.Button
+import android.widget.ImageButton
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.common.control.utils.PermissionUtils
 import com.docxmaster.docreader.base.BaseActivity
@@ -26,12 +28,17 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         val linearLayoutManager = LinearLayoutManager(this)
         rcvExcel.layoutManager = linearLayoutManager
         mlist = getFileList("xlsx")
-        if(mlist.size!=0){
-            executeLoadFile()
+        btn_allfile.setOnClickListener {
+            executeLoadFile();
             rcvExcel.adapter = fileadapter
-        }else{
-            img_NoFile.setImageResource(R.drawable.ic_no_file)
+            btn_favourite.background(R.drawable.ic_btn_nofavourite)
+            btn_allfile.background(R.drawable.ic_btn_allfile)
         }
+        btn_favourite.setOnClickListener{
+            btn_allfile.background(R.drawable.ic_btn_noallfile)
+            btn_favourite.background(R.drawable.ic_btn_favourite)
+        }
+
 
     }
     companion object {
@@ -95,4 +102,8 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
 
     override fun addEvent() {
     }
+}
+
+private fun ImageButton.background(icBtnNofavourite: Int) {
+
 }

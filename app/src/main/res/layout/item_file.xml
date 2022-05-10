@@ -12,7 +12,7 @@
         android:id="@+id/img_view_file"
         android:layout_width="@dimen/_40sdp"
         android:layout_height="@dimen/_40sdp"
-        android:background="@drawable/ic_file_excel"
+        android:background="@drawable/ic_xlsx"
         android:layout_gravity="center"
         />
 

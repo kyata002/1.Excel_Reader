@@ -45,7 +45,7 @@ import kotlin.collections.ArrayList
     override fun onBindView(viewHolder: RecyclerView.ViewHolder?, position: Int) {
         val holder: FViewHolder = viewHolder as FViewHolder
         val myFile: MyFile = this.mList?.get(position)!!
-        holder.img_view.setImageResource(R.drawable.ic_file_excel)
+        holder.img_view.setImageResource(R.drawable.ic_xlsx)
         holder.name_view.text = File(myFile.path).name
         holder.date_file.text = Date(File(myFile.path).lastModified()).toString()
 //        sizeOfFile = ((File(myFile.path).length() / (1024.0 * 1024)).toFloat())
