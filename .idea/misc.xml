@@ -3,23 +3,28 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Intership/excel-reader/app/src/main/res/drawable-v24/ic_favorite_check.xml" value="0.1" />
-        <entry key="..\:/Intership/excel-reader/app/src/main/res/drawable-v24/ic_more.xml" value="0.1" />
-        <entry key="..\:/Intership/excel-reader/app/src/main/res/drawable/ic_btn_allfile.xml" value="0.166" />
-        <entry key="..\:/Intership/excel-reader/app/src/main/res/drawable/ic_btn_favourite.xml" value="0.166" />
-        <entry key="..\:/Intership/excel-reader/app/src/main/res/drawable/ic_btn_noallfile.xml" value="0.166" />
-        <entry key="..\:/Intership/excel-reader/app/src/main/res/drawable/ic_btn_nofavourite.xml" value="0.166" />
-        <entry key="..\:/Intership/excel-reader/app/src/main/res/drawable/ic_favorite.xml" value="0.166" />
-        <entry key="..\:/Intership/excel-reader/app/src/main/res/drawable/ic_favorite_true.xml" value="0.166" />
-        <entry key="..\:/Intership/excel-reader/app/src/main/res/drawable/ic_no_file.xml" value="0.166" />
-        <entry key="..\:/Intership/excel-reader/app/src/main/res/drawable/ic_setting.xml" value="0.166" />
-        <entry key="..\:/Intership/excel-reader/app/src/main/res/drawable/shape.xml" value="0.166" />
-        <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/activity_main.xml" value="0.264" />
-        <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/item_file.xml" value="0.2" />
+        <entry key="..\:/ATruong/BaseStructor/app/src/main/res/drawable/bg_dialog.xml" value="0.2518518518518518" />
+        <entry key="..\:/ATruong/BaseStructor/app/src/main/res/drawable/bg_search.xml" value="0.2518518518518518" />
+        <entry key="..\:/ATruong/BaseStructor/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/ATruong/BaseStructor/app/src/main/res/layout/dialog_delete.xml" value="0.25" />
+        <entry key="..\:/ATruong/BaseStructor/app/src/main/res/layout/dialog_rename.xml" value="0.25" />
+        <entry key="..\:/ATruong/BaseStructor/app/src/main/res/layout/fragment_home.xml" value="0.25" />
+        <entry key="..\:/ATruong/BaseStructor/app/src/main/res/layout/item_file.xml" value="0.25" />
+        <entry key="..\:/Users/vipvl/AndroidStudioProjects/Excel Reader/app/src/main/res/drawable/bg_dialog_button.xml" value="0.1935" />
+        <entry key="..\:/Users/vipvl/AndroidStudioProjects/Excel Reader/app/src/main/res/drawable/checkbox.xml" value="0.1935" />
+        <entry key="..\:/Users/vipvl/AndroidStudioProjects/Excel Reader/app/src/main/res/layout/activity_main.xml" value="0.18541666666666667" />
+        <entry key="..\:/Users/vipvl/AndroidStudioProjects/Excel Reader/app/src/main/res/layout/dialog_delete.xml" value="1.1125" />
+        <entry key="..\:/Users/vipvl/AndroidStudioProjects/Excel Reader/app/src/main/res/layout/dialog_detail.xml" value="0.18541666666666667" />
+        <entry key="..\:/Users/vipvl/AndroidStudioProjects/Excel Reader/app/src/main/res/layout/dialog_rename.xml" value="0.18541666666666667" />
+        <entry key="..\:/Users/vipvl/AndroidStudioProjects/Excel Reader/app/src/main/res/layout/item_file.xml" value="0.22" />
+        <entry key="..\:/Users/vipvl/AndroidStudioProjects/Excel Reader/app/src/main/res/menu/popup_menu_more.xml" value="0.18541666666666667" />
       </map>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
-    <output url="file://$PROJECT_DIR$/out" />
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
   </component>
 </project>
