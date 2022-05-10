@@ -8,6 +8,9 @@ import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.Settings
+import androidx.appcompat.view.menu.MenuBuilder
+import androidx.appcompat.view.menu.MenuPopupHelper
+import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.common.control.utils.PermissionUtils
 import com.docxmaster.docreader.base.BaseActivity
@@ -18,16 +21,30 @@ import com.masterlibs.basestructure.utils.MyFile
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseActivity() {
-    var mlist: ArrayList<MyFile> = ArrayList()
     var fileadapter:FileAdapter? = null
     @SuppressLint("RestrictedApi")
     override fun initView() {
         val linearLayoutManager = LinearLayoutManager(this)
         rcvExcel.layoutManager = linearLayoutManager
-        mlist = getFileList("xlsx")
         executeLoadFile()
         rcvExcel.adapter = fileadapter
-
+        sort_btn.setOnClickListener {
+            val pm = PopupMenu(this, sort_btn)
+            pm.menuInflater.inflate(R.menu.popup_sort, pm.menu)
+            pm.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.a_to_z -> fileadapter?.sortByNameAZ()
+                    R.id.z_to_a -> fileadapter?.sortByNameZA()
+                    R.id.by_size -> fileadapter?.sortBySize()
+                    R.id.by_date -> fileadapter?.sortByDate()
+                }
+                true
+            })
+//            pm.show()
+            val ph = MenuPopupHelper(this, pm.menu as MenuBuilder, sort_btn)
+            ph.setForceShowIcon(true)
+            ph.show()
+        }
     }
     companion object {
         val PERMISSIONS_STORAGE = arrayOf(
@@ -38,6 +55,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
 
     }
     private fun getFileList( type: String): ArrayList<MyFile> {
+        var mlist : ArrayList<MyFile> = ArrayList()
         if (type == "xlsx"){
             val tempList = LoadFile.loadFile(this, type)
             tempList.forEach {
@@ -49,7 +67,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
 
     private fun executeLoadFile() {
         if (checkPermission()) {
-            fileadapter = FileAdapter(mlist, this)
+            fileadapter = FileAdapter(getFileList("xlsx"), this)
             return
         }
         requestPermission()
