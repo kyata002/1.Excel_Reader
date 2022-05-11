@@ -26,8 +26,9 @@ class DocReaderActivity : BaseDocActivity() {
         val path = intent.getStringExtra(MainConstant.INTENT_FILED_FILE_PATH)
         name_file_read.text = File(path).name
         btn_back.setOnClickListener {
-            val back = Intent(this, MainActivity::class.java)
-            startActivity(back)
+//            val back = Intent(this, MainActivity::class.java)
+//            startActivity(back)
+            finish()
         }
     }
 

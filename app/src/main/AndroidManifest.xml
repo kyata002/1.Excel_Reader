@@ -38,10 +38,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.dialog.FilterDialog"
-            android:theme="@style/Transparent" />
-        <activity android:name=".view.dialog.DetailDialog" />
-        <activity android:name=".view.activity.DocReaderActivity" />
+        <activity android:name=".view.activity.DocReaderActivity"/>
+        <activity android:name=".view.activity.SettingActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
