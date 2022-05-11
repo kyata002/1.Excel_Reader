@@ -39,6 +39,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.activity.DocReaderActivity"/>
+        <activity android:name=".view.activity.SettingActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

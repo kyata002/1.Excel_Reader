@@ -41,6 +41,10 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
             no_file.setImageResource(R.drawable.ic_no_file)
             no_result_search.setImageResource(0)
         }
+        btn_setting.setOnClickListener {
+            val back = Intent(this, SettingActivity::class.java)
+            startActivity(back)
+        }
         Thread(Runnable {
             btn_allfile.setOnClickListener {
                 btn_allfile.setBackgroundResource(R.drawable.ic_bg_btn_yes)
