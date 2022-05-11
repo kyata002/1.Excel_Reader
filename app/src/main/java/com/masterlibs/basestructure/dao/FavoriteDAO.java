@@ -6,8 +6,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.masterlibs.basestructure.model.FileModel;
-import com.masterlibs.basestructure.utils.MyFile;
+import com.masterlibs.basestructure.model.MyFile;
 
 import java.util.List;
 @Dao

@@ -5,8 +5,7 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.masterlibs.basestructure.model.FileModel;
-import com.masterlibs.basestructure.utils.MyFile;
+import com.masterlibs.basestructure.model.MyFile;
 
 import java.util.List;
 
