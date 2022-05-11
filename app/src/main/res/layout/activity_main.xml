@@ -22,7 +22,7 @@
                     android:layout_weight="10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Document Reader"
+                    android:text="Excel Reader"
                     android:layout_gravity="center|left"
                     android:textSize="@dimen/_16sdp"
                     android:textColor="@color/white"
@@ -47,6 +47,7 @@
                 android:layout_height="@dimen/_30sdp"
                 android:padding="@dimen/_3sdp">
                 <Button
+                    android:layout_marginLeft="@dimen/_8sdp"
                     android:id="@+id/search_bt"
                     android:layout_width="@dimen/_16sdp"
                     android:layout_height="@dimen/_16sdp"
@@ -54,6 +55,7 @@
                     />
                 <EditText
                     android:id="@+id/search_bar"
+                    android:gravity="center|left"
                     android:layout_marginStart="@dimen/_8sdp"
                     android:layout_weight="1"
                     android:textColor="#fff"
@@ -79,7 +81,9 @@
         android:layout_height="wrap_content">
         <Button
             android:background="@drawable/ic_bg_btn_yes"
+            android:fontFamily="serif"
             android:text="All File"
+            android:textAllCaps="false"
             android:textSize="@dimen/_16sdp"
             android:textColor="#fff"
             android:id="@+id/btn_allfile"
@@ -88,6 +92,9 @@
             android:layout_height="match_parent"/>
         <Button
             android:background="@drawable/ic_bg_btn_no"
+            android:textAllCaps="false"
+
+            android:fontFamily="serif"
             android:text="Favorite"
             android:textSize="@dimen/_16sdp"
             android:textColor="#000"
