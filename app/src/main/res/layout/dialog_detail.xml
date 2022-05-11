@@ -8,11 +8,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:layout_marginHorizontal="24dp"
+        android:background="@drawable/bg_dialog"
         android:clickable="false"
         android:longClickable="false"
         android:orientation="vertical"
-        >
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:background="#00733B"
@@ -36,7 +38,7 @@
                     android:layout_weight="6"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textSize="@dimen/_8sdp"
+                    android:textSize="@dimen/_14sdp"
                     android:text="File name"
                     android:paddingTop="@dimen/_16sdp"
                     android:paddingLeft="@dimen/_20sdp"/>
@@ -45,7 +47,7 @@
                     android:layout_weight="4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/_8sdp"
+                    android:textSize="@dimen/_14sdp"
                     android:text="h1"
                     android:paddingTop="@dimen/_16sdp"
                     android:paddingLeft="@dimen/_20sdp"/>
@@ -59,7 +61,7 @@
                     android:layout_weight="6"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textSize="@dimen/_8sdp"
+                    android:textSize="@dimen/_14sdp"
                     android:text="Path"
                     android:paddingTop="@dimen/_16sdp"
                     android:paddingLeft="@dimen/_20sdp"/>
@@ -68,7 +70,7 @@
                     android:layout_weight="4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/_8sdp"
+                    android:textSize="@dimen/_14sdp"
                     android:text="h1"
                     android:paddingTop="@dimen/_16sdp"
                     android:paddingLeft="@dimen/_20sdp"/>
@@ -82,7 +84,7 @@
                     android:layout_weight="6"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textSize="@dimen/_8sdp"
+                    android:textSize="@dimen/_14sdp"
                     android:text="Last modified"
                     android:paddingTop="@dimen/_16sdp"
                     android:paddingLeft="@dimen/_20sdp"/>
@@ -91,7 +93,7 @@
                     android:layout_weight="4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/_8sdp"
+                    android:textSize="@dimen/_14sdp"
                     android:text="h1"
                     android:paddingTop="@dimen/_16sdp"
                     android:paddingLeft="@dimen/_20sdp"/>
@@ -105,7 +107,7 @@
                     android:layout_weight="6"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textSize="@dimen/_8sdp"
+                    android:textSize="@dimen/_16sdp"
                     android:text="Size"
                     android:paddingTop="@dimen/_16sdp"
                     android:paddingLeft="@dimen/_20sdp"/>
@@ -114,14 +116,13 @@
                     android:layout_weight="4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/_8sdp"
+                    android:textSize="@dimen/_14sdp"
                     android:text="h1"
                     android:paddingTop="@dimen/_16sdp"
                     android:paddingLeft="@dimen/_20sdp"/>
             </LinearLayout>
         </LinearLayout>
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/detail_btn"
             android:backgroundTint="#00733B"
             android:text="OK"
             android:textColor="#fff"
