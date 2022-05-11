@@ -34,20 +34,13 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
     override fun initView() {
         val linearLayoutManager = LinearLayoutManager(this)
         rcvExcel.layoutManager = linearLayoutManager
-
-        if(getFileList("xlsx").size!=0){
-            executeLoadFile()
-            rcvExcel.adapter = fileadapter
-        }else{
-            no_result_search.setImageResource(R.drawable.ic_no_file)
-        }
+        reBacgroundMain()
         Thread(Runnable {
             btn_allfile.setOnClickListener {
 
                 btn_allfile.setBackgroundResource(R.drawable.ic_bg_btn_yes)
                 btn_favourite.setBackgroundResource(R.drawable.ic_bg_btn_no)
-                executeLoadFile()
-                rcvExcel.adapter = fileadapter
+                reBacgroundMain()
                 Thread.sleep(10)
             }
         }).start()
@@ -95,6 +88,16 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
 
         initReceiver()
 
+    }
+
+    private fun reBacgroundMain() {
+        if(getFileList("xlsx").size!=0){
+            executeLoadFile()
+            rcvExcel.adapter = fileadapter
+            no_file.setImageResource(0)
+        }else{
+            no_file.setImageResource(R.drawable.ic_no_file)
+        }
     }
 
     private fun initReceiver() {
