@@ -22,7 +22,7 @@
                     android:layout_weight="10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Document Reader"
+                    android:text="Excel Reader"
                     android:layout_gravity="center|left"
                     android:textSize="@dimen/_16sdp"
                     android:textColor="@color/white"

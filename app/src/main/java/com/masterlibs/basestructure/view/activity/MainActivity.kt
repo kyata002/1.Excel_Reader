@@ -40,6 +40,8 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
             executeLoadFile()
             rcvExcel.adapter = fileadapter
         }else{
+            executeLoadFile()
+            rcvExcel.adapter = fileadapter
             no_file.setImageResource(R.drawable.ic_no_file)
             no_result_search.setImageResource(0)
         }
@@ -88,7 +90,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
             }
         }).start()
         sort_btn.setOnClickListener {
-            FilterDialog.start(this, "sort dialog", object : OnActionCallback{
+            FilterDialog.start(this, "sort_dialog", object : OnActionCallback{
                 override fun callback(key: String?, vararg data: Any?) {
                     if (key == "by_name"){
                         fileadapter?.sortByNameAZ()
@@ -96,7 +98,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
                     if (key == "by_size"){
                         fileadapter?.sortBySize()
                     }
-                    if (key == "by_date"){
+                    if (key == "by_created_time"){
                         fileadapter?.sortByDate()
                     }
                 }
