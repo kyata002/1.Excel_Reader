@@ -11,33 +11,27 @@
             android:background="#00733B"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_56sdp">
-            <LinearLayout
-                android:orientation="horizontal"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <ImageButton
-                    android:id="@+id/btn_back"
                     android:background="@drawable/ic_btn_back"
                     android:layout_gravity="center|left"
                     android:layout_marginLeft="@dimen/_16sdp"
                     android:layout_width="@dimen/_18sdp"
                     android:layout_height="@dimen/_18sdp"/>
                 <TextView
-                    android:layout_marginLeft="@dimen/_3sdp"
-                    android:singleLine="true"
-                    android:id="@+id/name_file_read"
                     android:textColor="#fff"
-                    android:text=""
+                    android:text="Settings"
                     android:layout_gravity="center"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:textSize="@dimen/_18sdp"
                     android:layout_height="wrap_content"/>
-            </LinearLayout>
+            </FrameLayout>
 
         </LinearLayout>
         <FrameLayout
 
-            android:id="@+id/app_frame"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </LinearLayout>

@@ -7,6 +7,9 @@ import android.widget.FrameLayout
 import com.masterlibs.basestructure.R
 import com.wxiwei.office.constant.MainConstant
 import com.wxiwei.office.officereader.BaseDocActivity
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_reader.*
+import java.io.File
 
 class DocReaderActivity : BaseDocActivity() {
     override fun getLayoutId(): Int {
@@ -19,9 +22,13 @@ class DocReaderActivity : BaseDocActivity() {
     }
 
     override fun initView() {
-//        val title = findViewById<TextView>(R.id.title)
-//        val path = intent.getStringExtra(MainConstant.INTENT_FILED_FILE_PATH)
-//        title.text = File(path).name
+        //val title = findViewById<TextView>(R.id.title)
+        val path = intent.getStringExtra(MainConstant.INTENT_FILED_FILE_PATH)
+        name_file_read.text = File(path).name
+        btn_back.setOnClickListener {
+            val back = Intent(this, MainActivity::class.java)
+            startActivity(back)
+        }
     }
 
     override fun addEvent() {
