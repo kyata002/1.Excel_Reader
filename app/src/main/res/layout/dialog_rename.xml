@@ -35,23 +35,29 @@
             android:text="Enter a name for the file"
             android:paddingLeft="@dimen/_35sdp"
             />
-        <com.common.control.widget.CustomEdittext
-            android:id="@+id/edit_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="45dp"
-            android:background="@drawable/bg_search"
-            android:backgroundTint="#FFF"
-            android:hint="Enter name"
-            android:imeOptions="actionDone"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:singleLine="true"
-            android:textColor="#3C3C3C"
-            android:textFontWeight="500"
-            android:textSize="@dimen/_12sdp">
-            <requestFocus />
-        </com.common.control.widget.CustomEdittext>
+        <LinearLayout
+            android:background="@drawable/shape"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.common.control.widget.CustomEdittext
+                android:id="@+id/edit_name"
+                android:background="#0000"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:backgroundTint="#FFF"
+                android:hint="Enter name"
+                android:imeOptions="actionDone"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:singleLine="true"
+                android:textColor="#3C3C3C"
+                android:textFontWeight="500"
+                android:textSize="@dimen/_16sdp">
+                <requestFocus />
+            </com.common.control.widget.CustomEdittext>
+        </LinearLayout>
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"

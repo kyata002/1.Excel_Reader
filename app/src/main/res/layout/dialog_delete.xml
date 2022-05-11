@@ -16,6 +16,7 @@
         android:orientation="vertical">
 
         <androidx.appcompat.widget.AppCompatImageView
+
             android:background="@drawable/ic_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -54,8 +55,10 @@
                 android:gravity="center">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_dialog_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
                     android:text="Cancel"
                     android:textColor="#ff0000"
                     android:textFontWeight="600"
