@@ -2,7 +2,6 @@ package com.masterlibs.basestructure.utils;
 
 
 import android.annotation.SuppressLint
-import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -20,8 +19,7 @@ import com.documentmaster.documentscan.OnActionCallback
 import com.docxmaster.docreader.base.BaseAdapter
 import com.masterlibs.basestructure.App
 import com.masterlibs.basestructure.R
-import com.masterlibs.basestructure.model.FileModel
-import com.masterlibs.basestructure.utils.MyFile
+import com.masterlibs.basestructure.model.MyFile
 import com.masterlibs.basestructure.view.activity.DocReaderActivity
 import com.masterlibs.basestructure.view.activity.MainActivity
 //import com.masterlibs.basestructure.view.activity.DocReaderActivity
@@ -29,8 +27,6 @@ import com.masterlibs.basestructure.view.activity.MainActivity
 import com.masterlibs.basestructure.view.dialog.DeleteDialog
 import com.masterlibs.basestructure.view.dialog.DetailDialog
 import com.masterlibs.basestructure.view.dialog.RenameDialog
-import kotlinx.android.synthetic.main.dialog_delete.view.*
-import kotlinx.android.synthetic.main.dialog_detail.view.*
 //import kotlinx.android.synthetic.main.dialog_detail.view.*
 import java.io.File
 import java.util.*

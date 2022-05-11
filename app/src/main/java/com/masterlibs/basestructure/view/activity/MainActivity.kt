@@ -7,16 +7,13 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.Settings
 import android.text.Editable
 import android.text.TextWatcher
-import android.widget.Toast
-import androidx.appcompat.view.menu.MenuBuilder
-import androidx.appcompat.view.menu.MenuPopupHelper
-import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.common.control.utils.PermissionUtils
 import com.documentmaster.documentscan.OnActionCallback
@@ -25,7 +22,7 @@ import com.masterlibs.basestructure.App
 import com.masterlibs.basestructure.R
 import com.masterlibs.basestructure.utils.FileAdapter
 import com.masterlibs.basestructure.utils.LoadFile
-import com.masterlibs.basestructure.utils.MyFile
+import com.masterlibs.basestructure.model.MyFile
 import com.masterlibs.basestructure.view.dialog.FilterDialog
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -50,7 +47,9 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         Thread(Runnable {
             btn_allfile.setOnClickListener {
                 btn_allfile.setBackgroundResource(R.drawable.ic_bg_btn_yes)
+                btn_allfile.setTextColor(Color.parseColor("#ffffff"))
                 btn_favourite.setBackgroundResource(R.drawable.ic_bg_btn_no)
+                btn_favourite.setTextColor(Color.parseColor("#000000"))
                 if(getFileList("xlsx").size==0){
                     no_file.setImageResource(R.drawable.ic_no_file)
                     no_result_search.setImageResource(0)
@@ -70,7 +69,9 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         Thread(Runnable {
             btn_favourite.setOnClickListener {
                 btn_favourite.setBackgroundResource(R.drawable.ic_bg_btn_yes)
+                btn_favourite.setTextColor(Color.parseColor("#ffffff"))
                 btn_allfile.setBackgroundResource(R.drawable.ic_bg_btn_no)
+                btn_allfile.setTextColor(Color.parseColor("#000000"))
                 if(App.database?.favoriteDAO()?.list?.size==0){
                     no_file.setImageResource(R.drawable.ic_no_file)
                     no_result_search.setImageResource(0)

@@ -7,8 +7,7 @@ import androidx.room.Room;
 
 import com.masterlibs.basestructure.dao.FavoriteDAO;
 import com.masterlibs.basestructure.dao.HistoryDao;
-import com.masterlibs.basestructure.model.FileModel;
-import com.masterlibs.basestructure.utils.MyFile;
+import com.masterlibs.basestructure.model.MyFile;
 
 
 @Database(entities = {MyFile.class}, version = 2, exportSchema = false)
