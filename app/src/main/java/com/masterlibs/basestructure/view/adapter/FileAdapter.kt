@@ -22,6 +22,8 @@ import com.masterlibs.basestructure.App
 import com.masterlibs.basestructure.R
 import com.masterlibs.basestructure.model.FileModel
 import com.masterlibs.basestructure.utils.MyFile
+import com.masterlibs.basestructure.view.activity.DocReaderActivity
+import com.masterlibs.basestructure.view.activity.MainActivity
 //import com.masterlibs.basestructure.view.activity.DocReaderActivity
 //import com.masterlibs.basestructure.view.activity.ReadFile
 import com.masterlibs.basestructure.view.dialog.DeleteDialog
@@ -69,9 +71,9 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
             }
             notifyDataSetChanged()
         }
-//        holder.itemView.setOnClickListener {
-//            showRead(myFile)
-//        }
+        holder.itemView.setOnClickListener {
+            showRead(myFile)
+        }
 
 
         holder.more_options.setOnClickListener {
@@ -200,6 +202,11 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
 
             override fun publishResults(p0: CharSequence?, p1: FilterResults?) {
                 mList = p1?.values as ArrayList<MyFile>
+                if (mList!!.size == 0){
+                    context.sendBroadcast(Intent(MainActivity.UPDATE_SEARCH))
+                }else{
+                    context.sendBroadcast(Intent(MainActivity.UPDATE_SEARCH_HAVE_RESULT))
+                }
                 notifyDataSetChanged()
             }
 
@@ -224,20 +231,6 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
     }
 
     fun showDelete(myFile: MyFile) {
-//        val view = View.inflate(context,R.layout.dialog_delete,null)
-//        val builder = AlertDialog.Builder(context)
-//        builder.setView(view)
-//        val tvNameFile : TextView = view.findViewById(R.id.tvNameDelete)
-//        tvNameFile.text = "Are you sure you want to delete"+"\n"+ File(myFile.path).name
-//        val  dialog = builder.create()
-//        view.bt_cancel.setOnClickListener {
-//
-//        }
-//        view.bt_delete.setOnClickListener {
-//
-//        }
-//        dialog.show()
-
         DeleteDialog.start(context, myFile.path, object : OnActionCallback {
             override fun callback(key: String?, vararg data: Any?) {
                 //var listFileAdapter : ListFileAdapter? = null
@@ -254,7 +247,6 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
                 }
             }
         })
-        //App.database?.historyDao()?.add(FileModel("",myFile.path))
     }
 
     fun showDetail(myFile: MyFile) {
@@ -293,9 +285,9 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
         })
     }
 
-//    private fun showRead(myFile: MyFile) {
-//        DocReaderActivity.start(context, myFile.path)
-//    }
+    private fun showRead(myFile: MyFile) {
+        DocReaderActivity.start(context, myFile.path)
+    }
 
 
 }

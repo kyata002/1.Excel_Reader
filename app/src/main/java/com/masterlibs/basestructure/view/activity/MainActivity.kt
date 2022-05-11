@@ -34,16 +34,30 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
     override fun initView() {
         val linearLayoutManager = LinearLayoutManager(this)
         rcvExcel.layoutManager = linearLayoutManager
-        executeLoadFile()
-        rcvExcel.adapter = fileadapter
+        if(getFileList("xlsx").size!=0){
+            executeLoadFile()
+            rcvExcel.adapter = fileadapter
+        }else{
+            no_file.setImageResource(R.drawable.ic_no_file)
+            no_result_search.setImageResource(0)
+        }
         Thread(Runnable {
             btn_allfile.setOnClickListener {
-
                 btn_allfile.setBackgroundResource(R.drawable.ic_bg_btn_yes)
                 btn_favourite.setBackgroundResource(R.drawable.ic_bg_btn_no)
-                executeLoadFile()
-                rcvExcel.adapter = fileadapter
-                Thread.sleep(10)
+                if(getFileList("xlsx").size==0){
+                    no_file.setImageResource(R.drawable.ic_no_file)
+                    no_result_search.setImageResource(0)
+                    executeLoadFile()
+                    rcvExcel.adapter = fileadapter
+                    Thread.sleep(10)
+                }else{
+                    executeLoadFile()
+                    rcvExcel.adapter = fileadapter
+                    no_file.setImageResource(0)
+                    no_result_search.setImageResource(0)
+                    Thread.sleep(10)
+                }
             }
         }).start()
 
@@ -51,10 +65,20 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
             btn_favourite.setOnClickListener {
                 btn_favourite.setBackgroundResource(R.drawable.ic_bg_btn_yes)
                 btn_allfile.setBackgroundResource(R.drawable.ic_bg_btn_no)
-                fileadapter =
-                    FileAdapter(App.database?.favoriteDAO()?.list as ArrayList<MyFile>?, this)
-                rcvExcel.adapter = fileadapter
-                Thread.sleep(10)
+                if(App.database?.favoriteDAO()?.list?.size==0){
+                    no_file.setImageResource(R.drawable.ic_no_file)
+                    no_result_search.setImageResource(0)
+                    fileadapter =
+                        FileAdapter(App.database?.favoriteDAO()?.list as ArrayList<MyFile>?, this)
+                    rcvExcel.adapter = fileadapter
+                }else{
+                    fileadapter =
+                        FileAdapter(App.database?.favoriteDAO()?.list as ArrayList<MyFile>?, this)
+                    rcvExcel.adapter = fileadapter
+                    no_file.setImageResource(0)
+                    no_result_search.setImageResource(0)
+                    Thread.sleep(10)
+                }
             }
         }).start()
         sort_btn.setOnClickListener {
@@ -101,9 +125,10 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
                 val action=p1?.action
                 if (action == UPDATE_SEARCH){
                     no_result_search.setImageResource(R.drawable.ic_no_result_search)
-                }
-                if (action == UPDATE_SEARCH_HAVE_RESULT){
+                    no_file.setImageResource(0)
+                }else if(action == UPDATE_SEARCH_HAVE_RESULT){
                     no_result_search.setImageResource(0)
+
                 }
             }
         },filter)

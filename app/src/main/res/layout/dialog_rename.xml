@@ -36,7 +36,7 @@
             android:paddingLeft="@dimen/_35sdp"
             />
         <LinearLayout
-            android:background="@drawable/shape"
+            android:background="@drawable/sahpe_edittext"
             android:layout_marginLeft="@dimen/_20sdp"
             android:layout_marginRight="@dimen/_20sdp"
             android:layout_width="match_parent"
