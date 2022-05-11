@@ -14,6 +14,7 @@ import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.common.control.utils.PermissionUtils
 import com.docxmaster.docreader.base.BaseActivity
+import com.masterlibs.basestructure.App
 import com.masterlibs.basestructure.R
 import com.masterlibs.basestructure.utils.FileAdapter
 import com.masterlibs.basestructure.utils.LoadFile
@@ -26,6 +27,8 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
     override fun initView() {
         val linearLayoutManager = LinearLayoutManager(this)
         rcvExcel.layoutManager = linearLayoutManager
+        executeLoadFile()
+        rcvExcel.adapter = fileadapter
         btn_allfile.setOnClickListener {
             btn_allfile.setBackgroundResource(R.drawable.ic_bg_btn_yes)
             btn_favourite.setBackgroundResource(R.drawable.ic_bg_btn_no)
@@ -35,6 +38,8 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         btn_favourite.setOnClickListener {
             btn_favourite.setBackgroundResource(R.drawable.ic_bg_btn_yes)
             btn_allfile.setBackgroundResource(R.drawable.ic_bg_btn_no)
+            fileadapter = FileAdapter(App.database?.favoriteDAO()?.list as ArrayList<MyFile>?,this)
+            rcvExcel.adapter = fileadapter
         }
         sort_btn.setOnClickListener {
             val pm = PopupMenu(this, sort_btn)
