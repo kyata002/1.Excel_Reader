@@ -19,12 +19,14 @@ import androidx.appcompat.view.menu.MenuPopupHelper
 import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.common.control.utils.PermissionUtils
+import com.documentmaster.documentscan.OnActionCallback
 import com.docxmaster.docreader.base.BaseActivity
 import com.masterlibs.basestructure.App
 import com.masterlibs.basestructure.R
 import com.masterlibs.basestructure.utils.FileAdapter
 import com.masterlibs.basestructure.utils.LoadFile
 import com.masterlibs.basestructure.utils.MyFile
+import com.masterlibs.basestructure.view.dialog.FilterDialog
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseActivity() {
@@ -86,21 +88,20 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
             }
         }).start()
         sort_btn.setOnClickListener {
-            val pm = PopupMenu(this, sort_btn)
-            pm.menuInflater.inflate(R.menu.popup_sort, pm.menu)
-            pm.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener {
-                when (it.itemId) {
-                    R.id.a_to_z -> fileadapter?.sortByNameAZ()
-                    R.id.z_to_a -> fileadapter?.sortByNameZA()
-                    R.id.by_size -> fileadapter?.sortBySize()
-                    R.id.by_date -> fileadapter?.sortByDate()
+            FilterDialog.start(this, "sort dialog", object : OnActionCallback{
+                override fun callback(key: String?, vararg data: Any?) {
+                    if (key == "by_name"){
+                        fileadapter?.sortByNameAZ()
+                    }
+                    if (key == "by_size"){
+                        fileadapter?.sortBySize()
+                    }
+                    if (key == "by_date"){
+                        fileadapter?.sortByDate()
+                    }
                 }
-                true
+
             })
-//            pm.show()
-            val ph = MenuPopupHelper(this, pm.menu as MenuBuilder, sort_btn)
-            ph.setForceShowIcon(true)
-            ph.show()
         }
         search_bar.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
