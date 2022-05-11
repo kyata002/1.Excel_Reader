@@ -22,6 +22,7 @@ import com.masterlibs.basestructure.App
 import com.masterlibs.basestructure.R
 import com.masterlibs.basestructure.model.FileModel
 import com.masterlibs.basestructure.utils.MyFile
+import com.masterlibs.basestructure.view.activity.MainActivity
 //import com.masterlibs.basestructure.view.activity.DocReaderActivity
 //import com.masterlibs.basestructure.view.activity.ReadFile
 import com.masterlibs.basestructure.view.dialog.DeleteDialog
@@ -200,6 +201,11 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
 
             override fun publishResults(p0: CharSequence?, p1: FilterResults?) {
                 mList = p1?.values as ArrayList<MyFile>
+                if (mList!!.size == 0){
+                    context.sendBroadcast(Intent(MainActivity.UPDATE_SEARCH))
+                }else{
+                    context.sendBroadcast(Intent(MainActivity.UPDATE_SEARCH_HAVE_RESULT))
+                }
                 notifyDataSetChanged()
             }
 
