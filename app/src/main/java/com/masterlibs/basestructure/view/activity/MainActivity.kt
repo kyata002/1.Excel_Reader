@@ -8,6 +8,8 @@ import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.Settings
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.appcompat.view.menu.MenuBuilder
 import androidx.appcompat.view.menu.MenuPopupHelper
 import androidx.appcompat.widget.PopupMenu
@@ -68,6 +70,19 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
             ph.setForceShowIcon(true)
             ph.show()
         }
+        search_bar.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                fileadapter?.filter?.filter(p0)
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+            }
+
+        })
 
     }
 

@@ -258,28 +258,20 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
     }
 
     fun showDetail(myFile: MyFile) {
-//        val view = View.inflate(context, R.layout.dialog_detail, null)
-//        val builder = AlertDialog.Builder(context)
-//        val file = File(myFile.path)
-//        val sizeOfFile = (file.length() / (1024.0 * 1024))
-//        builder.setView(view)
-//        view.tvNameFile.text = file.name
-//        view.tvPathFile.text = file.path
-//        view.tvDateFile.text = Date(file.lastModified()).toString()
-//        view.tvSizeFile.text = "%.2f Mb".format(sizeOfFile)
-//        val dialog = builder.create()
-//        view.detail_btn.setOnClickListener {
-//
-//        }
-//        dialog.show()
-        DetailDialog.start(context, myFile.path , object :OnActionCallback{
-            override fun callback(key: String?, vararg data: Any?) {
-                if (key.equals("ok")) {
+        val view = View.inflate(context, R.layout.dialog_detail, null)
+        val builder = AlertDialog.Builder(context)
+        val file = File(myFile.path)
+        val sizeOfFile = (file.length() / (1024.0 * 1024))
+        builder.setView(view)
+        view.tvNameFile.text = file.name
+        view.tvPathFile.text = file.path
+        view.tvDateFile.text = Date(file.lastModified()).toString()
+        view.tvSizeFile.text = "%.2f Mb".format(sizeOfFile)
+        val dialog = builder.create()
+        view.detail_btn.setOnClickListener {
 
-                }
-            }
-
-        })
+        }
+        dialog.show()
     }
 
     fun showRename(myFile: MyFile) {
