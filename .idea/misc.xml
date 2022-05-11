@@ -3,24 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-<<<<<<<<< Temporary merge branch 1
-        <entry key="..\:/ATruong/BaseStructor/app/src/main/res/drawable/bg_dialog.xml" value="0.2518518518518518" />
-        <entry key="..\:/ATruong/BaseStructor/app/src/main/res/drawable/bg_search.xml" value="0.2518518518518518" />
-        <entry key="..\:/ATruong/BaseStructor/app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="..\:/ATruong/BaseStructor/app/src/main/res/layout/dialog_delete.xml" value="0.25" />
-        <entry key="..\:/ATruong/BaseStructor/app/src/main/res/layout/dialog_rename.xml" value="0.25" />
-        <entry key="..\:/ATruong/BaseStructor/app/src/main/res/layout/fragment_home.xml" value="0.25" />
-        <entry key="..\:/ATruong/BaseStructor/app/src/main/res/layout/item_file.xml" value="0.25" />
-        <entry key="..\:/Users/vipvl/AndroidStudioProjects/Excel Reader/app/src/main/res/drawable/bg_dialog_button.xml" value="0.1935" />
-        <entry key="..\:/Users/vipvl/AndroidStudioProjects/Excel Reader/app/src/main/res/drawable/checkbox.xml" value="0.1935" />
-        <entry key="..\:/Users/vipvl/AndroidStudioProjects/Excel Reader/app/src/main/res/layout/activity_main.xml" value="0.18541666666666667" />
-        <entry key="..\:/Users/vipvl/AndroidStudioProjects/Excel Reader/app/src/main/res/layout/dialog_delete.xml" value="0.5" />
-        <entry key="..\:/Users/vipvl/AndroidStudioProjects/Excel Reader/app/src/main/res/layout/dialog_detail.xml" value="0.18541666666666667" />
-        <entry key="..\:/Users/vipvl/AndroidStudioProjects/Excel Reader/app/src/main/res/layout/dialog_rename.xml" value="0.18541666666666667" />
-        <entry key="..\:/Users/vipvl/AndroidStudioProjects/Excel Reader/app/src/main/res/layout/fragment_home.xml" value="0.2975630611372381" />
-        <entry key="..\:/Users/vipvl/AndroidStudioProjects/Excel Reader/app/src/main/res/layout/item_file.xml" value="0.22" />
-        <entry key="..\:/Users/vipvl/AndroidStudioProjects/Excel Reader/app/src/main/res/menu/popup_menu_more.xml" value="0.18541666666666667" />
-=========
         <entry key="..\:/Intership/excel-reader/app/src/main/res/drawable-v24/ic_favorite_check.xml" value="0.1" />
         <entry key="..\:/Intership/excel-reader/app/src/main/res/drawable-v24/ic_more.xml" value="0.1" />
         <entry key="..\:/Intership/excel-reader/app/src/main/res/drawable/ic_btn_allfile.xml" value="0.166" />
@@ -31,10 +13,15 @@
         <entry key="..\:/Intership/excel-reader/app/src/main/res/drawable/ic_favorite_true.xml" value="0.166" />
         <entry key="..\:/Intership/excel-reader/app/src/main/res/drawable/ic_no_file.xml" value="0.166" />
         <entry key="..\:/Intership/excel-reader/app/src/main/res/drawable/ic_setting.xml" value="0.166" />
+        <entry key="..\:/Intership/excel-reader/app/src/main/res/drawable/sahpe_edittext.xml" value="0.166" />
         <entry key="..\:/Intership/excel-reader/app/src/main/res/drawable/shape.xml" value="0.166" />
-        <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/activity_splash.xml" value="0.22554347826086957" />
+        <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/dialog_delete.xml" value="0.22554347826086957" />
+        <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/dialog_detail.xml" value="0.22554347826086957" />
+        <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/dialog_rename.xml" value="0.22554347826086957" />
+        <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/fragment_home.xml" value="0.22554347826086957" />
         <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/item_file.xml" value="0.2" />
->>>>>>>>> Temporary merge branch 2
       </map>
     </option>
   </component>

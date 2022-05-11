@@ -34,8 +34,13 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
     override fun initView() {
         val linearLayoutManager = LinearLayoutManager(this)
         rcvExcel.layoutManager = linearLayoutManager
-        executeLoadFile()
-        rcvExcel.adapter = fileadapter
+
+        if(getFileList("xlsx").size!=0){
+            executeLoadFile()
+            rcvExcel.adapter = fileadapter
+        }else{
+            img_no_file.setImageResource(R.drawable.ic_no_file)
+        }
         Thread(Runnable {
             btn_allfile.setOnClickListener {
 

@@ -107,7 +107,7 @@
             android:layout_weight="1"
             android:background="@drawable/ic_sort" />
     </LinearLayout>
-    <FrameLayout
+    <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -118,10 +118,5 @@
             android:layout_height="match_parent"
             android:background="@color/white"
             />
-        <ImageView
-            android:id="@+id/no_result_search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"/>
-    </FrameLayout>
+    </LinearLayout>
 </LinearLayout>
