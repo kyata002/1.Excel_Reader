@@ -38,6 +38,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".view.dialog.FilterDialog"
+            android:theme="@style/Transparent" />
+        <activity android:name=".view.dialog.DetailDialog" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

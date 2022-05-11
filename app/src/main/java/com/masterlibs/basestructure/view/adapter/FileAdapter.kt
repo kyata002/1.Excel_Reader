@@ -245,22 +245,22 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
 //        }
 //        dialog.show()
 
-//        DeleteDialog.start(context, myFile.path, object : OnActionCallback {
-//            override fun callback(key: String?, vararg data: Any?) {
-//                //var listFileAdapter : ListFileAdapter? = null
-//                when {
-//                    key.equals("delete") -> {
-//                        File(myFile.path).delete()
-//                        mList?.indexOf(myFile)?.let { notifyItemRemoved(it) }
-//                        mList?.remove(myFile)
-//                        //bắn thông báo có thằng myfile đc xóa cho thằng Main để update lại data
-//                    }
-//                    key.equals("cancel") -> {
-//
-//                    }
-//                }
-//            }
-//        })
+        DeleteDialog.start(context, myFile.path, object : OnActionCallback {
+            override fun callback(key: String?, vararg data: Any?) {
+                //var listFileAdapter : ListFileAdapter? = null
+                when {
+                    key.equals("delete") -> {
+                        File(myFile.path).delete()
+                        mList?.indexOf(myFile)?.let { notifyItemRemoved(it) }
+                        mList?.remove(myFile)
+                        //bắn thông báo có thằng myfile đc xóa cho thằng Main để update lại data
+                    }
+                    key.equals("cancel") -> {
+
+                    }
+                }
+            }
+        })
         //App.database?.historyDao()?.add(FileModel("",myFile.path))
     }
 
