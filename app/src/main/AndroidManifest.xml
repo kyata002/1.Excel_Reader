@@ -41,6 +41,7 @@
         <activity android:name=".view.dialog.FilterDialog"
             android:theme="@style/Transparent" />
         <activity android:name=".view.dialog.DetailDialog" />
+        <activity android:name=".view.activity.DocReaderActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

@@ -22,6 +22,7 @@ import com.masterlibs.basestructure.App
 import com.masterlibs.basestructure.R
 import com.masterlibs.basestructure.model.FileModel
 import com.masterlibs.basestructure.utils.MyFile
+import com.masterlibs.basestructure.view.activity.DocReaderActivity
 import com.masterlibs.basestructure.view.activity.MainActivity
 //import com.masterlibs.basestructure.view.activity.DocReaderActivity
 //import com.masterlibs.basestructure.view.activity.ReadFile
@@ -70,9 +71,9 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
             }
             notifyDataSetChanged()
         }
-//        holder.itemView.setOnClickListener {
-//            showRead(myFile)
-//        }
+        holder.itemView.setOnClickListener {
+            showRead(myFile)
+        }
 
 
         holder.more_options.setOnClickListener {
@@ -308,9 +309,9 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
         })
     }
 
-//    private fun showRead(myFile: MyFile) {
-//        DocReaderActivity.start(context, myFile.path)
-//    }
+    private fun showRead(myFile: MyFile) {
+        DocReaderActivity.start(context, myFile.path)
+    }
 
 
 }
