@@ -1,0 +1,56 @@
+package com.masterlibs.basestructure.view.dialog
+
+import android.content.Context
+import android.content.Intent
+import com.documentmaster.documentscan.OnActionCallback
+import com.docxmaster.docreader.base.BaseActivity
+import com.masterlibs.basestructure.R
+import kotlinx.android.synthetic.main.dialog_detail.*
+
+import java.io.File
+import java.util.*
+
+class DetailDialog(override val layoutId: Int = R.layout.dialog_detail) : BaseActivity() {
+
+    companion object {
+        var callback: OnActionCallback? = null
+
+        fun start(context: Context, pathFile:String, onActionCallback: OnActionCallback) {
+            callback = onActionCallback
+            val intent = Intent(context, DetailDialog::class.java)
+            val file = File(pathFile)
+            val sizeOfFile = (file.length() / (1024.0 * 1024))
+            intent.putExtra("name",file.name )
+            intent.putExtra("path",file.path)
+            intent.putExtra("date", Date(file.lastModified()))
+            intent.putExtra("size","%.2f Mb".format(sizeOfFile))
+            context.startActivity(intent)
+        }
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        callback = null
+    }
+
+    override fun initView() {
+        val name = intent.getStringExtra("name")
+        val path = intent.getStringExtra("path")
+        val date = intent.getStringExtra("date")
+        val size = intent.getStringExtra("size")
+        tvNameFile.text = name
+        tvPathFile.text = path
+        tvDateFile.text = date
+        tvSizeFile.text = size
+
+    }
+
+    override fun addEvent() {
+
+        detail_btn.setOnClickListener {
+            callback?.callback("ok")
+            finish()
+        }
+    }
+}

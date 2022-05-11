@@ -25,6 +25,7 @@ import com.masterlibs.basestructure.utils.MyFile
 //import com.masterlibs.basestructure.view.activity.DocReaderActivity
 //import com.masterlibs.basestructure.view.activity.ReadFile
 import com.masterlibs.basestructure.view.dialog.DeleteDialog
+import com.masterlibs.basestructure.view.dialog.DetailDialog
 import com.masterlibs.basestructure.view.dialog.RenameDialog
 import kotlinx.android.synthetic.main.dialog_delete.view.*
 import kotlinx.android.synthetic.main.dialog_detail.view.*
@@ -257,25 +258,28 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
     }
 
     fun showDetail(myFile: MyFile) {
-        val view = View.inflate(context, R.layout.dialog_detail, null)
-        val builder = AlertDialog.Builder(context)
-        val file = File(myFile.path)
-        val sizeOfFile = (file.length() / (1024.0 * 1024))
-        builder.setView(view)
-        view.tvNameFile.text = file.name
-        view.tvPathFile.text = file.path
-        view.tvDateFile.text = Date(file.lastModified()).toString()
-        view.tvSizeFile.text = "%.2f Mb".format(sizeOfFile)
-        val dialog = builder.create()
-        dialog.show()
-//        DetailDialog.start(context, pathFile , object :OnActionCallback{
-//            override fun callback(key: String?, vararg data: Any?) {
-//                if (key.equals("ok")) {
+//        val view = View.inflate(context, R.layout.dialog_detail, null)
+//        val builder = AlertDialog.Builder(context)
+//        val file = File(myFile.path)
+//        val sizeOfFile = (file.length() / (1024.0 * 1024))
+//        builder.setView(view)
+//        view.tvNameFile.text = file.name
+//        view.tvPathFile.text = file.path
+//        view.tvDateFile.text = Date(file.lastModified()).toString()
+//        view.tvSizeFile.text = "%.2f Mb".format(sizeOfFile)
+//        val dialog = builder.create()
+//        view.detail_btn.setOnClickListener {
 //
-//                }
-//            }
-//
-//        })
+//        }
+//        dialog.show()
+        DetailDialog.start(context, myFile.path , object :OnActionCallback{
+            override fun callback(key: String?, vararg data: Any?) {
+                if (key.equals("ok")) {
+
+                }
+            }
+
+        })
     }
 
     fun showRename(myFile: MyFile) {
