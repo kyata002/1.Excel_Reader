@@ -6,11 +6,10 @@
     android:background="#99000000">
 
     <LinearLayout
-        android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
-        android:background="#fff"
+        android:background="@color/white"
         android:clickable="false"
         android:longClickable="false"
         android:orientation="vertical"
