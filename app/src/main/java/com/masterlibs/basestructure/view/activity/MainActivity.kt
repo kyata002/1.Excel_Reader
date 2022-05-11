@@ -22,23 +22,35 @@ import com.masterlibs.basestructure.utils.MyFile
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseActivity() {
-    var fileadapter:FileAdapter? = null
+    var fileadapter: FileAdapter? = null
+
     @SuppressLint("RestrictedApi")
     override fun initView() {
         val linearLayoutManager = LinearLayoutManager(this)
         rcvExcel.layoutManager = linearLayoutManager
         executeLoadFile()
         rcvExcel.adapter = fileadapter
-        btn_allfile.setOnClickListener {
-            btn_allfile.setBackgroundResource(R.drawable.ic_bg_btn_yes)
-            btn_favourite.setBackgroundResource(R.drawable.ic_bg_btn_no)
-        }
-        btn_favourite.setOnClickListener {
-            btn_favourite.setBackgroundResource(R.drawable.ic_bg_btn_yes)
-            btn_allfile.setBackgroundResource(R.drawable.ic_bg_btn_no)
-            fileadapter = FileAdapter(App.database?.favoriteDAO()?.list as ArrayList<MyFile>?,this)
-            rcvExcel.adapter = fileadapter
-        }
+        Thread(Runnable {
+            btn_allfile.setOnClickListener {
+
+                btn_allfile.setBackgroundResource(R.drawable.ic_bg_btn_yes)
+                btn_favourite.setBackgroundResource(R.drawable.ic_bg_btn_no)
+                executeLoadFile()
+                rcvExcel.adapter = fileadapter
+                Thread.sleep(10)
+            }
+        }).start()
+
+        Thread(Runnable {
+            btn_favourite.setOnClickListener {
+                btn_favourite.setBackgroundResource(R.drawable.ic_bg_btn_yes)
+                btn_allfile.setBackgroundResource(R.drawable.ic_bg_btn_no)
+                fileadapter =
+                    FileAdapter(App.database?.favoriteDAO()?.list as ArrayList<MyFile>?, this)
+                rcvExcel.adapter = fileadapter
+                Thread.sleep(10)
+            }
+        }).start()
         sort_btn.setOnClickListener {
             val pm = PopupMenu(this, sort_btn)
             pm.menuInflater.inflate(R.menu.popup_sort, pm.menu)
@@ -58,6 +70,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         }
 
     }
+
     companion object {
         val PERMISSIONS_STORAGE = arrayOf(
             Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -66,9 +79,10 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         const val RQC_REQUEST_PERMISSION_ANDROID_11 = 333
 
     }
-    private fun getFileList( type: String): ArrayList<MyFile> {
-        var mlist : ArrayList<MyFile> = ArrayList()
-        if (type == "xlsx"){
+
+    private fun getFileList(type: String): ArrayList<MyFile> {
+        var mlist: ArrayList<MyFile> = ArrayList()
+        if (type == "xlsx") {
             val tempList = LoadFile.loadFile(this, type)
             tempList.forEach {
                 mlist.add(MyFile(it.path))
@@ -89,7 +103,8 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
     private fun requestPermission() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                requestPermissions(PERMISSIONS_STORAGE,
+                requestPermissions(
+                    PERMISSIONS_STORAGE,
                     PermissionUtils.RQC_REQUEST_PERMISSION_ANDROID_BELOW
                 )
             }
