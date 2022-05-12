@@ -37,6 +37,7 @@ import kotlin.collections.ArrayList
 class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
     BaseAdapter<MyFile>(mList, context), Filterable {
     //    var sizeOfFile: Float = 0f
+
     private var temp: ArrayList<MyFile> = ArrayList()
     override fun viewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_file, parent, false)
@@ -45,9 +46,11 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
 
     fun updateList(list: ArrayList<MyFile>) {
         this.mList = list
+
         temp = this.mList as ArrayList<MyFile>
         notifyDataSetChanged()
     }
+
     @RequiresApi(Build.VERSION_CODES.S)
     @SuppressLint("RestrictedApi")
     override fun onBindView(viewHolder: RecyclerView.ViewHolder?, position: Int) {
@@ -60,10 +63,9 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
         holder.date_file.text = datefile.format(Date(File(myFile.path).lastModified()))
         var sizeOfFile = ((File(myFile.path).length() / (1024.0)).toFloat())
         holder.size_file.text = "%.2f KB".format(sizeOfFile)
-        if (position == mList?.size!! - 1){
+        if (position == mList?.size!! - 1) {
             holder.bottom_line.setImageResource(0)
-        }
-        else{
+        } else {
             holder.bottom_line.setImageResource(R.drawable.ic_linesperate)
         }
 
@@ -81,6 +83,8 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
             } else {
                 App.database?.favoriteDAO()?.delete(myFile.path)
             }
+            MainActivity.fileListTempFavourite =
+                App.database?.favoriteDAO()?.list as java.util.ArrayList<MyFile>
             notifyDataSetChanged()
         }
         holder.itemView.setOnClickListener {
@@ -110,8 +114,7 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
         return App.database?.favoriteDAO()?.getFile(path) != null
     }
 
-    fun sortByNameAZ(list : ArrayList<MyFile>) : ArrayList<MyFile> {
-
+    fun sortByNameAZ(list: ArrayList<MyFile>) {
         for (i in 0 until list.size!!) {
             for (j in i + 1 until list.size!!) {
                 if (File(list[i].path).name.toLowerCase() > File(list[j].path).name.toLowerCase()) {
@@ -123,69 +126,31 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
             }
 
         }
-
-        return list
     }
 
-    fun sortByNameZA() {
-        Thread(Runnable {
-            for (i in 0 until mList?.size!!) {
-                for (j in i + 1 until mList?.size!!) {
-                    var n = 0
-                    if (File(mList!![i].path).name.length < File(mList!![j].path).name.length) {
-                        n = File(mList!![i].path).name.length
-                    } else {
-                        n = File(mList!![j].path).name.length
-                    }
-                    for (k in 0 until n) {
-                        if (File(mList!![i].path).name[k] < File(mList!![j].path).name[k]) {
-                            var a: MyFile = mList!![i]
-                            mList!![i] = mList!![j]
-                            mList!![j] = a
-                        }
-                    }
-
+    fun sortBySize(list: ArrayList<MyFile>) {
+        for (i in 0 until list.size!!) {
+            for (j in i + 1 until list.size!!) {
+                if (File(list[i].path).length() < File(list[j].path).length()) {
+                    var a: MyFile = list[i]
+                    list[i] = list[j]
+                    list[j] = a
                 }
-
             }
-            Thread.sleep(10)
-        }).start()
+        }
 
-        notifyDataSetChanged()
     }
 
-    fun sortBySize(list : ArrayList<MyFile>) : ArrayList<MyFile> {
-        Thread(Runnable {
-            for (i in 0 until list.size!!) {
-                for (j in i + 1 until list.size!!) {
-                    if (File(list[i].path).length() < File(list[j].path).length()) {
-                        var a: MyFile = list[i]
-                        list[i] = list[j]
-                        list[j] = a
-                    }
+    fun sortByDate(list: ArrayList<MyFile>) {
+        for (i in 0 until list.size!!) {
+            for (j in i + 1 until list.size!!) {
+                if (Date(File(list[i].path).lastModified()).time < Date(File(list[j].path).lastModified()).time) {
+                    var a: MyFile = list[i]
+                    list[i] = list[j]
+                    list[j] = a
                 }
             }
-            Thread.sleep(10)
-        }).start()
-
-        return list
-    }
-
-    fun sortByDate(list : ArrayList<MyFile>) : ArrayList<MyFile> {
-        Thread(Runnable {
-            for (i in 0 until list.size!!) {
-                for (j in i + 1 until list.size!!) {
-                    if (Date(File(list[i].path).lastModified()).time < Date(File(list[j].path).lastModified()).time) {
-                        var a: MyFile = list[i]
-                        list[i] = list[j]
-                        list[j] = a
-                    }
-                }
-            }
-            Thread.sleep(10)
-        }).start()
-
-        return list
+        }
     }
 
     override fun getFilter(): Filter {
@@ -231,7 +196,7 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
         val date_file: TextView
         val favorite_checked: CheckBox
         val size_file: TextView
-        var bottom_line : ImageView
+        var bottom_line: ImageView
 
         init {
             img_view = itemView.findViewById(R.id.img_view_file)

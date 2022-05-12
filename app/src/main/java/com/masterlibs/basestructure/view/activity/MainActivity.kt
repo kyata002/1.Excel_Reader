@@ -32,6 +32,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
     private var fileList: java.util.ArrayList<MyFile> = ArrayList()
     var fileadapter: FileAdapter? = null
     var isAllFile = true
+
     @SuppressLint("RestrictedApi")
     override fun initView() {
         val linearLayoutManager = LinearLayoutManager(this)
@@ -48,7 +49,17 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         }
         btn_allfile.setOnClickListener {
             isAllFile = true
-            fileadapter?.updateList(fileListTemp)
+            when (FilterDialog.currentStatus) {
+                0 -> {
+                    fileadapter?.sortByNameAZ(fileListTemp)
+                }
+                1 -> {
+                    fileadapter?.sortBySize(fileListTemp)
+                }
+                2 -> {
+                    fileadapter?.sortByDate(fileListTemp)
+                }
+            }
             clickAllAfile()
             btn_favourite.setTypeface(Typeface.DEFAULT, Typeface.NORMAL)
             btn_allfile.setTypeface(null, Typeface.BOLD)
@@ -57,7 +68,17 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         btn_favourite.setOnClickListener {
             isAllFile = false
             fileListTempFavourite = App.database?.favoriteDAO()?.list as java.util.ArrayList<MyFile>
-            fileadapter?.updateList(fileListTempFavourite)
+            when (FilterDialog.currentStatus) {
+                0 -> {
+                    fileadapter?.sortByNameAZ(fileListTempFavourite)
+                }
+                1 -> {
+                    fileadapter?.sortBySize(fileListTempFavourite)
+                }
+                2 -> {
+                    fileadapter?.sortByDate(fileListTempFavourite)
+                }
+            }
             btn_favourite.setBackgroundResource(R.drawable.ic_bg_btn_yes)
             btn_favourite.setTypeface(Typeface.DEFAULT, Typeface.BOLD)
             btn_allfile.setTypeface(null, Typeface.NORMAL)
@@ -76,20 +97,15 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
             FilterDialog.start(this, "sort_dialog", object : OnActionCallback {
                 override fun callback(key: String?, vararg data: Any?) {
                     if (key == "by_name") {
-                        fileListTemp = fileadapter?.sortByNameAZ(fileListTemp)!!
-                        fileListTempFavourite = fileadapter?.sortByNameAZ(App.database?.favoriteDAO()?.list as java.util.ArrayList<MyFile>)!!
-                        updateListAgain()
+                        fileadapter?.sortByNameAZ(fileList)!!
                     }
                     if (key == "by_size") {
-                        fileListTemp = fileadapter?.sortBySize(fileListTemp)!!
-                        fileListTempFavourite = fileadapter?.sortBySize(App.database?.favoriteDAO()?.list as java.util.ArrayList<MyFile>)!!
-                        updateListAgain()
+                        fileadapter?.sortBySize(fileList)!!
                     }
                     if (key == "by_created_time") {
-                        fileListTemp = fileadapter?.sortByDate(fileListTemp)!!
-                        fileListTempFavourite = fileadapter?.sortByDate(App.database?.favoriteDAO()?.list as java.util.ArrayList<MyFile>)!!
-                        updateListAgain()
+                        fileadapter?.sortByDate(fileList)!!
                     }
+                    fileadapter?.updateList(fileList)
                 }
 
             })
@@ -111,30 +127,6 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         })
         initReceiver()
 
-    }
-
-    override fun onResume() {
-        super.onResume()
-        fileListTempFavourite = App.database?.favoriteDAO()?.list as java.util.ArrayList<MyFile>
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.d("TAG", "onStop: ")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.d("TAG", "onPause: ")
-    }
-
-    private fun updateListAgain() {
-        if (isAllFile){
-            fileadapter?.updateList(fileListTemp)
-        }
-        else{
-            fileadapter?.updateList(fileListTempFavourite)
-        }
     }
 
     private fun clickAllAfile() {
@@ -190,11 +182,10 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         val UPDATE_SEARCH_HAVE_RESULT = "have_result"
         var fileListTemp: java.util.ArrayList<MyFile> = ArrayList()
         var fileListTempFavourite: java.util.ArrayList<MyFile> = ArrayList()
-
     }
 
     private fun getFileList(): ArrayList<MyFile> {
-        var typeList : ArrayList<String> = ArrayList()
+        var typeList: ArrayList<String> = ArrayList()
         var mlist: ArrayList<MyFile> = ArrayList()
         typeList.add("xlsx")
         typeList.add("xls")
