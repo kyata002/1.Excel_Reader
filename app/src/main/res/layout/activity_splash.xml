@@ -17,7 +17,7 @@
         android:gravity="center"
         android:text="Welcome to Excel Reader"
         android:textSize="@dimen/_20sdp"
-        android:fontFamily="sans-serif"
+        android:fontFamily="@font/poppins_semibold"
         android:textFontWeight="600"
         android:layout_marginTop="@dimen/_24sdp"
         android:textColor="@color/white"/>
@@ -34,7 +34,7 @@
         android:textFontWeight="400"
         android:textSize="@dimen/_12sdp"
         android:textColor="@color/white"
-        android:fontFamily="sans-serif"
+        android:fontFamily="@font/poppins_regular"
         android:layout_gravity="center"
         android:gravity="center"
         android:layout_marginTop="@dimen/_8sdp"/>

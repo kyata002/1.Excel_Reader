@@ -95,76 +95,90 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
     }
 
     fun sortByNameAZ() {
-        for (i in 0 until mList?.size!!) {
-            for (j in i + 1 until mList?.size!!) {
-                var n = 0
-                if (File(mList!![i].path).name.length < File(mList!![j].path).name.length) {
-                    n = File(mList!![i].path).name.length
-                } else {
-                    n = File(mList!![j].path).name.length
-                }
-                for (k in 0 until n) {
-                    if (File(mList!![i].path).name[k] > File(mList!![j].path).name[k]) {
-                        var a: MyFile = mList!![i]
-                        mList!![i] = mList!![j]
-                        mList!![j] = a
+        Thread(Runnable {
+            for (i in 0 until mList?.size!!) {
+                for (j in i + 1 until mList?.size!!) {
+                    var n = 0
+                    if (File(mList!![i].path).name.length < File(mList!![j].path).name.length) {
+                        n = File(mList!![i].path).name.length
+                    } else {
+                        n = File(mList!![j].path).name.length
                     }
+                    for (k in 0 until n) {
+                        if (File(mList!![i].path).name[k].toLowerCase() > File(mList!![j].path).name[k].toLowerCase()) {
+                            var a: MyFile = mList!![i]
+                            mList!![i] = mList!![j]
+                            mList!![j] = a
+                        }
+                    }
+
                 }
 
             }
+            Thread.sleep(10)
+        }).start()
 
-        }
         notifyDataSetChanged()
     }
 
     fun sortByNameZA() {
+        Thread(Runnable {
+            for (i in 0 until mList?.size!!) {
+                for (j in i + 1 until mList?.size!!) {
+                    var n = 0
+                    if (File(mList!![i].path).name.length < File(mList!![j].path).name.length) {
+                        n = File(mList!![i].path).name.length
+                    } else {
+                        n = File(mList!![j].path).name.length
+                    }
+                    for (k in 0 until n) {
+                        if (File(mList!![i].path).name[k] < File(mList!![j].path).name[k]) {
+                            var a: MyFile = mList!![i]
+                            mList!![i] = mList!![j]
+                            mList!![j] = a
+                        }
+                    }
 
-        for (i in 0 until mList?.size!!) {
-            for (j in i + 1 until mList?.size!!) {
-                var n = 0
-                if (File(mList!![i].path).name.length < File(mList!![j].path).name.length) {
-                    n = File(mList!![i].path).name.length
-                } else {
-                    n = File(mList!![j].path).name.length
                 }
-                for (k in 0 until n) {
-                    if (File(mList!![i].path).name[k] < File(mList!![j].path).name[k]) {
+
+            }
+            Thread.sleep(10)
+        }).start()
+
+        notifyDataSetChanged()
+    }
+
+    fun sortBySize() {
+        Thread(Runnable {
+            for (i in 0 until mList?.size!!) {
+                for (j in i + 1 until mList?.size!!) {
+                    if (File(mList!![i].path).length() < File(mList!![j].path).length()) {
                         var a: MyFile = mList!![i]
                         mList!![i] = mList!![j]
                         mList!![j] = a
                     }
                 }
-
             }
+            Thread.sleep(10)
+        }).start()
 
-        }
-        notifyDataSetChanged()
-    }
-
-    fun sortBySize() {
-        for (i in 0 until mList?.size!!) {
-            for (j in i + 1 until mList?.size!!) {
-                if (File(mList!![i].path).length() < File(mList!![j].path).length()) {
-                    var a: MyFile = mList!![i]
-                    mList!![i] = mList!![j]
-                    mList!![j] = a
-                }
-            }
-        }
         notifyDataSetChanged()
     }
 
     fun sortByDate() {
-
-        for (i in 0 until mList?.size!!) {
-            for (j in i + 1 until mList?.size!!) {
-                if (Date(File(mList!![i].path).lastModified()).time < Date(File(mList!![j].path).lastModified()).time) {
-                    var a: MyFile = mList!![i]
-                    mList!![i] = mList!![j]
-                    mList!![j] = a
+        Thread(Runnable {
+            for (i in 0 until mList?.size!!) {
+                for (j in i + 1 until mList?.size!!) {
+                    if (Date(File(mList!![i].path).lastModified()).time < Date(File(mList!![j].path).lastModified()).time) {
+                        var a: MyFile = mList!![i]
+                        mList!![i] = mList!![j]
+                        mList!![j] = a
+                    }
                 }
             }
-        }
+            Thread.sleep(10)
+        }).start()
+
         notifyDataSetChanged()
     }
 
@@ -173,24 +187,28 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
             override fun performFiltering(p0: CharSequence?): FilterResults {
                 var checked = false
                 var text = p0.toString()
-                mList = if (text.isEmpty()) {
-                    temp
-                } else {
-                    var list: ArrayList<MyFile> = ArrayList()
-                    temp.forEach {
-                        for (i in 0 until text.toLowerCase().length) {
-                            if (File(it.path).name.toLowerCase().contains(text.toLowerCase()[i])) {
-                                checked = true
-                                continue
+                Thread(Runnable {
+                    mList = if (text.isEmpty()) {
+                        temp
+                    } else {
+                        var list: ArrayList<MyFile> = ArrayList()
+                        temp.forEach {
+                            for (i in 0 until text.toLowerCase().length) {
+                                if (File(it.path).name.toLowerCase().contains(text.toLowerCase()[i])) {
+                                    checked = true
+                                    continue
+                                }
+                                checked = false
                             }
-                            checked = false
+                            if (checked) {
+                                list.add(it)
+                            }
                         }
-                        if (checked) {
-                            list.add(it)
-                        }
+                        list
                     }
-                    list
-                }
+                    Thread.sleep(10)
+                }).start()
+
                 var filterResult = FilterResults()
                 filterResult.values = mList
                 return filterResult
