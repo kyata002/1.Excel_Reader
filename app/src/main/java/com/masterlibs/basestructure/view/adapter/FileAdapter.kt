@@ -187,7 +187,6 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
             override fun performFiltering(p0: CharSequence?): FilterResults {
                 var checked = false
                 var text = p0.toString()
-                Thread(Runnable {
                     mList = if (text.isEmpty()) {
                         temp
                     } else {
@@ -206,8 +205,6 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
                         }
                         list
                     }
-                    Thread.sleep(10)
-                }).start()
 
                 var filterResult = FilterResults()
                 filterResult.values = mList
