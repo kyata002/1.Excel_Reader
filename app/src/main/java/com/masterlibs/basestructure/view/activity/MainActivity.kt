@@ -33,7 +33,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
     override fun initView() {
         val linearLayoutManager = LinearLayoutManager(this)
         rcvExcel.layoutManager = linearLayoutManager
-        if(getFileList("xlsx").size!=0){
+        if(getFileList().size!=0){
             executeLoadFile()
             rcvExcel.adapter = fileadapter
         }else{
@@ -52,7 +52,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
                 btn_allfile.setTextColor(Color.parseColor("#ffffff"))
                 btn_favourite.setBackgroundResource(R.drawable.ic_bg_btn_no)
                 btn_favourite.setTextColor(Color.parseColor("#000000"))
-                if(getFileList("xlsx").size==0){
+                if(getFileList().size==0){
                     no_file.setImageResource(R.drawable.ic_no_file)
                     no_result_search.setImageResource(0)
                     executeLoadFile()
@@ -154,12 +154,19 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
 
     }
 
-    private fun getFileList(type: String): ArrayList<MyFile> {
+    private fun getFileList(): ArrayList<MyFile> {
+        var type:String
+        var typeList : ArrayList<String> = ArrayList()
         var mlist: ArrayList<MyFile> = ArrayList()
-        if (type == "xlsx") {
-            val tempList = LoadFile.loadFile(this, type)
-            tempList.forEach {
-                mlist.add(MyFile(it.path))
+        typeList.add("xlsx")
+        typeList.add("xls")
+        typeList.add("xlsm")
+        typeList.add("xlsb")
+        typeList.add("xlam")
+        typeList.forEach {
+            val tempList = LoadFile.loadFile(this, it)
+            tempList.forEach { it1 ->
+                mlist.add(MyFile(it1.path))
             }
         }
         return mlist
@@ -167,7 +174,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
 
     private fun executeLoadFile() {
         if (checkPermission()) {
-            fileadapter = FileAdapter(getFileList("xlsx"), this)
+            fileadapter = FileAdapter(getFileList(), this)
             return
         }
         requestPermission()
