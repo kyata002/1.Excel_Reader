@@ -37,7 +37,7 @@ import kotlin.collections.ArrayList
 class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
     BaseAdapter<MyFile>(mList, context), Filterable {
     //    var sizeOfFile: Float = 0f
-    private val temp: ArrayList<MyFile> = mList!!
+    private var temp: ArrayList<MyFile> = ArrayList()
     override fun viewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_file, parent, false)
         return FViewHolder(view)
@@ -45,10 +45,8 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
 
     fun updateList(list: ArrayList<MyFile>) {
         this.mList = list
+        temp = this.mList as ArrayList<MyFile>
         notifyDataSetChanged()
-    }
-    fun getList() : ArrayList<MyFile>{
-        return mList as ArrayList<MyFile>
     }
     @RequiresApi(Build.VERSION_CODES.S)
     @SuppressLint("RestrictedApi")
@@ -65,6 +63,10 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
         if (position == mList?.size!! - 1){
             holder.bottom_line.setImageResource(0)
         }
+        else{
+            holder.bottom_line.setImageResource(R.drawable.ic_linesperate)
+        }
+
 
         if (!checkFavourite(myFile.path)) {
             holder.favorite_checked.setButtonDrawable(R.drawable.ic_favorite)
