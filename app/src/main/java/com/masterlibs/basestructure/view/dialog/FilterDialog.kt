@@ -26,6 +26,11 @@ class FilterDialog(override val layoutId: Int = R.layout.dialog_filter) : BaseAc
         callback = null
     }
     override fun initView() {
+        border_filter.setOnClickListener {
+            if (!radio_filter.isClickable){
+                finish()
+            }
+        }
         when(currentStatus){
             0 -> by_name.setButtonDrawable(R.drawable.ic_selected)
             1 -> by_size.setButtonDrawable(R.drawable.ic_selected)

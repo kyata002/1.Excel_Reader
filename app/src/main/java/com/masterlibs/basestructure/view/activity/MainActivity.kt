@@ -8,6 +8,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.graphics.Color
+import android.graphics.Typeface
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
@@ -34,9 +35,9 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
     override fun initView() {
         val linearLayoutManager = LinearLayoutManager(this)
         rcvExcel.layoutManager = linearLayoutManager
+        fileList = getFileList()
         fileadapter = FileAdapter(fileList, this)
         rcvExcel.adapter = fileadapter
-
         executeLoadFile()
 
         updateStatus()
@@ -47,10 +48,14 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         }
         btn_allfile.setOnClickListener {
            clickAllAfile()
+            btn_favourite.setTypeface(Typeface.DEFAULT, Typeface.NORMAL)
+            btn_allfile.setTypeface(null, Typeface.BOLD)
         }
 
         btn_favourite.setOnClickListener {
             btn_favourite.setBackgroundResource(R.drawable.ic_bg_btn_yes)
+            btn_favourite.setTypeface(Typeface.DEFAULT, Typeface.BOLD)
+            btn_allfile.setTypeface(null, Typeface.NORMAL)
             btn_favourite.setTextColor(Color.parseColor("#ffffff"))
             btn_allfile.setBackgroundResource(R.drawable.ic_bg_btn_no)
             btn_allfile.setTextColor(Color.parseColor("#000000"))
@@ -86,8 +91,8 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                fileadapter?.updateList(fileList)
                 fileadapter?.filter?.filter(p0)
+
             }
 
             override fun afterTextChanged(p0: Editable?) {
@@ -108,7 +113,6 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
             fileList = getFileList()
             runOnUiThread {
                 fileadapter?.updateList(fileList)
-
                 updateStatus()
             }
         }.start()
@@ -131,16 +135,12 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         filter.addAction(UPDATE_SEARCH)
         registerReceiver(object : BroadcastReceiver() {
             override fun onReceive(p0: Context?, p1: Intent?) {
-                try {
-                    val action = p1?.action
-                    if (action == UPDATE_SEARCH) {
-                        no_result_search.setImageResource(R.drawable.ic_no_result_search)
-                        no_file.setImageResource(0)
-                    } else if (action == UPDATE_SEARCH_HAVE_RESULT) {
-                        no_result_search.setImageResource(0)
-                    }
-                } catch (e: Exception) {
-                    e.printStackTrace()
+                val action = p1?.action
+                if (action == UPDATE_SEARCH) {
+                    no_result_search.setImageResource(R.drawable.ic_no_result_search)
+                    no_file.setImageResource(0)
+                } else if (action == UPDATE_SEARCH_HAVE_RESULT) {
+                    no_result_search.setImageResource(0)
                 }
             }
         }, filter)

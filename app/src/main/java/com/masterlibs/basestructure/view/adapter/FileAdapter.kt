@@ -29,6 +29,7 @@ import com.masterlibs.basestructure.view.dialog.DetailDialog
 import com.masterlibs.basestructure.view.dialog.RenameDialog
 //import kotlinx.android.synthetic.main.dialog_detail.view.*
 import java.io.File
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -36,7 +37,7 @@ import kotlin.collections.ArrayList
 class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
     BaseAdapter<MyFile>(mList, context), Filterable {
     //    var sizeOfFile: Float = 0f
-    private var temp: ArrayList<MyFile> = ArrayList()
+    private val temp: ArrayList<MyFile> = mList!!
     override fun viewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_file, parent, false)
         return FViewHolder(view)
@@ -54,8 +55,11 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
         val myFile: MyFile = this.mList?.get(position)!!
         holder.img_view.setImageResource(R.drawable.ic_xlsx)
         holder.name_view.text = File(myFile.path).name
-        holder.date_file.text = Date(File(myFile.path).lastModified()).toString()
-//        sizeOfFile = ((File(myFile.path).length() / (1024.0 * 1024)).toFloat())
+        var datefile: SimpleDateFormat = SimpleDateFormat("hh:mm aa, dd MMMM yyyy")
+
+        holder.date_file.text = datefile.format(Date(File(myFile.path).lastModified()))
+        var sizeOfFile = ((File(myFile.path).length() / (1024.0)).toFloat())
+        holder.size_file.text = "%.2f Kb".format(sizeOfFile)
 
         if (!checkFavourite(myFile.path)) {
             holder.favorite_checked.setButtonDrawable(R.drawable.ic_favorite)
@@ -104,9 +108,9 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
         for (i in 0 until mList?.size!!) {
             for (j in i + 1 until mList?.size!!) {
                 if (File(mList!![i].path).name.toLowerCase() > File(mList!![j].path).name.toLowerCase()) {
-                    val temp: MyFile = mList!![i]
+                    val tempFile: MyFile = mList!![i]
                     mList!![i] = mList!![j]
-                    mList!![j] = temp
+                    mList!![j] = tempFile
                 }
 
 
@@ -179,28 +183,24 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
     }
 
     override fun getFilter(): Filter {
-//        temp = (mList as ArrayList<MyFile>?)!!
         return object : Filter() {
+            var listFile: ArrayList<MyFile> = ArrayList()
             override fun performFiltering(p0: CharSequence?): FilterResults {
                 var text = p0.toString()
-                mList = if (text.isEmpty()) {
+                listFile = if (text.isEmpty()) {
                     temp
                 } else {
-                    try {
-                        var list: ArrayList<MyFile> = ArrayList()
-                        mList?.forEach {
-                            if (File(it.path).name.toLowerCase().contains(text.toLowerCase())) {
-                                list.add(it)
-                            }
+                    var list: ArrayList<MyFile> = ArrayList()
+                    temp?.forEach {
+                        if (File(it.path).name.toLowerCase().contains(text.toLowerCase())) {
+                            list.add(it)
                         }
-                        list
-                    } catch (e: Exception) {
-                        temp
                     }
+                    list
                 }
 
                 var filterResult = FilterResults()
-                filterResult.values = mList
+                filterResult.values = listFile
                 return filterResult
             }
 
@@ -224,6 +224,7 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
         val name_view: TextView
         val date_file: TextView
         val favorite_checked: CheckBox
+        val size_file: TextView
 
         init {
             img_view = itemView.findViewById(R.id.img_view_file)
@@ -231,6 +232,7 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
             name_view = itemView.findViewById(R.id.name_file)
             date_file = itemView.findViewById(R.id.date_file)
             favorite_checked = itemView.findViewById(R.id.favorite_checked)
+            size_file = itemView.findViewById(R.id.size_file)
         }
     }
 
