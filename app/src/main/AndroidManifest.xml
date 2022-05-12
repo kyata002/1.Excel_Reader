@@ -30,6 +30,9 @@
             android:name=".view.dialog.RenameDialog"
             android:theme="@style/Transparent" />
         <activity
+            android:name=".view.dialog.DetailDialog"
+            android:theme="@style/Transparent" />
+        <activity
             android:name=".view.activity.SplashActivity"
             android:exported="true">
             <intent-filter>
@@ -40,6 +43,8 @@
         </activity>
         <activity android:name=".view.activity.DocReaderActivity"/>
         <activity android:name=".view.activity.SettingActivity" />
+        <activity android:name=".view.dialog.FilterDialog"
+            android:theme="@style/Transparent" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

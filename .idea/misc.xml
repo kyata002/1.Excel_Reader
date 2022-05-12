@@ -7,6 +7,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Intership/excel-reader/app/src/main/res/drawable/bg_dialog_button.xml" value="0.166" />
+        <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/dialog_delete.xml" value="0.264" />
+        <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/dialog_detail.xml" value="0.264" />
+        <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/dialog_filter.xml" value="0.264" />
+        <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/dialog_rename.xml" value="0.264" />
+        <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/fragment_home.xml" value="0.22554347826086957" />
+        <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/item_file.xml" value="0.12158054711246201" />
         <entry key="..\:/wordkspace/demo/excel-reader/app/src/main/res/drawable/shape.xml" value="0.236" />
         <entry key="..\:/wordkspace/demo/excel-reader/app/src/main/res/layout/activity_main.xml" value="0.33" />
       </map>

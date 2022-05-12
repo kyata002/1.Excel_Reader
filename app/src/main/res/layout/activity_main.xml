@@ -70,7 +70,7 @@
                     android:hint="Search file"
                     android:textColor="#fff"
                     android:textColorHint="#FFF"
-                    android:textSize="@dimen/_12sdp" />
+                    android:textSize="@dimen/_14sdp" />
 
             </LinearLayout>
 
@@ -93,10 +93,12 @@
             android:layout_height="match_parent"
             android:layout_weight="50"
             android:background="@drawable/ic_bg_btn_yes"
-            android:text="All File"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="All Files"
             android:textAllCaps="false"
             android:textColor="#fff"
-            android:textSize="@dimen/_16sdp" />
+            android:textSize="@dimen/_14sdp" />
 
         <Button
             android:id="@+id/btn_favourite"
@@ -105,10 +107,12 @@
             android:layout_marginLeft="@dimen/_8sdp"
             android:layout_weight="50"
             android:background="@drawable/ic_bg_btn_no"
+            android:fontFamily="@font/poppins_semibold"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
             android:text="Favorite"
             android:textAllCaps="false"
             android:textColor="#000"
-            android:textSize="@dimen/_16sdp" />
+            android:textSize="@dimen/_14sdp" />
 
         <Button
             android:id="@+id/sort_btn"
@@ -116,6 +120,7 @@
             android:layout_height="@dimen/_36sdp"
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/_8sdp"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
             android:layout_marginRight="@dimen/_8sdp"
             android:layout_weight="1"
             android:background="@drawable/ic_sort" />

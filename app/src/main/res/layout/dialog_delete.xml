@@ -10,19 +10,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
-        android:background="#ffffff"
+        android:backgroundTint="#fff"
+        android:background="@drawable/shape_dialog_sort"
         android:clickable="false"
         android:longClickable="false"
         android:orientation="vertical">
 
-        <androidx.appcompat.widget.AppCompatImageView
-
-            android:background="@drawable/ic_delete"
+        <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingTop="@dimen/_14sdp"
+            android:paddingBottom="@dimen/_14sdp"
+            android:text="Delete"
+            android:fontFamily="@font/poppins_semibold"
+            android:textColor="#000"
             android:layout_gravity="center"
-            android:layout_margin="16dp"
-             />
+            android:textSize="@dimen/_16sdp"
+            />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvNameDelete"
@@ -32,7 +36,6 @@
             android:layout_marginHorizontal="40dp"
             android:layout_marginTop="8dp"
             android:gravity="center"
-
             android:text="Are you sure you want to delete"
             android:textColor="#000"
             android:textFontWeight="600"

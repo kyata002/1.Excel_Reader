@@ -22,7 +22,7 @@ class DetailDialog(override val layoutId: Int = R.layout.dialog_detail) : BaseAc
             val sizeOfFile = (file.length() / (1024.0 * 1024))
             intent.putExtra("name",file.name )
             intent.putExtra("path",file.path)
-            intent.putExtra("date", Date(file.lastModified()))
+            intent.putExtra("date", Date(file.lastModified()).toString())
             intent.putExtra("size","%.2f Mb".format(sizeOfFile))
             context.startActivity(intent)
         }

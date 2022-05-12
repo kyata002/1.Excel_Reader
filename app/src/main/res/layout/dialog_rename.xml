@@ -6,35 +6,27 @@
     android:background="#99000000">
 
     <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_16sdp"
         android:layout_marginEnd="@dimen/_16sdp"
-        android:background="#fff"
+        android:backgroundTint="#fff"
+        android:background="@drawable/shape_dialog_sort"
         android:orientation="vertical"
         android:layout_gravity="center">
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="16dp"
-            android:background="@drawable/ic_renamesvg"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:fontFamily="@font/poppins_semibold"
+            android:paddingTop="@dimen/_16sdp"
+            android:paddingBottom="@dimen/_16sdp"
             android:text="Rename"
             android:textColor="#000"
             android:textFontWeight="700"
             android:textSize="@dimen/_16sdp" />
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/_12sdp"
-            android:text="Enter a name for the file"
-            android:paddingLeft="@dimen/_35sdp"
-            />
         <LinearLayout
             android:background="@drawable/sahpe_edittext"
             android:layout_marginLeft="@dimen/_20sdp"
@@ -62,8 +54,8 @@
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="30dp"
-            android:layout_marginVertical="16dp">
+            android:layout_marginHorizontal="@dimen/_8sdp"
+            android:layout_marginVertical="@dimen/_16sdp">
 
             <LinearLayout
                 android:id="@+id/bt_cancel"
@@ -76,13 +68,13 @@
                 android:gravity="center">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:background="@drawable/bg_dialog_button"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
+                    android:background="@drawable/bg_dialog_button"
                     android:gravity="center"
                     android:text="Cancel"
-                    android:textColor="#6E7175"
+                    android:textColor="#E53D41"
                     android:textFontWeight="600"
                     android:textSize="@dimen/_12sdp" />
             </LinearLayout>
@@ -102,7 +94,7 @@
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Done"
+                    android:text="Rename"
                     android:textColor="#FFF"
                     android:textFontWeight="600"
                     android:textSize="@dimen/_12sdp" />

@@ -6,15 +6,18 @@ import com.documentmaster.documentscan.OnActionCallback
 import com.docxmaster.docreader.base.BaseActivity
 import com.masterlibs.basestructure.R
 import kotlinx.android.synthetic.main.dialog_delete.*
+import org.apache.http.conn.ssl.StrictHostnameVerifier
+import java.io.File
 
 class DeleteDialog(override val layoutId: Int = R.layout.dialog_delete) : BaseActivity() {
 
     companion object {
         var callback: OnActionCallback? = null
-
-        fun start(context: Context, onActionCallback1: String, onActionCallback: OnActionCallback) {
+        var nameFile:String = ""
+        fun start(context: Context, path: String, onActionCallback: OnActionCallback) {
             callback = onActionCallback
             context.startActivity(Intent(context, DeleteDialog::class.java))
+            nameFile = File(path).name
         }
     }
 
@@ -25,6 +28,9 @@ class DeleteDialog(override val layoutId: Int = R.layout.dialog_delete) : BaseAc
     }
 
     override fun initView() {
+        val str = "Are you sure you want to delete \n %s"
+        tvNameDelete.text = String.format(str, nameFile)
+
 
     }
 
