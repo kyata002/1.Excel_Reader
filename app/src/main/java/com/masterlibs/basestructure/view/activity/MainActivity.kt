@@ -8,6 +8,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.graphics.Color
+import android.graphics.Typeface
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
@@ -27,79 +28,57 @@ import com.masterlibs.basestructure.view.dialog.FilterDialog
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseActivity() {
+    private var fileList: java.util.ArrayList<MyFile> = ArrayList()
     var fileadapter: FileAdapter? = null
 
     @SuppressLint("RestrictedApi")
     override fun initView() {
         val linearLayoutManager = LinearLayoutManager(this)
         rcvExcel.layoutManager = linearLayoutManager
-        if(getFileList().size!=0){
-            executeLoadFile()
-            rcvExcel.adapter = fileadapter
-        }else{
-            executeLoadFile()
-            rcvExcel.adapter = fileadapter
-            no_file.setImageResource(R.drawable.ic_no_file)
-            no_result_search.setImageResource(0)
-        }
+        fileList = getFileList()
+        fileadapter = FileAdapter(fileList, this)
+        rcvExcel.adapter = fileadapter
+        executeLoadFile()
+
+        updateStatus()
+
         btn_setting.setOnClickListener {
             val back = Intent(this, SettingActivity::class.java)
             startActivity(back)
         }
-        Thread(Runnable {
-            btn_allfile.setOnClickListener {
-                btn_allfile.setBackgroundResource(R.drawable.ic_bg_btn_yes)
-                btn_allfile.setTextColor(Color.parseColor("#ffffff"))
-                btn_favourite.setBackgroundResource(R.drawable.ic_bg_btn_no)
-                btn_favourite.setTextColor(Color.parseColor("#000000"))
-                if(getFileList().size==0){
-                    no_file.setImageResource(R.drawable.ic_no_file)
-                    no_result_search.setImageResource(0)
-                    executeLoadFile()
-                    rcvExcel.adapter = fileadapter
-                    Thread.sleep(10)
-                }else{
-                    executeLoadFile()
-                    rcvExcel.adapter = fileadapter
-                    no_file.setImageResource(0)
-                    no_result_search.setImageResource(0)
-                    Thread.sleep(10)
-                }
-            }
-        }).start()
+        btn_allfile.setOnClickListener {
+           clickAllAfile()
+            btn_favourite.setTypeface(Typeface.DEFAULT, Typeface.NORMAL)
+            btn_allfile.setTypeface(null, Typeface.BOLD)
+        }
 
-        Thread(Runnable {
-            btn_favourite.setOnClickListener {
-                btn_favourite.setBackgroundResource(R.drawable.ic_bg_btn_yes)
-                btn_favourite.setTextColor(Color.parseColor("#ffffff"))
-                btn_allfile.setBackgroundResource(R.drawable.ic_bg_btn_no)
-                btn_allfile.setTextColor(Color.parseColor("#000000"))
-                if(App.database?.favoriteDAO()?.list?.size==0){
-                    no_file.setImageResource(R.drawable.ic_no_file)
-                    no_result_search.setImageResource(0)
-                    fileadapter =
-                        FileAdapter(App.database?.favoriteDAO()?.list as ArrayList<MyFile>?, this)
-                    rcvExcel.adapter = fileadapter
-                }else{
-                    fileadapter =
-                        FileAdapter(App.database?.favoriteDAO()?.list as ArrayList<MyFile>?, this)
-                    rcvExcel.adapter = fileadapter
-                    no_file.setImageResource(0)
-                    no_result_search.setImageResource(0)
-                    Thread.sleep(10)
+        btn_favourite.setOnClickListener {
+            btn_favourite.setBackgroundResource(R.drawable.ic_bg_btn_yes)
+            btn_favourite.setTypeface(Typeface.DEFAULT, Typeface.BOLD)
+            btn_allfile.setTypeface(null, Typeface.NORMAL)
+            btn_favourite.setTextColor(Color.parseColor("#ffffff"))
+            btn_allfile.setBackgroundResource(R.drawable.ic_bg_btn_no)
+            btn_allfile.setTextColor(Color.parseColor("#000000"))
+            Thread {
+                fileList = App.database?.favoriteDAO()?.list as java.util.ArrayList<MyFile>
+                runOnUiThread {
+                    fileadapter?.updateList(fileList)
+                    updateStatus()
                 }
-            }
-        }).start()
+            }.start()
+        }
+
+
         sort_btn.setOnClickListener {
-            FilterDialog.start(this, "sort_dialog", object : OnActionCallback{
+            FilterDialog.start(this, "sort_dialog", object : OnActionCallback {
                 override fun callback(key: String?, vararg data: Any?) {
-                    if (key == "by_name"){
+                    if (key == "by_name") {
                         fileadapter?.sortByNameAZ()
                     }
-                    if (key == "by_size"){
+                    if (key == "by_size") {
                         fileadapter?.sortBySize()
                     }
-                    if (key == "by_created_time"){
+                    if (key == "by_created_time") {
                         fileadapter?.sortByDate()
                     }
                 }
@@ -113,6 +92,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 fileadapter?.filter?.filter(p0)
+
             }
 
             override fun afterTextChanged(p0: Editable?) {
@@ -124,22 +104,46 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
 
     }
 
+    private fun clickAllAfile() {
+        btn_allfile.setBackgroundResource(R.drawable.ic_bg_btn_yes)
+        btn_allfile.setTextColor(Color.parseColor("#ffffff"))
+        btn_favourite.setBackgroundResource(R.drawable.ic_bg_btn_no)
+        btn_favourite.setTextColor(Color.parseColor("#000000"))
+        Thread {
+            fileList = getFileList()
+            runOnUiThread {
+                fileadapter?.updateList(fileList)
+                updateStatus()
+            }
+        }.start()
+    }
+
+    private fun updateStatus() {
+        if (fileList.size == 0) {
+            no_file.setImageResource(R.drawable.ic_no_file)
+            no_result_search.setImageResource(0)
+
+        } else {
+            no_file.setImageResource(0)
+            no_result_search.setImageResource(0)
+        }
+    }
+
     private fun initReceiver() {
         val filter = IntentFilter();
         filter.addAction(UPDATE_SEARCH_HAVE_RESULT)
         filter.addAction(UPDATE_SEARCH)
-        registerReceiver(object :BroadcastReceiver(){
+        registerReceiver(object : BroadcastReceiver() {
             override fun onReceive(p0: Context?, p1: Intent?) {
-                val action=p1?.action
-                if (action == UPDATE_SEARCH){
+                val action = p1?.action
+                if (action == UPDATE_SEARCH) {
                     no_result_search.setImageResource(R.drawable.ic_no_result_search)
                     no_file.setImageResource(0)
-                }else if(action == UPDATE_SEARCH_HAVE_RESULT){
+                } else if (action == UPDATE_SEARCH_HAVE_RESULT) {
                     no_result_search.setImageResource(0)
-
                 }
             }
-        },filter)
+        }, filter)
     }
 
     companion object {
@@ -174,10 +178,11 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
 
     private fun executeLoadFile() {
         if (checkPermission()) {
-            fileadapter = FileAdapter(getFileList(), this)
-            return
+            clickAllAfile()
+        } else {
+            requestPermission()
         }
-        requestPermission()
+
     }
 
 
@@ -196,11 +201,26 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
             intent.addCategory("android.intent.category.DEFAULT")
             intent.data = Uri.parse(String.format("package:%s", this.packageName))
             this.startActivityForResult(intent, RQC_REQUEST_PERMISSION_ANDROID_11)
+
         } catch (e: Exception) {
             val intent = Intent()
             intent.action = Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION
             this.startActivityForResult(intent, RQC_REQUEST_PERMISSION_ANDROID_11)
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        executeLoadFile()
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        executeLoadFile()
     }
 
     private fun checkPermission(): Boolean {
