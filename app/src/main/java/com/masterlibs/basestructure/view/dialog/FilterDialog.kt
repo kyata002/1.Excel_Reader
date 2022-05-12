@@ -20,46 +20,59 @@ class FilterDialog(override val layoutId: Int = R.layout.dialog_filter) : BaseAc
         const val SORT_CREATED_TIMED = 2
         var currentStatus : Int = -1
     }
-
     override fun onDestroy() {
         super.onDestroy()
         callback = null
     }
     override fun initView() {
+        radio_filter.setOnClickListener {
+
+        }
         border_filter.setOnClickListener {
-            if (!radio_filter.isClickable){
-                finish()
-            }
+            finish()
         }
         when(currentStatus){
-            0 -> by_name.setButtonDrawable(R.drawable.ic_selected)
-            1 -> by_size.setButtonDrawable(R.drawable.ic_selected)
-            2 -> by_created_time.setButtonDrawable(R.drawable.ic_selected)
+            0 -> {
+                by_name.setButtonDrawable(R.drawable.ic_selected)
+                by_size.setButtonDrawable(R.drawable.ic_unselect)
+                by_created_time.setButtonDrawable(R.drawable.ic_unselect)
+            }
+            1 -> {
+                by_name.setButtonDrawable(R.drawable.ic_unselect)
+                by_size.setButtonDrawable(R.drawable.ic_selected)
+                by_created_time.setButtonDrawable(R.drawable.ic_unselect)
+            }
+            2 -> {
+                by_name.setButtonDrawable(R.drawable.ic_unselect)
+                by_size.setButtonDrawable(R.drawable.ic_unselect)
+                by_created_time.setButtonDrawable(R.drawable.ic_selected)
+            }
         }
     }
 
     override fun addEvent() {
         by_name.setOnCheckedChangeListener { compoundButton, b ->
             if (b){
-                currentStatus = SORT_NAME
                 callback?.callback("by_name")
+                currentStatus = SORT_NAME
                 finish()
             }
 
         }
         by_size.setOnCheckedChangeListener { compoundButton, b ->
             if (b){
-                currentStatus = SORT_SIZE
                 callback?.callback("by_size")
+                currentStatus = SORT_SIZE
                 finish()
             }
         }
         by_created_time.setOnCheckedChangeListener { compoundButton, b ->
             if (b){
-                currentStatus = SORT_CREATED_TIMED
                 callback?.callback("by_created_time")
+                currentStatus = SORT_CREATED_TIMED
                 finish()
             }
         }
+
     }
 }

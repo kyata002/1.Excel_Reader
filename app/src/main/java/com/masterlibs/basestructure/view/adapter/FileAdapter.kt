@@ -47,7 +47,9 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
         this.mList = list
         notifyDataSetChanged()
     }
-
+    fun getList() : ArrayList<MyFile>{
+        return mList as ArrayList<MyFile>
+    }
     @RequiresApi(Build.VERSION_CODES.S)
     @SuppressLint("RestrictedApi")
     override fun onBindView(viewHolder: RecyclerView.ViewHolder?, position: Int) {
@@ -59,7 +61,10 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
 
         holder.date_file.text = datefile.format(Date(File(myFile.path).lastModified()))
         var sizeOfFile = ((File(myFile.path).length() / (1024.0)).toFloat())
-        holder.size_file.text = "%.2f Kb".format(sizeOfFile)
+        holder.size_file.text = "%.2f KB".format(sizeOfFile)
+        if (position == mList?.size!! - 1){
+            holder.bottom_line.setImageResource(0)
+        }
 
         if (!checkFavourite(myFile.path)) {
             holder.favorite_checked.setButtonDrawable(R.drawable.ic_favorite)
@@ -103,22 +108,21 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
         return App.database?.favoriteDAO()?.getFile(path) != null
     }
 
-    fun sortByNameAZ() {
+    fun sortByNameAZ(list : ArrayList<MyFile>) : ArrayList<MyFile> {
 
-        for (i in 0 until mList?.size!!) {
-            for (j in i + 1 until mList?.size!!) {
-                if (File(mList!![i].path).name.toLowerCase() > File(mList!![j].path).name.toLowerCase()) {
-                    val tempFile: MyFile = mList!![i]
-                    mList!![i] = mList!![j]
-                    mList!![j] = tempFile
+        for (i in 0 until list.size!!) {
+            for (j in i + 1 until list.size!!) {
+                if (File(list[i].path).name.toLowerCase() > File(list[j].path).name.toLowerCase()) {
+                    val tempFile: MyFile = list[i]
+                    list[i] = list[j]
+                    list[j] = tempFile
                 }
-
 
             }
 
         }
 
-        notifyDataSetChanged()
+        return list
     }
 
     fun sortByNameZA() {
@@ -148,38 +152,38 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
         notifyDataSetChanged()
     }
 
-    fun sortBySize() {
+    fun sortBySize(list : ArrayList<MyFile>) : ArrayList<MyFile> {
         Thread(Runnable {
-            for (i in 0 until mList?.size!!) {
-                for (j in i + 1 until mList?.size!!) {
-                    if (File(mList!![i].path).length() < File(mList!![j].path).length()) {
-                        var a: MyFile = mList!![i]
-                        mList!![i] = mList!![j]
-                        mList!![j] = a
+            for (i in 0 until list.size!!) {
+                for (j in i + 1 until list.size!!) {
+                    if (File(list[i].path).length() < File(list[j].path).length()) {
+                        var a: MyFile = list[i]
+                        list[i] = list[j]
+                        list[j] = a
                     }
                 }
             }
             Thread.sleep(10)
         }).start()
 
-        notifyDataSetChanged()
+        return list
     }
 
-    fun sortByDate() {
+    fun sortByDate(list : ArrayList<MyFile>) : ArrayList<MyFile> {
         Thread(Runnable {
-            for (i in 0 until mList?.size!!) {
-                for (j in i + 1 until mList?.size!!) {
-                    if (Date(File(mList!![i].path).lastModified()).time < Date(File(mList!![j].path).lastModified()).time) {
-                        var a: MyFile = mList!![i]
-                        mList!![i] = mList!![j]
-                        mList!![j] = a
+            for (i in 0 until list.size!!) {
+                for (j in i + 1 until list.size!!) {
+                    if (Date(File(list[i].path).lastModified()).time < Date(File(list[j].path).lastModified()).time) {
+                        var a: MyFile = list[i]
+                        list[i] = list[j]
+                        list[j] = a
                     }
                 }
             }
             Thread.sleep(10)
         }).start()
 
-        notifyDataSetChanged()
+        return list
     }
 
     override fun getFilter(): Filter {
@@ -225,6 +229,7 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
         val date_file: TextView
         val favorite_checked: CheckBox
         val size_file: TextView
+        var bottom_line : ImageView
 
         init {
             img_view = itemView.findViewById(R.id.img_view_file)
@@ -233,6 +238,7 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
             date_file = itemView.findViewById(R.id.date_file)
             favorite_checked = itemView.findViewById(R.id.favorite_checked)
             size_file = itemView.findViewById(R.id.size_file)
+            bottom_line = itemView.findViewById(R.id.bottom_line)
         }
     }
 

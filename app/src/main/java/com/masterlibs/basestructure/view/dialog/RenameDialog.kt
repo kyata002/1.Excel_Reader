@@ -51,6 +51,12 @@ class RenameDialog(override val layoutId: Int = R.layout.dialog_rename) : BaseAc
 //        });
 //        new Handler().postDelayed(() -> , 1000);
         edit_name.setSelection(0, file.name.length)
+        rename_border.setOnClickListener {
+            finish()
+        }
+        rename_dialog.setOnClickListener {
+
+        }
     }
 
     override fun addEvent() {
