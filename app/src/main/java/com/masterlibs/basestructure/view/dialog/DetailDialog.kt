@@ -43,6 +43,12 @@ class DetailDialog(override val layoutId: Int = R.layout.dialog_detail) : BaseAc
         tvPathFile.text = path
         tvDateFile.text = date
         tvSizeFile.text = size
+        border_detail.setOnClickListener {
+
+        }
+        border_dialog.setOnClickListener {
+            finish()
+        }
 
     }
 

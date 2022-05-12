@@ -30,62 +30,79 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseActivity() {
     private var fileList: java.util.ArrayList<MyFile> = ArrayList()
     var fileadapter: FileAdapter? = null
-
+    var isAllFile = true
     @SuppressLint("RestrictedApi")
     override fun initView() {
-        var intcheck = 2
         val linearLayoutManager = LinearLayoutManager(this)
         rcvExcel.layoutManager = linearLayoutManager
-        fileList = getFileList()
+        fileListTemp = getFileList()
+        fileListTempFavourite = App.database?.favoriteDAO()?.list as java.util.ArrayList<MyFile>
         fileadapter = FileAdapter(fileList, this)
         rcvExcel.adapter = fileadapter
         executeLoadFile()
-
-        updateStatus(intcheck)
-
+        updateStatus()
         btn_setting.setOnClickListener {
             val back = Intent(this, SettingActivity::class.java)
             startActivity(back)
         }
         btn_allfile.setOnClickListener {
-           clickAllAfile()
+            isAllFile = true
+            fileadapter?.updateList(fileListTemp)
+            clickAllAfile()
             btn_favourite.setTypeface(Typeface.DEFAULT, Typeface.NORMAL)
             btn_allfile.setTypeface(null, Typeface.BOLD)
         }
 
         btn_favourite.setOnClickListener {
-            var intcheck = 1
+            isAllFile = false
+            fileadapter?.updateList(fileListTempFavourite)
             btn_favourite.setBackgroundResource(R.drawable.ic_bg_btn_yes)
             btn_favourite.setTypeface(Typeface.DEFAULT, Typeface.BOLD)
             btn_allfile.setTypeface(null, Typeface.NORMAL)
             btn_favourite.setTextColor(Color.parseColor("#ffffff"))
             btn_allfile.setBackgroundResource(R.drawable.ic_bg_btn_no)
-            btn_allfile.setTextColor(Color.parseColor("#838388"))
+            btn_allfile.setTextColor(Color.parseColor("#000000"))
             Thread {
-                fileList = App.database?.favoriteDAO()?.list as java.util.ArrayList<MyFile>
+                fileList = fileListTempFavourite
                 runOnUiThread {
                     fileadapter?.updateList(fileList)
-                    updateStatus(intcheck)
+                    updateStatus()
                 }
             }.start()
         }
-        clear_bt.setOnClickListener{
-            search_bar.setText("")
-            clear_bt.setImageResource(0)
-        }
-
-
         sort_btn.setOnClickListener {
             FilterDialog.start(this, "sort_dialog", object : OnActionCallback {
                 override fun callback(key: String?, vararg data: Any?) {
                     if (key == "by_name") {
-                        fileadapter?.sortByNameAZ()
+                        fileListTemp = fileadapter?.sortByNameAZ(fileListTemp)!!
+                        fileListTempFavourite = fileadapter?.sortByNameAZ(fileListTempFavourite)!!
+                        if (isAllFile){
+                            fileadapter?.updateList(fileListTemp)
+                        }
+                        else{
+                            fileadapter?.updateList(fileListTempFavourite)
+                        }
+
                     }
                     if (key == "by_size") {
-                        fileadapter?.sortBySize()
+                        fileListTemp = fileadapter?.sortBySize(fileListTemp)!!
+                        fileListTempFavourite = fileadapter?.sortBySize(fileListTempFavourite)!!
+                        if (isAllFile){
+                            fileadapter?.updateList(fileListTemp)
+                        }
+                        else{
+                            fileadapter?.updateList(fileListTempFavourite)
+                        }
                     }
                     if (key == "by_created_time") {
-                        fileadapter?.sortByDate()
+                        fileListTemp = fileadapter?.sortByDate(fileListTemp)!!
+                        fileListTempFavourite = fileadapter?.sortByDate(fileListTempFavourite)!!
+                        if (isAllFile){
+                            fileadapter?.updateList(fileListTemp)
+                        }
+                        else{
+                            fileadapter?.updateList(fileListTempFavourite)
+                        }
                     }
                 }
 
@@ -98,9 +115,6 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 fileadapter?.filter?.filter(p0)
-                if(!p0.isNullOrEmpty()){
-                    clear_bt.setImageResource(R.drawable.ic_btn_clear)
-                }
 
             }
 
@@ -108,37 +122,30 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
             }
 
         })
-
         initReceiver()
 
     }
 
     private fun clickAllAfile() {
-        var intcheck = 2
         btn_allfile.setBackgroundResource(R.drawable.ic_bg_btn_yes)
         btn_allfile.setTextColor(Color.parseColor("#ffffff"))
         btn_favourite.setBackgroundResource(R.drawable.ic_bg_btn_no)
-        btn_favourite.setTextColor(Color.parseColor("#838388"))
+        btn_favourite.setTextColor(Color.parseColor("#000000"))
         Thread {
-            fileList = getFileList()
+            fileList = Companion.fileListTemp
             runOnUiThread {
                 fileadapter?.updateList(fileList)
-                updateStatus(intcheck)
+                updateStatus()
             }
         }.start()
     }
 
-    private fun updateStatus(int: Int) {
-
-        if (fileList.size == 0 && int == 1 ) {
-            no_file.setImageResource(R.drawable.ic_no_file_favourite)
-            no_result_search.setImageResource(0)
-
-        } else if(fileList.size ==0 && int ==2){
+    private fun updateStatus() {
+        if (fileList.size == 0) {
             no_file.setImageResource(R.drawable.ic_no_file)
             no_result_search.setImageResource(0)
 
-        }else {
+        } else {
             no_file.setImageResource(0)
             no_result_search.setImageResource(0)
         }
@@ -170,11 +177,12 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         const val RQC_REQUEST_PERMISSION_ANDROID_11 = 333
         val UPDATE_SEARCH = "update_search"
         val UPDATE_SEARCH_HAVE_RESULT = "have_result"
+        var fileListTemp: java.util.ArrayList<MyFile> = ArrayList()
+        var fileListTempFavourite: java.util.ArrayList<MyFile> = ArrayList()
 
     }
 
     private fun getFileList(): ArrayList<MyFile> {
-        var type:String
         var typeList : ArrayList<String> = ArrayList()
         var mlist: ArrayList<MyFile> = ArrayList()
         typeList.add("xlsx")

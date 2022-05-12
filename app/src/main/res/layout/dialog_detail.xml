@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/border_dialog"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#99000000">
 
     <LinearLayout
+        android:id="@+id/border_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
