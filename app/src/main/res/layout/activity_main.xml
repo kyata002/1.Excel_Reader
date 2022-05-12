@@ -96,7 +96,8 @@
             android:text="All File"
             android:textAllCaps="false"
             android:textColor="#fff"
-            android:textSize="@dimen/_16sdp" />
+            android:textSize="@dimen/_16sdp"
+            android:fontFamily="@font/poppins_semibold"/>
 
         <Button
             android:id="@+id/btn_favourite"
@@ -108,7 +109,8 @@
             android:text="Favorite"
             android:textAllCaps="false"
             android:textColor="#000"
-            android:textSize="@dimen/_16sdp" />
+            android:textSize="@dimen/_16sdp"
+            android:fontFamily="@font/poppins_semibold"/>
 
         <Button
             android:id="@+id/sort_btn"

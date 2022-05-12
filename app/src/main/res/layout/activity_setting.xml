@@ -27,7 +27,8 @@
                     android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:textSize="@dimen/_18sdp"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_semibold"/>
             </FrameLayout>
 
         </LinearLayout>
@@ -58,7 +59,8 @@
                     android:layout_marginLeft="@dimen/_16sdp"
                     android:layout_gravity="center"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"/>
                 <ImageView
                     android:layout_gravity="center"
                     android:background="@drawable/ic_show"
@@ -89,7 +91,8 @@
                     android:layout_marginLeft="@dimen/_12sdp"
                     android:layout_gravity="center"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"/>
                 <ImageView
                     android:layout_gravity="center"
                     android:background="@drawable/ic_show"
@@ -121,7 +124,8 @@
                     android:layout_marginLeft="@dimen/_11sdp"
                     android:layout_gravity="center"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"/>
                 <ImageView
                     android:layout_gravity="center"
                     android:background="@drawable/ic_show"
@@ -151,8 +155,10 @@
                     android:textColor="#000"
                     android:layout_marginLeft="@dimen/_15sdp"
                     android:layout_gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|left"
+                    android:fontFamily="@font/poppins_regular"/>
                 <ImageView
                     android:layout_gravity="center"
                     android:background="@drawable/ic_show"
