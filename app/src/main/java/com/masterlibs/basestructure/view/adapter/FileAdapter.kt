@@ -36,10 +36,15 @@ import kotlin.collections.ArrayList
 class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
     BaseAdapter<MyFile>(mList, context), Filterable {
     //    var sizeOfFile: Float = 0f
-    private var temp: ArrayList<MyFile> = mList!!
+    private var temp: ArrayList<MyFile> = ArrayList()
     override fun viewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_file, parent, false)
         return FViewHolder(view)
+    }
+
+    fun updateList(list: ArrayList<MyFile>) {
+        this.mList = list
+        notifyDataSetChanged()
     }
 
     @RequiresApi(Build.VERSION_CODES.S)
@@ -60,9 +65,9 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
 //        holder.sizeFile.text = "%.2f Mb".format(sizeOfFile)
         holder.favorite_checked.setOnCheckedChangeListener { compoundButton, b ->
             myFile.isFavorite = b
-            if (b){
+            if (b) {
                 App.database?.favoriteDAO()?.add(myFile)
-            }else{
+            } else {
                 App.database?.favoriteDAO()?.delete(myFile.path)
             }
             notifyDataSetChanged()
@@ -95,28 +100,19 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
     }
 
     fun sortByNameAZ() {
-        Thread(Runnable {
-            for (i in 0 until mList?.size!!) {
-                for (j in i + 1 until mList?.size!!) {
-                    var n = 0
-                    if (File(mList!![i].path).name.length < File(mList!![j].path).name.length) {
-                        n = File(mList!![i].path).name.length
-                    } else {
-                        n = File(mList!![j].path).name.length
-                    }
-                    for (k in 0 until n) {
-                        if (File(mList!![i].path).name[k].toLowerCase() > File(mList!![j].path).name[k].toLowerCase()) {
-                            var a: MyFile = mList!![i]
-                            mList!![i] = mList!![j]
-                            mList!![j] = a
-                        }
-                    }
 
+        for (i in 0 until mList?.size!!) {
+            for (j in i + 1 until mList?.size!!) {
+                if (File(mList!![i].path).name.toLowerCase() > File(mList!![j].path).name.toLowerCase()) {
+                    val temp: MyFile = mList!![i]
+                    mList!![i] = mList!![j]
+                    mList!![j] = temp
                 }
 
+
             }
-            Thread.sleep(10)
-        }).start()
+
+        }
 
         notifyDataSetChanged()
     }
@@ -183,28 +179,25 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
     }
 
     override fun getFilter(): Filter {
+//        temp = (mList as ArrayList<MyFile>?)!!
         return object : Filter() {
             override fun performFiltering(p0: CharSequence?): FilterResults {
-                var checked = false
                 var text = p0.toString()
-                    mList = if (text.isEmpty()) {
-                        temp
-                    } else {
+                mList = if (text.isEmpty()) {
+                    temp
+                } else {
+                    try {
                         var list: ArrayList<MyFile> = ArrayList()
-                        temp.forEach {
-                            for (i in 0 until text.toLowerCase().length) {
-                                if (File(it.path).name.toLowerCase().contains(text.toLowerCase()[i])) {
-                                    checked = true
-                                    continue
-                                }
-                                checked = false
-                            }
-                            if (checked) {
+                        mList?.forEach {
+                            if (File(it.path).name.toLowerCase().contains(text.toLowerCase())) {
                                 list.add(it)
                             }
                         }
                         list
+                    } catch (e: Exception) {
+                        temp
                     }
+                }
 
                 var filterResult = FilterResults()
                 filterResult.values = mList
@@ -213,10 +206,9 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
 
             override fun publishResults(p0: CharSequence?, p1: FilterResults?) {
                 mList = p1?.values as ArrayList<MyFile>
-                if (mList!!.size == 0){
+                if (mList!!.size == 0) {
                     context.sendBroadcast(Intent(MainActivity.UPDATE_SEARCH))
-                }
-                else{
+                } else {
                     context.sendBroadcast(Intent(MainActivity.UPDATE_SEARCH_HAVE_RESULT))
                 }
                 notifyDataSetChanged()
@@ -257,7 +249,7 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
 //        }
 //        dialog.show()
 
-        DeleteDialog.start(context, myFile.path, object : OnActionCallback {
+        DeleteDialog.start(context, File(myFile.path).name, object : OnActionCallback {
             override fun callback(key: String?, vararg data: Any?) {
                 //var listFileAdapter : ListFileAdapter? = null
                 when {
@@ -291,7 +283,7 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
 //
 //        }
 //        dialog.show()
-        DetailDialog.start(context, myFile.path , object :OnActionCallback{
+        DetailDialog.start(context, myFile.path, object : OnActionCallback {
             override fun callback(key: String?, vararg data: Any?) {
                 if (key.equals("ok")) {
 
