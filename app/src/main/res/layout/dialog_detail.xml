@@ -10,27 +10,28 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
         android:layout_gravity="center"
-        android:background="#fff"
+        android:backgroundTint="#fff"
+        android:background="@drawable/shape_dialog_sort"
         android:clickable="false"
         android:longClickable="false"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:background="#00733B"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_60sdp"
-            android:gravity="center"
-            android:text="Details"
-            android:textColor="#FFF"
-            android:textFontWeight="700"
-            android:fontFamily="@font/poppins_semibold"
-            android:textSize="@dimen/_16sdp" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="79dp"
+                android:background="#00733B"
+                android:fontFamily="@font/poppins_semibold"
+                android:gravity="center"
+                android:text="Details"
+                android:textColor="#FFF"
+                android:textFontWeight="700"
+                android:textSize="@dimen/_16sdp" />
             <LinearLayout
                 android:weightSum="10"
                 android:layout_width="match_parent"

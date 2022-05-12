@@ -33,6 +33,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
 
     @SuppressLint("RestrictedApi")
     override fun initView() {
+        var intcheck = 2
         val linearLayoutManager = LinearLayoutManager(this)
         rcvExcel.layoutManager = linearLayoutManager
         fileList = getFileList()
@@ -40,7 +41,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         rcvExcel.adapter = fileadapter
         executeLoadFile()
 
-        updateStatus()
+        updateStatus(intcheck)
 
         btn_setting.setOnClickListener {
             val back = Intent(this, SettingActivity::class.java)
@@ -53,19 +54,24 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         }
 
         btn_favourite.setOnClickListener {
+            var intcheck = 1
             btn_favourite.setBackgroundResource(R.drawable.ic_bg_btn_yes)
             btn_favourite.setTypeface(Typeface.DEFAULT, Typeface.BOLD)
             btn_allfile.setTypeface(null, Typeface.NORMAL)
             btn_favourite.setTextColor(Color.parseColor("#ffffff"))
             btn_allfile.setBackgroundResource(R.drawable.ic_bg_btn_no)
-            btn_allfile.setTextColor(Color.parseColor("#000000"))
+            btn_allfile.setTextColor(Color.parseColor("#838388"))
             Thread {
                 fileList = App.database?.favoriteDAO()?.list as java.util.ArrayList<MyFile>
                 runOnUiThread {
                     fileadapter?.updateList(fileList)
-                    updateStatus()
+                    updateStatus(intcheck)
                 }
             }.start()
+        }
+        clear_bt.setOnClickListener{
+            search_bar.setText("")
+            clear_bt.setImageResource(0)
         }
 
 
@@ -92,6 +98,9 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 fileadapter?.filter?.filter(p0)
+                if(!p0.isNullOrEmpty()){
+                    clear_bt.setImageResource(R.drawable.ic_btn_clear)
+                }
 
             }
 
@@ -105,25 +114,31 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
     }
 
     private fun clickAllAfile() {
+        var intcheck = 2
         btn_allfile.setBackgroundResource(R.drawable.ic_bg_btn_yes)
         btn_allfile.setTextColor(Color.parseColor("#ffffff"))
         btn_favourite.setBackgroundResource(R.drawable.ic_bg_btn_no)
-        btn_favourite.setTextColor(Color.parseColor("#000000"))
+        btn_favourite.setTextColor(Color.parseColor("#838388"))
         Thread {
             fileList = getFileList()
             runOnUiThread {
                 fileadapter?.updateList(fileList)
-                updateStatus()
+                updateStatus(intcheck)
             }
         }.start()
     }
 
-    private fun updateStatus() {
-        if (fileList.size == 0) {
+    private fun updateStatus(int: Int) {
+
+        if (fileList.size == 0 && int == 1 ) {
+            no_file.setImageResource(R.drawable.ic_no_file_favourite)
+            no_result_search.setImageResource(0)
+
+        } else if(fileList.size ==0 && int ==2){
             no_file.setImageResource(R.drawable.ic_no_file)
             no_result_search.setImageResource(0)
 
-        } else {
+        }else {
             no_file.setImageResource(0)
             no_result_search.setImageResource(0)
         }

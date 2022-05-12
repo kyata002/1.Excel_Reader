@@ -21,8 +21,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="@font/poppins_semibold"
-            android:paddingTop="@dimen/_16sdp"
-            android:paddingBottom="@dimen/_16sdp"
+            android:paddingTop="@dimen/_8sdp"
+            android:paddingBottom="@dimen/_8sdp"
             android:text="Rename"
             android:textColor="#000"
             android:textFontWeight="700"
@@ -31,10 +31,13 @@
             android:background="@drawable/sahpe_edittext"
             android:layout_marginLeft="@dimen/_20sdp"
             android:layout_marginRight="@dimen/_20sdp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="@dimen/_256sdp"
+            android:layout_height="@dimen/_36sdp">
             <com.common.control.widget.CustomEdittext
                 android:id="@+id/edit_name"
+                android:layout_weight="1"
                 android:background="#0000"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -46,24 +49,33 @@
                 android:singleLine="true"
                 android:textColor="#3C3C3C"
                 android:textFontWeight="500"
-                android:textSize="@dimen/_16sdp">
+                android:textSize="@dimen/_12sdp">
                 <requestFocus />
             </com.common.control.widget.CustomEdittext>
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/clear_bt_reanme"
+                android:layout_width="@dimen/_16sdp"
+                android:layout_height="@dimen/_16sdp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/_8sdp"
+                android:layout_marginRight="@dimen/_4sdp"
+                android:background="@drawable/ic_clear_rename"
+                />
         </LinearLayout>
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_8sdp"
-            android:layout_marginVertical="@dimen/_16sdp">
+            android:layout_marginHorizontal="@dimen/_1sdp"
+            android:layout_marginVertical="@dimen/_8sdp">
 
             <LinearLayout
                 android:id="@+id/bt_cancel"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:layout_margin="16dp"
+                android:layout_margin="11dp"
                 android:layout_weight="1"
-                android:backgroundTint="#fff"
+                android:backgroundTint="#EFEFEF"
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center">
 
@@ -83,7 +95,8 @@
                 android:id="@+id/bt_save"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:layout_marginVertical="16dp"
+                android:layout_margin="12dp"
+                android:layout_marginVertical="11dp"
                 android:layout_marginEnd="16dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_action"

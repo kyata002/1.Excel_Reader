@@ -76,7 +76,8 @@
                 android:layout_marginVertical="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_weight="1"
-                android:background="#02723B"
+                android:backgroundTint="#02723B"
+                android:background="@drawable/bg_action"
                 android:gravity="center"
                 >
 
