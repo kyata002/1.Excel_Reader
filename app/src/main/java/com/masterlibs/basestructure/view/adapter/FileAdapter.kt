@@ -48,9 +48,6 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
         temp = this.mList as ArrayList<MyFile>
         notifyDataSetChanged()
     }
-    fun getList() : ArrayList<MyFile>{
-        return mList as ArrayList<MyFile>
-    }
     @RequiresApi(Build.VERSION_CODES.S)
     @SuppressLint("RestrictedApi")
     override fun onBindView(viewHolder: RecyclerView.ViewHolder?, position: Int) {
@@ -66,6 +63,10 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
         if (position == mList?.size!! - 1){
             holder.bottom_line.setImageResource(0)
         }
+        else{
+            holder.bottom_line.setImageResource(R.drawable.ic_linesperate)
+        }
+
 
         if (!checkFavourite(myFile.path)) {
             holder.favorite_checked.setButtonDrawable(R.drawable.ic_favorite)

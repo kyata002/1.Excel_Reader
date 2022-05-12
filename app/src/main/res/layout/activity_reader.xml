@@ -23,7 +23,7 @@
                     android:layout_width="@dimen/_18sdp"
                     android:layout_height="@dimen/_18sdp"/>
                 <TextView
-                    android:layout_marginLeft="@dimen/_3sdp"
+                    android:layout_marginLeft="@dimen/_20sdp"
                     android:singleLine="true"
                     android:id="@+id/name_file_read"
                     android:textColor="#fff"
@@ -31,13 +31,13 @@
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:layout_width="0dp"
-                    android:textSize="@dimen/_18sdp"
+                    android:textSize="@dimen/_12sdp"
                     android:layout_height="wrap_content"/>
                 <ImageButton
                     android:id="@+id/btn_share"
                     android:background="@drawable/ic_btn_share"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="@dimen/_3sdp"
+                    android:layout_marginLeft="@dimen/_20sdp"
                     android:layout_marginRight="@dimen/_16sdp"
                     android:layout_width="@dimen/_18sdp"
                     android:layout_height="@dimen/_18sdp"/>

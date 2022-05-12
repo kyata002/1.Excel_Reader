@@ -39,17 +39,11 @@ class RenameDialog(override val layoutId: Int = R.layout.dialog_rename) : BaseAc
             extension = ".pdf"
         }
         edit_name.setText(file.name)
-        //        binding.edtName.setSelectAllOnFocus(true);
-
-//        binding.edtName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//            @Override
-//            public void onFocusChange(View view, boolean b) {
-//                if (b) {
-//                    binding.edtName.setSelection(0, binding.edtName.getText().toString().length());
-//                }
-//            }
-//        });
-//        new Handler().postDelayed(() -> , 1000);
+        if(!edit_name.text.isNullOrEmpty()){
+                clear_bt_reanme.setImageResource(R.drawable.ic_clear_rename)
+        }else{
+            clear_bt_reanme.setImageResource(0)
+        }
         edit_name.setSelection(0, file.name.length)
         rename_border.setOnClickListener {
             finish()
@@ -73,6 +67,10 @@ class RenameDialog(override val layoutId: Int = R.layout.dialog_rename) : BaseAc
             }
             callback?.callback(null, (text + extension))
             finish()
+        }
+        clear_bt_reanme.setOnClickListener {
+            clear_bt_reanme.setImageResource(0)
+            edit_name.setText("")
         }
 
         bt_cancel.setOnClickListener {

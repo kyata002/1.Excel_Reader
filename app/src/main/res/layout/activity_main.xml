@@ -30,7 +30,7 @@
                     android:padding="@dimen/_10sdp"
                     android:text="Excel Reader"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_16sdp" />
+                    android:textSize="@dimen/_20sdp" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/btn_setting"
@@ -61,16 +61,26 @@
 
                 <EditText
                     android:id="@+id/search_bar"
-                    android:layout_width="0dp"
+                    android:paddingTop="@dimen/_2sdp"
+                    android:layout_width="370dp"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_marginStart="@dimen/_8sdp"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:fontFamily="@font/poppins_regular"
-                    android:hint="Search file"
+                    android:gravity="center|left"
+                    android:hint="Find the document"
                     android:textColor="#fff"
                     android:textColorHint="#FFF"
-                    android:textSize="@dimen/_14sdp" />
+                    android:textSize="@dimen/_13sdp" />
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/clear_bt"
+                    android:layout_width="@dimen/_14sdp"
+                    android:layout_height="@dimen/_14sdp"
+                    android:layout_marginLeft="@dimen/_8sdp"
+                    android:layout_marginRight="@dimen/_8sdp"
+                     />
 
             </LinearLayout>
 
@@ -92,6 +102,9 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="50"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:paddingTop="@dimen/_2sdp"
             android:background="@drawable/ic_bg_btn_yes"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:fontFamily="@font/poppins_semibold"
@@ -105,13 +118,16 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/_8sdp"
+            android:layout_gravity="center"
             android:layout_weight="50"
+            android:gravity="center"
+            android:paddingTop="@dimen/_2sdp"
             android:background="@drawable/ic_bg_btn_no"
             android:fontFamily="@font/poppins_regular"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:text="Favourite"
             android:textAllCaps="false"
-            android:textColor="#000"
+            android:textColor="#838388"
             android:textSize="@dimen/_14sdp" />
 
         <Button
@@ -146,8 +162,8 @@
 
         <ImageView
             android:id="@+id/no_file"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/_150sdp"
+            android:layout_height="@dimen/_171sdp"
             android:layout_gravity="center" />
     </FrameLayout>
 </LinearLayout>

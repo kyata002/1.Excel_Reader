@@ -137,7 +137,6 @@
         </LinearLayout>
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/detail_btn"
-            android:background="@drawable/bg_action"
             android:backgroundTint="#00733B"
             android:text="OK"
             android:textColor="#fff"

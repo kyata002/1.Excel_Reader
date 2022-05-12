@@ -15,6 +15,7 @@ import android.os.Environment
 import android.provider.Settings
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.common.control.utils.PermissionUtils
 import com.documentmaster.documentscan.OnActionCallback
@@ -37,7 +38,6 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         rcvExcel.layoutManager = linearLayoutManager
         fileListTemp = getFileList()
         fileList = fileListTemp
-        fileListTempFavourite = App.database?.favoriteDAO()?.list as java.util.ArrayList<MyFile>
         fileadapter = FileAdapter(fileList, this)
         rcvExcel.adapter = fileadapter
         executeLoadFile()
@@ -56,6 +56,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
 
         btn_favourite.setOnClickListener {
             isAllFile = false
+            fileListTempFavourite = App.database?.favoriteDAO()?.list as java.util.ArrayList<MyFile>
             fileadapter?.updateList(fileListTempFavourite)
             btn_favourite.setBackgroundResource(R.drawable.ic_bg_btn_yes)
             btn_favourite.setTypeface(Typeface.DEFAULT, Typeface.BOLD)
@@ -76,23 +77,24 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
                 override fun callback(key: String?, vararg data: Any?) {
                     if (key == "by_name") {
                         fileListTemp = fileadapter?.sortByNameAZ(fileListTemp)!!
-                        fileListTempFavourite = fileadapter?.sortByNameAZ(fileListTempFavourite)!!
+                        fileListTempFavourite = fileadapter?.sortByNameAZ(App.database?.favoriteDAO()?.list as java.util.ArrayList<MyFile>)!!
                         updateListAgain()
                     }
                     if (key == "by_size") {
                         fileListTemp = fileadapter?.sortBySize(fileListTemp)!!
-                        fileListTempFavourite = fileadapter?.sortBySize(fileListTempFavourite)!!
+                        fileListTempFavourite = fileadapter?.sortBySize(App.database?.favoriteDAO()?.list as java.util.ArrayList<MyFile>)!!
                         updateListAgain()
                     }
                     if (key == "by_created_time") {
                         fileListTemp = fileadapter?.sortByDate(fileListTemp)!!
-                        fileListTempFavourite = fileadapter?.sortByDate(fileListTempFavourite)!!
+                        fileListTempFavourite = fileadapter?.sortByDate(App.database?.favoriteDAO()?.list as java.util.ArrayList<MyFile>)!!
                         updateListAgain()
                     }
                 }
 
             })
         }
+
         search_bar.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
@@ -109,6 +111,21 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         })
         initReceiver()
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        fileListTempFavourite = App.database?.favoriteDAO()?.list as java.util.ArrayList<MyFile>
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d("TAG", "onStop: ")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d("TAG", "onPause: ")
     }
 
     private fun updateListAgain() {
