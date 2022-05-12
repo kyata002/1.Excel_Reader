@@ -33,6 +33,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
     var isAllFile = true
     @SuppressLint("RestrictedApi")
     override fun initView() {
+        var int=2
         val linearLayoutManager = LinearLayoutManager(this)
         rcvExcel.layoutManager = linearLayoutManager
         fileListTemp = getFileList()
@@ -40,7 +41,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         fileadapter = FileAdapter(fileList, this)
         rcvExcel.adapter = fileadapter
         executeLoadFile()
-        updateStatus()
+        updateStatus(int)
         btn_setting.setOnClickListener {
             val back = Intent(this, SettingActivity::class.java)
             startActivity(back)
@@ -54,6 +55,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         }
 
         btn_favourite.setOnClickListener {
+            var int=1
             isAllFile = false
             fileadapter?.updateList(fileListTempFavourite)
             btn_favourite.setBackgroundResource(R.drawable.ic_bg_btn_yes)
@@ -66,10 +68,15 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
                 fileList = fileListTempFavourite
                 runOnUiThread {
                     fileadapter?.updateList(fileList)
-                    updateStatus()
+                    updateStatus(int)
                 }
             }.start()
         }
+        clear_bt.setOnClickListener{
+            search_bar.setText("")
+            clear_bt.setImageResource(0)
+        }
+
         sort_btn.setOnClickListener {
             FilterDialog.start(this, "sort_dialog", object : OnActionCallback {
                 override fun callback(key: String?, vararg data: Any?) {
@@ -127,6 +134,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
     }
 
     private fun clickAllAfile() {
+        var int = 2
         btn_allfile.setBackgroundResource(R.drawable.ic_bg_btn_yes)
         btn_allfile.setTextColor(Color.parseColor("#ffffff"))
         btn_favourite.setBackgroundResource(R.drawable.ic_bg_btn_no)
@@ -135,16 +143,19 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
             fileList = Companion.fileListTemp
             runOnUiThread {
                 fileadapter?.updateList(fileList)
-                updateStatus()
+                updateStatus(int)
             }
         }.start()
     }
 
-    private fun updateStatus() {
-        if (fileList.size == 0) {
+    private fun updateStatus(int:Int) {
+        if (fileList.size == 0&&int==2) {
             no_file.setImageResource(R.drawable.ic_no_file)
             no_result_search.setImageResource(0)
 
+        }else if(fileList.size == 0&&int==1){
+            no_file.setImageResource(R.drawable.ic_no_file_favourite)
+            no_result_search.setImageResource(0)
         } else {
             no_file.setImageResource(0)
             no_result_search.setImageResource(0)
