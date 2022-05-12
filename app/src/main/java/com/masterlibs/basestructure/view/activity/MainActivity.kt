@@ -36,6 +36,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         val linearLayoutManager = LinearLayoutManager(this)
         rcvExcel.layoutManager = linearLayoutManager
         fileListTemp = getFileList()
+        fileList = fileListTemp
         fileListTempFavourite = App.database?.favoriteDAO()?.list as java.util.ArrayList<MyFile>
         fileadapter = FileAdapter(fileList, this)
         rcvExcel.adapter = fileadapter
@@ -76,33 +77,17 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
                     if (key == "by_name") {
                         fileListTemp = fileadapter?.sortByNameAZ(fileListTemp)!!
                         fileListTempFavourite = fileadapter?.sortByNameAZ(fileListTempFavourite)!!
-                        if (isAllFile){
-                            fileadapter?.updateList(fileListTemp)
-                        }
-                        else{
-                            fileadapter?.updateList(fileListTempFavourite)
-                        }
-
+                        updateListAgain()
                     }
                     if (key == "by_size") {
                         fileListTemp = fileadapter?.sortBySize(fileListTemp)!!
                         fileListTempFavourite = fileadapter?.sortBySize(fileListTempFavourite)!!
-                        if (isAllFile){
-                            fileadapter?.updateList(fileListTemp)
-                        }
-                        else{
-                            fileadapter?.updateList(fileListTempFavourite)
-                        }
+                        updateListAgain()
                     }
                     if (key == "by_created_time") {
                         fileListTemp = fileadapter?.sortByDate(fileListTemp)!!
                         fileListTempFavourite = fileadapter?.sortByDate(fileListTempFavourite)!!
-                        if (isAllFile){
-                            fileadapter?.updateList(fileListTemp)
-                        }
-                        else{
-                            fileadapter?.updateList(fileListTempFavourite)
-                        }
+                        updateListAgain()
                     }
                 }
 
@@ -124,6 +109,15 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         })
         initReceiver()
 
+    }
+
+    private fun updateListAgain() {
+        if (isAllFile){
+            fileadapter?.updateList(fileListTemp)
+        }
+        else{
+            fileadapter?.updateList(fileListTempFavourite)
+        }
     }
 
     private fun clickAllAfile() {

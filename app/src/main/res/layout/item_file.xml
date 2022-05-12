@@ -54,7 +54,7 @@
                     android:fontFamily="@font/poppins_regular"
                     android:singleLine="true"
                     android:text="@string/app_name"
-                    android:textColor="@color/black"
+                    android:textColor="#838388"
                     android:textSize="@dimen/_10sdp"
                     android:textStyle="bold"
                     android:maxLines="2"/>
@@ -67,7 +67,7 @@
                     android:singleLine="true"
                     android:layout_gravity="right"
                     android:text="@string/app_name"
-                    android:textColor="@color/black"
+                    android:textColor="#838388"
                     android:textSize="@dimen/_10sdp"
                     android:textStyle="bold" />
             </LinearLayout>
