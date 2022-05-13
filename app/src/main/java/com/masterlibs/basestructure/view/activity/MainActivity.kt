@@ -125,9 +125,11 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 fileadapter?.filter?.filter(p0)
+                if(!p0.isNullOrEmpty()){
+                    clear_bt.setImageResource(R.drawable.ic_btn_clear)
+                }
 
             }
-
             override fun afterTextChanged(p0: Editable?) {
             }
 
@@ -156,10 +158,12 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
             no_file.setImageResource(R.drawable.ic_no_file)
             no_result_search.setImageResource(0)
 
-        }else if(fileList.size == 0&&int==1){
+        }
+        if(fileList.size == 0&&int==1){
             no_file.setImageResource(R.drawable.ic_no_file_favourite)
             no_result_search.setImageResource(0)
-        } else {
+        }
+        if(fileList.size != 0){
             no_file.setImageResource(0)
             no_result_search.setImageResource(0)
         }
