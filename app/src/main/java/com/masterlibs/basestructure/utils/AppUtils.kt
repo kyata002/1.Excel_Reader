@@ -19,9 +19,9 @@ class AppUtils {
                 intentShareFile.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(fileWithinMyDir))
                 intentShareFile.putExtra(
                     Intent.EXTRA_SUBJECT,
-                    "Sharing File..."
+                    ""
                 )
-                intentShareFile.putExtra(Intent.EXTRA_TEXT, "Sharing File...")
+                intentShareFile.putExtra(Intent.EXTRA_TEXT, "")
                 context.startActivity(Intent.createChooser(intentShareFile, "Share File"))
             }
         }
