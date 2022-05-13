@@ -73,6 +73,23 @@ class FilterDialog(override val layoutId: Int = R.layout.dialog_filter) : BaseAc
                 finish()
             }
         }
+        sort_by_name.setOnClickListener {
+            callback?.callback("by_name")
+            currentStatus = SORT_NAME
+            finish()
 
+        }
+        sort_by_size.setOnClickListener {
+            callback?.callback("by_size")
+            currentStatus = SORT_SIZE
+            finish()
+
+        }
+        sort_by_time.setOnClickListener {
+            callback?.callback("by_created_time")
+            currentStatus = SORT_CREATED_TIMED
+            finish()
+
+        }
     }
 }
