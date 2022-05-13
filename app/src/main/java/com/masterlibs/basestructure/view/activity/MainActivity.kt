@@ -15,22 +15,28 @@ import android.os.Environment
 import android.provider.Settings
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.common.control.utils.PermissionUtils
 import com.documentmaster.documentscan.OnActionCallback
+import com.documentmaster.documentscan.extention.hide
+import com.documentmaster.documentscan.extention.show
 import com.docxmaster.docreader.base.BaseActivity
 import com.masterlibs.basestructure.App
 import com.masterlibs.basestructure.R
+import com.masterlibs.basestructure.model.MyFile
 import com.masterlibs.basestructure.utils.FileAdapter
 import com.masterlibs.basestructure.utils.LoadFile
-import com.masterlibs.basestructure.model.MyFile
 import com.masterlibs.basestructure.view.dialog.FilterDialog
+import com.pdfreaderdreamw.pdfreader.view.widget.CustomEditText
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.dialog_rename.*
 
 class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseActivity() {
     private var fileList: java.util.ArrayList<MyFile> = ArrayList()
     var fileadapter: FileAdapter? = null
+    var checkClickInSearchBar = false
 
     @SuppressLint("RestrictedApi")
     override fun initView() {
@@ -46,15 +52,11 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
             startActivity(back)
         }
         btn_allfile.setOnClickListener {
-
             clickAllAfile()
             btn_favourite.setTypeface(Typeface.DEFAULT, Typeface.NORMAL)
             btn_allfile.setTypeface(null, Typeface.BOLD)
         }
-        clear_bt.setOnClickListener{
-            search_bar.setText("")
-            clear_bt.setImageResource(0)
-        }
+
         btn_favourite.setOnClickListener {
             fileListTempFavourite = App.database?.favoriteDAO()?.list as java.util.ArrayList<MyFile>
             when (FilterDialog.currentStatus) {
@@ -100,13 +102,59 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
             })
         }
 
+        search_bar.setOnClickListener {
+            search_bar.isFocusableInTouchMode = true
+            search_bar.isFocusable = true
+            showKeyboard(search_bar)
+//            search_bt_back.setImageResource(R.drawable.ic_btn_back)
+//            search_bt.setImageResource(0)
+        }
+        search_bar.setOnFocusChangeListener { _, b ->
+            run {
+                if (b) {
+                    search_bt_back.setImageResource(R.drawable.ic_btn_back)
+                    search_bt.setImageResource(0)
+                } else {
+                    search_bt.setImageResource(R.drawable.ic_search)
+                    search_bt_back.setImageResource(0)
+                }
+            }
+        }
+
+        search_bar.setOnHideKeyboardListener(object : CustomEditText.OnHideKeyboardListener {
+            override fun onHideKeyboard() {
+                search_bar.isFocusableInTouchMode = false
+                search_bar.isFocusable = false
+            }
+
+        })
+        search_bt_back.setOnClickListener {
+            search_bar.isFocusableInTouchMode = false
+            search_bar.isFocusable = false
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+            val b = imm?.hideSoftInputFromWindow(search_bar.windowToken, 0)
+//            if (b!!) {
+//                search_bt.setImageResource(R.drawable.ic_search)
+//                search_bt_back.setImageResource(0)
+//            }
+        }
         search_bar.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 fileadapter?.filter?.filter(p0)
-                clear_bt.setImageResource(R.drawable.ic_btn_clear)
+                if (p0!!.isNotEmpty()) {
+                    clear_bt.setImageResource(R.drawable.ic_btn_clear)
+                    button_file.hide()
+                } else {
+                    button_file.show()
+                    clear_bt.setImageResource(0)
+                }
+                clear_bt.setOnClickListener {
+                    search_bar.text = null
+                    clear_bt.setImageResource(0)
+                }
             }
 
             override fun afterTextChanged(p0: Editable?) {
@@ -115,6 +163,12 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         })
         initReceiver()
 
+    }
+
+    private fun showKeyboard(view: View) {
+        view.requestFocus()
+        val imm = this.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
     }
 
     private fun clickAllAfile() {
@@ -261,4 +315,5 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
 
     override fun addEvent() {
     }
+
 }

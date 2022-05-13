@@ -44,6 +44,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/bar_search"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_35sdp"
                 android:layout_marginLeft="@dimen/_8sdp"
@@ -51,15 +52,24 @@
                 android:background="@drawable/shape"
                 android:gravity="center"
                 android:padding="@dimen/_3sdp">
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_14sdp">
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/search_bt"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/_8sdp"
+                        android:src="@drawable/ic_search"/>
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/search_bt_back"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/_8sdp" />
+                </FrameLayout>
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/search_bt"
-                    android:layout_width="@dimen/_14sdp"
-                    android:layout_height="@dimen/_14sdp"
-                    android:layout_marginLeft="@dimen/_8sdp"
-                    android:src="@drawable/ic_search" />
 
-                <EditText
+                <com.pdfreaderdreamw.pdfreader.view.widget.CustomEditText
                     android:id="@+id/search_bar"
                     android:paddingTop="@dimen/_2sdp"
                     android:layout_width="370dp"
@@ -88,7 +98,7 @@
     </FrameLayout>
 
     <LinearLayout
-
+        android:id="@+id/button_file"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_8sdp"
