@@ -137,5 +137,6 @@ dependencies {
     implementation "androidx.multidex:multidex:2.0.1"
     implementation 'com.github.barteksc:android-pdf-viewer:3.2.0-beta.1'
     implementation 'com.github.MTGLibs:DocLibs:1.0.3'
+    implementation 'com.airbnb.android:lottie:5.0.3'
 
 }
