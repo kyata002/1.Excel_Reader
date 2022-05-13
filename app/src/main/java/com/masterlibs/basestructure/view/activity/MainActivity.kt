@@ -34,10 +34,11 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
 
     @SuppressLint("RestrictedApi")
     override fun initView() {
+        var int =1
         val linearLayoutManager = LinearLayoutManager(this)
         rcvExcel.layoutManager = linearLayoutManager
         executeLoadFile()
-        updateStatus()
+        updateStatus(1)
         fileList = fileListTemp
         fileadapter = FileAdapter(fileList, this)
         rcvExcel.adapter = fileadapter
@@ -56,6 +57,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
             clear_bt.setImageResource(0)
         }
         btn_favourite.setOnClickListener {
+            var int = 2
             fileListTempFavourite = App.database?.favoriteDAO()?.list as java.util.ArrayList<MyFile>
             when (FilterDialog.currentStatus) {
                 0 -> {
@@ -78,7 +80,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
                 fileList = fileListTempFavourite
                 runOnUiThread {
                     fileadapter?.updateList(fileList)
-                    updateStatus()
+                    updateStatus(int)
                 }
             }.start()
         }
@@ -118,6 +120,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
     }
 
     private fun clickAllAfile() {
+        var int = 1
         fileListTemp = getFileList()
         btn_allfile.setBackgroundResource(R.drawable.ic_bg_btn_yes)
         btn_allfile.setTextColor(Color.parseColor("#ffffff"))
@@ -138,17 +141,22 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
             fileList = Companion.fileListTemp
             runOnUiThread {
                 fileadapter?.updateList(fileList)
-                updateStatus()
+                updateStatus(int)
             }
         }.start()
     }
 
-    private fun updateStatus() {
-        if (fileList.size == 0) {
+    private fun updateStatus(int:Int) {
+        if (fileList.size == 0&&int==2) {
             no_file.setImageResource(R.drawable.ic_no_file)
             no_result_search.setImageResource(0)
 
-        } else {
+        }
+        if(fileList.size == 0&&int==1){
+            no_file.setImageResource(R.drawable.ic_no_file_favourite)
+            no_result_search.setImageResource(0)
+        }
+        if(fileList.size != 0){
             no_file.setImageResource(0)
             no_result_search.setImageResource(0)
         }

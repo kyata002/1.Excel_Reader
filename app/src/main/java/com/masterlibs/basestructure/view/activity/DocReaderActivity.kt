@@ -3,7 +3,9 @@ package com.masterlibs.basestructure.view.activity
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.widget.FrameLayout
+import androidx.annotation.RequiresApi
 import com.masterlibs.basestructure.R
 import com.wxiwei.office.constant.MainConstant
 import com.wxiwei.office.officereader.BaseDocActivity
@@ -30,6 +32,10 @@ class DocReaderActivity : BaseDocActivity() {
 //            startActivity(back)
             finish()
         }
+        btn_print.setOnClickListener {
+
+        }
+
     }
 
     override fun addEvent() {
