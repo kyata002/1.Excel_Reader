@@ -76,7 +76,7 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
 //        holder.sizeFile.text = "%.2f Mb".format(sizeOfFile)
         holder.favorite_checked.setOnCheckedChangeListener { compoundButton, b ->
             myFile.isFavorite = b
-            if (b&& !checkFavourite(myFile.path)) {
+            if (b && !checkFavourite(myFile.path)) {
                 App.database?.favoriteDAO()?.add(myFile)
             } else {
                 App.database?.favoriteDAO()?.delete(myFile.path)

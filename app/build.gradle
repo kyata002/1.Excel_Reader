@@ -10,7 +10,7 @@ android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.masterlibs.basestructor"
+        applicationId "com.masterlibs.basestructorf1"
         minSdk 22
         targetSdk 32
         versionCode 1
@@ -40,7 +40,7 @@ android {
         }
 
         vOfficial_ {
-            applicationId "com.masterlibs.basestructor"
+            applicationId "com.masterlibs.basestructorf1"
 
             buildConfigField "boolean", "TEST_AD", "false"
             buildConfigField "boolean", "PURCHASED", "false"

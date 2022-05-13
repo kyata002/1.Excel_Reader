@@ -14,8 +14,7 @@
         android:layout_height="@dimen/_140sdp"
         android:backgroundTint="#fff"
         android:background="@drawable/shape_dialog_sort"
-        android:layout_marginStart="@dimen/_16sdp"
-        android:layout_marginEnd="@dimen/_16sdp"
+        android:layout_margin="@dimen/_16sdp"
         android:clickable="false"
         android:longClickable="false"
         >
@@ -29,8 +28,9 @@
 
             >
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/sort_by_name"
+                android:layout_width="@dimen/_90sdp"
+                android:layout_height="@dimen/_120sdp"
                 android:orientation="vertical"
                 android:backgroundTint="#F4F4F4"
                 android:padding="@dimen/_4sdp"
@@ -40,34 +40,39 @@
                 >
                 <RadioButton
                     android:id="@+id/by_name"
-                    android:layout_width="@dimen/_24sdp"
-                    android:layout_height="@dimen/_16sdp"
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:layout_marginTop="8px"
+                    android:layout_marginRight="8px"
                     android:layout_gravity="right"
                     android:gravity="center"
                     android:background="@android:color/transparent"
                     android:button="@drawable/checkbox_sort"
-                    android:layout_marginBottom="@dimen/_16sdp"/>
+                    android:layout_marginBottom="@dimen/_8sdp"
+                    />
                 <ImageView
-                    android:layout_width="@dimen/_28sdp"
-                    android:layout_height="@dimen/_28sdp"
+                    android:layout_width="@dimen/_36sdp"
+                    android:layout_height="@dimen/_36sdp"
                     android:src="@drawable/ic_alpha"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="@dimen/_8sdp"/>
+                    android:layout_marginTop="@dimen/_8sdp"/>
                 <TextView
-                    android:layout_width="@dimen/_80sdp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sort By Name"
+                    android:text="Sort By\nName"
                     android:layout_gravity="center"
                     android:maxLines="2"
                     android:gravity="center"
-                    android:textSize="@dimen/_9sdp"
-                    android:layout_marginBottom="@dimen/_14sdp"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/poppins_semibold"/>
+                    android:textSize="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:textColor="#3C3C3C"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textStyle="bold"/>
             </LinearLayout>
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/sort_by_size"
+                android:layout_width="@dimen/_90sdp"
+                android:layout_height="@dimen/_120sdp"
                 android:orientation="vertical"
                 android:backgroundTint="#F4F4F4"
                 android:padding="@dimen/_4sdp"
@@ -76,34 +81,38 @@
                 android:layout_marginRight="@dimen/_4sdp">
                 <RadioButton
                     android:id="@+id/by_size"
-                    android:layout_width="@dimen/_24sdp"
-                    android:layout_height="@dimen/_16sdp"
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:layout_marginTop="8px"
+                    android:layout_marginRight="8px"
                     android:layout_gravity="right"
                     android:background="@android:color/transparent"
                     android:button="@drawable/checkbox_sort"
-                    android:layout_marginBottom="@dimen/_16sdp"/>
+                    android:layout_marginBottom="@dimen/_8sdp"/>
                 <ImageView
-                    android:layout_width="@dimen/_28sdp"
-                    android:layout_height="@dimen/_28sdp"
+                    android:layout_width="@dimen/_36sdp"
+                    android:layout_height="@dimen/_36sdp"
                     android:src="@drawable/ic_folder"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="@dimen/_8sdp"/>
+                    android:layout_marginTop="@dimen/_8sdp"/>
                 <TextView
-                    android:layout_width="@dimen/_80sdp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sort By Size"
-                    android:layout_marginBottom="@dimen/_14sdp"
+                    android:text="Sort By\nSize"
+                    android:layout_marginTop="@dimen/_16sdp"
                     android:layout_gravity="center"
                     android:maxLines="2"
                     android:gravity="center"
-                    android:textSize="@dimen/_9sdp"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/poppins_semibold"/>
+                    android:textSize="@dimen/_8sdp"
+                    android:textColor="#3C3C3C"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textStyle="bold"/>
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/sort_by_time"
+                android:layout_width="@dimen/_90sdp"
+                android:layout_height="@dimen/_120sdp"
                 android:layout_weight="1"
                 android:background="@drawable/shape_dialog_sort"
                 android:backgroundTint="#F4F4F4"
@@ -112,31 +121,34 @@
 
                 <RadioButton
                     android:id="@+id/by_created_time"
-                    android:layout_width="@dimen/_24sdp"
-                    android:layout_height="@dimen/_16sdp"
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:layout_marginTop="8px"
+                    android:layout_marginRight="8px"
                     android:layout_gravity="right"
-                    android:layout_marginBottom="@dimen/_16sdp"
+                    android:layout_marginBottom="@dimen/_8sdp"
                     android:background="@android:color/transparent"
                     android:button="@drawable/checkbox_sort" />
 
                 <ImageView
-                    android:layout_width="@dimen/_28sdp"
-                    android:layout_height="@dimen/_28sdp"
+                    android:layout_width="@dimen/_36sdp"
+                    android:layout_height="@dimen/_36sdp"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
                     android:src="@drawable/ic_time" />
 
                 <TextView
-                    android:layout_width="@dimen/_80sdp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:fontFamily="@font/poppins_semibold"
                     android:gravity="center"
-                    android:layout_marginBottom="@dimen/_1sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
                     android:maxLines="2"
-                    android:text="Sort By Created Time"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_9sdp" />
+                    android:text="Sort By\nCreated Time"
+                    android:textColor="#3C3C3C"
+                    android:textSize="@dimen/_8sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
 
