@@ -213,7 +213,7 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
             override fun callback(key: String?, vararg data: Any?) {
                 when {
                     key.equals("delete") -> {
-                        File(myFile.path).delete()
+                       val b= File(myFile.path).delete()
                         mList?.indexOf(myFile)?.let { notifyItemRemoved(it) }
                         mList?.remove(myFile)
                     }
@@ -223,7 +223,7 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
                 }
             }
         })
-        //App.database?.historyDao()?.add(FileModel("",myFile.path))
+
     }
 
     fun showDetail(myFile: MyFile) {

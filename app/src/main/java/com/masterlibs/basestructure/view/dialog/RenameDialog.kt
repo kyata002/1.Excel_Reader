@@ -36,8 +36,18 @@ class RenameDialog(override val layoutId: Int = R.layout.dialog_rename) : BaseAc
         }
         val file = File(path)
         if (!file.isDirectory) {
-            extension = ".pdf"
+            if(file.path.endsWith(".xls"!!))
+                extension = ".xls"
+            if(file.path.endsWith(".xlsm"!!))
+                extension = ".xlsm"
+            if(file.path.endsWith(".xlsb"!!))
+                extension = ".xlsb"
+            if(file.path.endsWith(".xlsx"!!))
+                extension = ".xlsx"
+            if(file.path.endsWith(".xlam"!!))
+                extension = ".xlam"
         }
+
         edit_name.setText(file.name)
         if(!edit_name.text.isNullOrEmpty()){
                 clear_bt_reanme.setImageResource(R.drawable.ic_clear_rename)
