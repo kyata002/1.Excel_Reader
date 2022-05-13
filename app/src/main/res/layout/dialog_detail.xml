@@ -19,7 +19,7 @@
         android:orientation="vertical">
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:background="@drawable/bg_dialog"
+            android:background="@drawable/bg_header_dialog"
             android:backgroundTint="#00733B"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_60sdp"
@@ -32,6 +32,8 @@
             />
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_marginRight="@dimen/_16sdp"
+            android:layout_marginLeft="@dimen/_16sdp"
             android:layout_height="match_parent"
             android:orientation="vertical">
             <LinearLayout
@@ -46,8 +48,7 @@
                     android:textSize="@dimen/_14sdp"
                     android:text="File name"
                     android:textColor="#000"
-                    android:paddingTop="@dimen/_16sdp"
-                    android:paddingLeft="@dimen/_20sdp"/>
+                    android:paddingTop="@dimen/_16sdp" />
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvNameFile"
                     android:layout_weight="4"
@@ -57,7 +58,7 @@
                     android:textColor="#000"
                     android:text="h1"
                     android:paddingTop="@dimen/_16sdp"
-                    android:paddingLeft="@dimen/_20sdp"/>
+                    />
             </LinearLayout>
             <LinearLayout
                 android:weightSum="10"
@@ -71,8 +72,7 @@
                     android:textSize="@dimen/_14sdp"
                     android:textColor="#000"
                     android:text="Path"
-                    android:paddingTop="@dimen/_16sdp"
-                    android:paddingLeft="@dimen/_20sdp"/>
+                    android:paddingTop="@dimen/_16sdp"/>
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvPathFile"
                     android:layout_weight="4"
@@ -81,8 +81,7 @@
                     android:textSize="@dimen/_14sdp"
                     android:text="h1"
                     android:textColor="#000"
-                    android:paddingTop="@dimen/_16sdp"
-                    android:paddingLeft="@dimen/_20sdp"/>
+                    android:paddingTop="@dimen/_16sdp"/>
             </LinearLayout>
             <LinearLayout
                 android:weightSum="10"
@@ -96,8 +95,7 @@
                     android:textSize="@dimen/_14sdp"
                     android:textColor="#000"
                     android:text="Last modified"
-                    android:paddingTop="@dimen/_16sdp"
-                    android:paddingLeft="@dimen/_20sdp"/>
+                    android:paddingTop="@dimen/_16sdp"/>
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvDateFile"
                     android:layout_weight="4"
@@ -106,8 +104,7 @@
                     android:textSize="@dimen/_14sdp"
                     android:textColor="#000"
                     android:text="h1"
-                    android:paddingTop="@dimen/_16sdp"
-                    android:paddingLeft="@dimen/_20sdp"/>
+                    android:paddingTop="@dimen/_16sdp"/>
             </LinearLayout>
             <LinearLayout
                 android:weightSum="10"
@@ -119,10 +116,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textColor="#000"
-                    android:textSize="@dimen/_16sdp"
+                    android:textSize="@dimen/_14sdp"
                     android:text="Size"
-                    android:paddingTop="@dimen/_16sdp"
-                    android:paddingLeft="@dimen/_20sdp"/>
+                    android:paddingTop="@dimen/_16sdp" />
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvSizeFile"
                     android:layout_weight="4"
@@ -131,16 +127,17 @@
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/_14sdp"
                     android:text="h1"
-                    android:paddingTop="@dimen/_16sdp"
-                    android:paddingLeft="@dimen/_20sdp"/>
+                    android:paddingTop="@dimen/_16sdp"/>
             </LinearLayout>
         </LinearLayout>
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/detail_btn"
             android:backgroundTint="#00733B"
             android:text="OK"
+            android:background="@drawable/bg_dialog_button"
             android:textColor="#fff"
             android:textSize="@dimen/_14sdp"
+            android:layout_marginBottom="@dimen/_16sdp"
             android:layout_gravity="right"
             android:layout_marginRight="@dimen/_20sdp"
             android:layout_width="@dimen/_50sdp"

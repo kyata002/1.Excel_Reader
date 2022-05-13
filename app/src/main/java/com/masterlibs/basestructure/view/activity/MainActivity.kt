@@ -51,7 +51,10 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
             btn_favourite.setTypeface(Typeface.DEFAULT, Typeface.NORMAL)
             btn_allfile.setTypeface(null, Typeface.BOLD)
         }
-
+        clear_bt.setOnClickListener{
+            search_bar.setText("")
+            clear_bt.setImageResource(0)
+        }
         btn_favourite.setOnClickListener {
             fileListTempFavourite = App.database?.favoriteDAO()?.list as java.util.ArrayList<MyFile>
             when (FilterDialog.currentStatus) {
@@ -103,6 +106,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 fileadapter?.filter?.filter(p0)
+                clear_bt.setImageResource(R.drawable.ic_btn_clear)
             }
 
             override fun afterTextChanged(p0: Editable?) {

@@ -20,7 +20,7 @@
 
     <!-- và đây là bán kính đường tròn ở 4 góc -->
     <corners
-        android:radius="@dimen/_6sdp" >
+        android:radius="@dimen/_8sdp" >
     </corners>
 
 </shape>

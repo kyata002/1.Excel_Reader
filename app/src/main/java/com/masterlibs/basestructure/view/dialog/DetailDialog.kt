@@ -8,6 +8,7 @@ import com.masterlibs.basestructure.R
 import kotlinx.android.synthetic.main.dialog_detail.*
 
 import java.io.File
+import java.text.SimpleDateFormat
 import java.util.*
 
 class DetailDialog(override val layoutId: Int = R.layout.dialog_detail) : BaseActivity() {
@@ -19,11 +20,12 @@ class DetailDialog(override val layoutId: Int = R.layout.dialog_detail) : BaseAc
             callback = onActionCallback
             val intent = Intent(context, DetailDialog::class.java)
             val file = File(pathFile)
-            val sizeOfFile = (file.length() / (1024.0 * 1024))
+            var sizeOfFile = ((File(pathFile).length() / (1024.0)).toFloat())
+            var datefile: SimpleDateFormat = SimpleDateFormat("dd/MM/yyyy")
             intent.putExtra("name",file.name )
             intent.putExtra("path",file.path)
-            intent.putExtra("date", Date(file.lastModified()).toString())
-            intent.putExtra("size","%.2f Mb".format(sizeOfFile))
+            intent.putExtra("date", datefile.format(Date(File(pathFile).lastModified())))
+            intent.putExtra("size","%.2f KB".format(sizeOfFile))
             context.startActivity(intent)
         }
     }
