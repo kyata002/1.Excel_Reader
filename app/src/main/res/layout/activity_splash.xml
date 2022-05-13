@@ -1,42 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#02723B">
+    android:background="#02723B"
+    android:orientation="vertical">
+
     <ImageView
+        android:id="@+id/text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="142dp"
+        android:layout_marginEnd="101dp"
         android:src="@drawable/ic_logo_splash"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/_96sdp"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
+        android:id="@+id/welcome_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="@dimen/_80sdp"
+        android:layout_marginEnd="41dp"
+        android:fontFamily="@font/poppins_semibold"
         android:gravity="center"
         android:text="Welcome to Excel Reader"
-        android:textSize="@dimen/_20sdp"
-        android:fontFamily="@font/poppins_semibold"
+        android:textColor="@color/white"
         android:textFontWeight="600"
-        android:layout_marginTop="@dimen/_24sdp"
-        android:textColor="@color/white"/>
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_loading_splash"
+        android:textSize="@dimen/_20sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_view" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/loading_image"
+        android:layout_width="@dimen/_64sdp"
+        android:layout_height="@dimen/_64sdp"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/_200sdp" />
+        android:layout_marginBottom="@dimen/_16sdp"
+        app:lottie_rawRes="@raw/loading"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_speed="2"
+        app:layout_constraintBottom_toTopOf="@+id/tv_contain_ad"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <TextView
+        android:id="@+id/tv_contain_ad"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="@dimen/_18sdp"
+        android:layout_marginEnd="92dp"
+        android:layout_marginBottom="@dimen/_40sdp"
+        android:fontFamily="@font/poppins_regular"
+        android:gravity="center"
         android:text="This action can contain ads..."
+        android:textColor="@color/white"
         android:textFontWeight="400"
         android:textSize="@dimen/_12sdp"
-        android:textColor="@color/white"
-        android:fontFamily="@font/poppins_regular"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:layout_marginTop="@dimen/_8sdp"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
