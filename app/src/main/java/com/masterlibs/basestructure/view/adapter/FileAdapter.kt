@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
+import android.os.StrictMode
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,7 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.view.menu.MenuBuilder
 import androidx.appcompat.view.menu.MenuPopupHelper
 import androidx.appcompat.widget.PopupMenu
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.documentmaster.documentscan.OnActionCallback
 import com.docxmaster.docreader.base.BaseAdapter
@@ -95,6 +97,7 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
             pm.menuInflater.inflate(R.menu.popup_menu_more, pm.menu)
             pm.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener {
                 when (it.itemId) {
+                    R.id.share -> AppUtils.sharefile(File(myFile.path),context)
                     R.id.delete -> showDelete(myFile)
                     R.id.rename -> showRename(myFile)
                     R.id.detail -> showDetail(myFile)
@@ -225,6 +228,9 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
         })
 
     }
+
+
+
 
     fun showDetail(myFile: MyFile) {
         DetailDialog.start(context, myFile.path, object : OnActionCallback {

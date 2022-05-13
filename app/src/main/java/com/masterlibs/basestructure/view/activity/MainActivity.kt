@@ -254,6 +254,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         typeList.add("xlsm")
         typeList.add("xlsb")
         typeList.add("xlam")
+        typeList.add("csv")
         typeList.forEach {
             val tempList = LoadFile.loadFile(this, it)
             tempList.forEach { it1 ->

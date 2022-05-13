@@ -12,6 +12,7 @@ import android.widget.FrameLayout
 import androidx.annotation.RequiresApi
 import androidx.print.PrintHelper
 import com.masterlibs.basestructure.R
+import com.masterlibs.basestructure.utils.AppUtils
 import com.masterlibs.basestructure.view.adapter.PrintDocumentAdapter
 import com.shockwave.pdfium.PdfPasswordException
 import com.tom_roush.pdfbox.pdmodel.interactive.action.PDWindowsLaunchParams
@@ -98,20 +99,7 @@ class DocReaderActivity : BaseDocActivity() {
             printPdfFile(this, Uri.fromFile(File(path)))
         }
         btn_share.setOnClickListener {
-            val intentShareFile = Intent(Intent.ACTION_SEND)
-            val fileWithinMyDir: File = File(path)
-            val builder = VmPolicy.Builder()
-            StrictMode.setVmPolicy(builder.build())
-            if (fileWithinMyDir.exists()) {
-                intentShareFile.type = "application/xlsx"
-                intentShareFile.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(fileWithinMyDir))
-                intentShareFile.putExtra(
-                    Intent.EXTRA_SUBJECT,
-                    "Sharing File..."
-                )
-                intentShareFile.putExtra(Intent.EXTRA_TEXT, "Sharing File...")
-                startActivity(Intent.createChooser(intentShareFile, "Share File"))
-            }
+            AppUtils.sharefile(File(path),this)
 
         }
     }

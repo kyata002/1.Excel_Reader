@@ -46,6 +46,8 @@ class RenameDialog(override val layoutId: Int = R.layout.dialog_rename) : BaseAc
                 extension = ".xlsx"
             if(file.path.endsWith(".xlam"!!))
                 extension = ".xlam"
+            if(file.path.endsWith(".csv"!!))
+                extension = ".csv"
         }
 
         edit_name.setText(file.name)
