@@ -31,42 +31,28 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseActivity() {
     private var fileList: java.util.ArrayList<MyFile> = ArrayList()
     var fileadapter: FileAdapter? = null
-    var isAllFile = true
 
     @SuppressLint("RestrictedApi")
     override fun initView() {
         val linearLayoutManager = LinearLayoutManager(this)
         rcvExcel.layoutManager = linearLayoutManager
-        fileListTemp = getFileList()
+        executeLoadFile()
+        updateStatus()
         fileList = fileListTemp
         fileadapter = FileAdapter(fileList, this)
         rcvExcel.adapter = fileadapter
-        executeLoadFile()
-        updateStatus()
         btn_setting.setOnClickListener {
             val back = Intent(this, SettingActivity::class.java)
             startActivity(back)
         }
         btn_allfile.setOnClickListener {
-            isAllFile = true
-            when (FilterDialog.currentStatus) {
-                0 -> {
-                    fileadapter?.sortByNameAZ(fileListTemp)
-                }
-                1 -> {
-                    fileadapter?.sortBySize(fileListTemp)
-                }
-                2 -> {
-                    fileadapter?.sortByDate(fileListTemp)
-                }
-            }
+
             clickAllAfile()
             btn_favourite.setTypeface(Typeface.DEFAULT, Typeface.NORMAL)
             btn_allfile.setTypeface(null, Typeface.BOLD)
         }
 
         btn_favourite.setOnClickListener {
-            isAllFile = false
             fileListTempFavourite = App.database?.favoriteDAO()?.list as java.util.ArrayList<MyFile>
             when (FilterDialog.currentStatus) {
                 0 -> {
@@ -113,12 +99,10 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
 
         search_bar.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 fileadapter?.filter?.filter(p0)
-
             }
 
             override fun afterTextChanged(p0: Editable?) {
@@ -130,10 +114,22 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
     }
 
     private fun clickAllAfile() {
+        fileListTemp = getFileList()
         btn_allfile.setBackgroundResource(R.drawable.ic_bg_btn_yes)
         btn_allfile.setTextColor(Color.parseColor("#ffffff"))
         btn_favourite.setBackgroundResource(R.drawable.ic_bg_btn_no)
         btn_favourite.setTextColor(Color.parseColor("#000000"))
+        when (FilterDialog.currentStatus) {
+            0 -> {
+                fileadapter?.sortByNameAZ(fileListTemp)
+            }
+            1 -> {
+                fileadapter?.sortBySize(fileListTemp)
+            }
+            2 -> {
+                fileadapter?.sortByDate(fileListTemp)
+            }
+        }
         Thread {
             fileList = Companion.fileListTemp
             runOnUiThread {

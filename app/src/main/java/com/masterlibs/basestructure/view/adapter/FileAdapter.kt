@@ -68,8 +68,6 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
         } else {
             holder.bottom_line.setImageResource(R.drawable.ic_linesperate)
         }
-
-
         if (!checkFavourite(myFile.path)) {
             holder.favorite_checked.setButtonDrawable(R.drawable.ic_favorite)
         } else {
@@ -157,11 +155,11 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
         return object : Filter() {
             var listFile: ArrayList<MyFile> = ArrayList()
             override fun performFiltering(p0: CharSequence?): FilterResults {
+                var list: ArrayList<MyFile> = ArrayList()
                 var text = p0.toString()
                 listFile = if (text.isEmpty()) {
                     temp
                 } else {
-                    var list: ArrayList<MyFile> = ArrayList()
                     temp?.forEach {
                         if (File(it.path).name.toLowerCase().contains(text.toLowerCase())) {
                             list.add(it)
@@ -210,29 +208,14 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
     }
 
     fun showDelete(myFile: MyFile) {
-//        val view = View.inflate(context,R.layout.dialog_delete,null)
-//        val builder = AlertDialog.Builder(context)
-//        builder.setView(view)
-//        val tvNameFile : TextView = view.findViewById(R.id.tvNameDelete)
-//        tvNameFile.text = "Are you sure you want to delete"+"\n"+ File(myFile.path).name
-//        val  dialog = builder.create()
-//        view.bt_cancel.setOnClickListener {
-//
-//        }
-//        view.bt_delete.setOnClickListener {
-//
-//        }
-//        dialog.show()
 
         DeleteDialog.start(context, File(myFile.path).name, object : OnActionCallback {
             override fun callback(key: String?, vararg data: Any?) {
-                //var listFileAdapter : ListFileAdapter? = null
                 when {
                     key.equals("delete") -> {
                         File(myFile.path).delete()
                         mList?.indexOf(myFile)?.let { notifyItemRemoved(it) }
                         mList?.remove(myFile)
-                        //bắn thông báo có thằng myfile đc xóa cho thằng Main để update lại data
                     }
                     key.equals("cancel") -> {
 
@@ -244,20 +227,6 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
     }
 
     fun showDetail(myFile: MyFile) {
-//        val view = View.inflate(context, R.layout.dialog_detail, null)
-//        val builder = AlertDialog.Builder(context)
-//        val file = File(myFile.path)
-//        val sizeOfFile = (file.length() / (1024.0 * 1024))
-//        builder.setView(view)
-//        view.tvNameFile.text = file.name
-//        view.tvPathFile.text = file.path
-//        view.tvDateFile.text = Date(file.lastModified()).toString()
-//        view.tvSizeFile.text = "%.2f Mb".format(sizeOfFile)
-//        val dialog = builder.create()
-//        view.detail_btn.setOnClickListener {
-//
-//        }
-//        dialog.show()
         DetailDialog.start(context, myFile.path, object : OnActionCallback {
             override fun callback(key: String?, vararg data: Any?) {
                 if (key.equals("ok")) {
