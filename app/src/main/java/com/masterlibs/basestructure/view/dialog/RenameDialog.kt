@@ -36,27 +36,28 @@ class RenameDialog(override val layoutId: Int = R.layout.dialog_rename) : BaseAc
         }
         val file = File(path)
         if (!file.isDirectory) {
-            if(file.path.endsWith(".xls"!!))
+            if (file.path.endsWith(".xls"!!))
                 extension = ".xls"
-            if(file.path.endsWith(".xlsm"!!))
+            if (file.path.endsWith(".xlsm"!!))
                 extension = ".xlsm"
-            if(file.path.endsWith(".xlsb"!!))
+            if (file.path.endsWith(".xlsb"!!))
                 extension = ".xlsb"
-            if(file.path.endsWith(".xlsx"!!))
+            if (file.path.endsWith(".xlsx"!!))
                 extension = ".xlsx"
-            if(file.path.endsWith(".xlam"!!))
+            if (file.path.endsWith(".xlam"!!))
                 extension = ".xlam"
-            if(file.path.endsWith(".csv"!!))
+            if (file.path.endsWith(".csv"!!))
                 extension = ".csv"
         }
-
-        edit_name.setText(file.name)
-        if(!edit_name.text.isNullOrEmpty()){
-                clear_bt_reanme.setImageResource(R.drawable.ic_clear_rename)
-        }else{
+        var name = file.name
+        name = name.replace(extension!!, "")
+        edit_name.setText(name)
+        if (!edit_name.text.isNullOrEmpty()) {
+            clear_bt_reanme.setImageResource(R.drawable.ic_clear_rename)
+        } else {
             clear_bt_reanme.setImageResource(0)
         }
-        edit_name.setSelection(0, file.name.length)
+        edit_name.setSelection(0, name.length)
         rename_border.setOnClickListener {
             finish()
         }
@@ -72,13 +73,15 @@ class RenameDialog(override val layoutId: Int = R.layout.dialog_rename) : BaseAc
                 edit_name.error = "Error"
                 return@setOnClickListener
             }
-            if (extension == null || text.endsWith(extension!!)) {
-                callback?.callback(null, text)
-                finish()
-                return@setOnClickListener
-            }
             callback?.callback(null, (text + extension))
             finish()
+//            if (extension == null || text.endsWith(extension!!)) {
+//                callback?.callback(null, text)
+//                finish()
+//                return@setOnClickListener
+//            }
+//            callback?.callback(null, (text + extension))
+//            finish()
         }
         clear_bt_reanme.setOnClickListener {
             clear_bt_reanme.setImageResource(0)

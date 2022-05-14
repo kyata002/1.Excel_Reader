@@ -160,17 +160,17 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
             override fun performFiltering(p0: CharSequence?): FilterResults {
                 var list: ArrayList<MyFile> = ArrayList()
                 var text = p0.toString()
-                text = text.trim()
                 if (text.isEmpty()) {
                     listFile = temp
                 }
-                else {
+                else if (text[0] != ' ') {
                     temp?.forEach {
                         if (File(it.path).name.toLowerCase().contains(text.toLowerCase())) {
                             list.add(it)
                         }
                     }
                     listFile = list
+
                 }
 
                 var filterResult = FilterResults()
@@ -221,6 +221,8 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
                        val b= File(myFile.path).delete()
                         mList?.indexOf(myFile)?.let { notifyItemRemoved(it) }
                         mList?.remove(myFile)
+                        App.database?.favoriteDAO()?.delete(myFile.path)
+                        notifyDataSetChanged()
                     }
                     key.equals("cancel") -> {
 
