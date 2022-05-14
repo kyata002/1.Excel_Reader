@@ -88,6 +88,8 @@
         <activity
             android:name=".view.dialog.FilterDialog"
             android:theme="@style/Transparent" />
+        <activity android:name=".view.dialog.PermissionDialog"
+            android:theme="@style/Transparent" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
