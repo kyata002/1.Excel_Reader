@@ -41,7 +41,7 @@ class DeleteDialog(override val layoutId: Int = R.layout.dialog_delete) : BaseAc
 
     override fun addEvent() {
         bt_delete.setOnClickListener {
-            callback?.callback(null)
+            callback?.callback("delete")
             finish()
         }
 
