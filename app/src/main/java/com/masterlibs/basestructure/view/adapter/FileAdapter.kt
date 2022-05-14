@@ -29,6 +29,7 @@ import com.masterlibs.basestructure.view.activity.MainActivity
 import com.masterlibs.basestructure.view.dialog.DeleteDialog
 import com.masterlibs.basestructure.view.dialog.DetailDialog
 import com.masterlibs.basestructure.view.dialog.RenameDialog
+import kotlinx.android.synthetic.main.dialog_rename.*
 //import kotlinx.android.synthetic.main.dialog_detail.view.*
 import java.io.File
 import java.text.SimpleDateFormat
@@ -58,10 +59,27 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
     override fun onBindView(viewHolder: RecyclerView.ViewHolder?, position: Int) {
         val holder: FViewHolder = viewHolder as FViewHolder
         val myFile: MyFile = this.mList?.get(position)!!
+        var extension:String? = null
         holder.img_view.setImageResource(R.drawable.ic_xlsx)
-        holder.name_view.text = File(myFile.path).name
+        val file = File(myFile.path)
+        if (!file.isDirectory) {
+            if (file.path.endsWith(".xls"!!))
+                extension = ".xls"
+            if (file.path.endsWith(".xlsm"!!))
+                extension = ".xlsm"
+            if (file.path.endsWith(".xlsb"!!))
+                extension = ".xlsb"
+            if (file.path.endsWith(".xlsx"!!))
+                extension = ".xlsx"
+            if (file.path.endsWith(".xlam"!!))
+                extension = ".xlam"
+            if (file.path.endsWith(".csv"!!))
+                extension = ".csv"
+        }
+        var name = file.name
+        name = name.replace(extension!!, "")
+        holder.name_view.text =name
         var datefile: SimpleDateFormat = SimpleDateFormat("hh:mm aa, dd MMMM yyyy")
-
         holder.date_file.text = datefile.format(Date(File(myFile.path).lastModified()))
         var sizeOfFile = ((File(myFile.path).length() / (1024.0)).toFloat())
         holder.size_file.text = "%.2f KB".format(sizeOfFile)
@@ -253,6 +271,7 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
                 val newName = data[0] as String
                 val file = File(myFile.path)
                 val newFile = File(file.parent + "/" + newName)
+                App.database?.favoriteDAO()?.delete(myFile.path)
                 file.renameTo(newFile)
                 myFile.path = newFile.path
                 notifyDataSetChanged()
