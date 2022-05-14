@@ -35,7 +35,6 @@
         android:textFontWeight="600"
         android:textSize="@dimen/_20sdp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_view" />
 
@@ -51,7 +50,6 @@
         app:lottie_speed="2"
         app:layout_constraintBottom_toTopOf="@+id/tv_contain_ad"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
