@@ -29,6 +29,7 @@ import com.masterlibs.basestructure.model.MyFile
 import com.masterlibs.basestructure.utils.FileAdapter
 import com.masterlibs.basestructure.utils.LoadFile
 import com.masterlibs.basestructure.view.dialog.FilterDialog
+import com.masterlibs.basestructure.view.dialog.PermissionDialog
 import com.pdfreaderdreamw.pdfreader.view.widget.CustomEditText
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.dialog_rename.*
@@ -271,9 +272,23 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
     private fun executeLoadFile() {
         if (checkPermission()) {
             clickAllAfile()
-        } else {
-            requestPermission()
         }
+        else {
+            PermissionDialog.start(this, "permission", object : OnActionCallback{
+            override fun callback(key: String?, vararg data: Any?) {
+                if (key == "deny"){
+                    finish()
+                }
+                else if (key == "allow"){
+                    requestPermission()
+                }
+            }
+
+        })
+
+        }
+
+
 
     }
 

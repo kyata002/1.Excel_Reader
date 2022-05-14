@@ -160,15 +160,17 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
             override fun performFiltering(p0: CharSequence?): FilterResults {
                 var list: ArrayList<MyFile> = ArrayList()
                 var text = p0.toString()
-                listFile = if (text.isEmpty()) {
-                    temp
-                } else {
+                text = text.trim()
+                if (text.isEmpty()) {
+                    listFile = temp
+                }
+                else {
                     temp?.forEach {
                         if (File(it.path).name.toLowerCase().contains(text.toLowerCase())) {
                             list.add(it)
                         }
                     }
-                    list
+                    listFile = list
                 }
 
                 var filterResult = FilterResults()

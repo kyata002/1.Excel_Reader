@@ -35,7 +35,6 @@
         android:textFontWeight="600"
         android:textSize="@dimen/_20sdp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_view" />
 
@@ -45,14 +44,15 @@
         android:layout_height="@dimen/_64sdp"
         android:layout_gravity="center"
         android:layout_marginBottom="@dimen/_16sdp"
-        app:lottie_rawRes="@raw/loading"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_speed="2"
         app:layout_constraintBottom_toTopOf="@+id/tv_contain_ad"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/welcome_text"
+        app:layout_constraintVertical_bias="0.9"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/loading"
+        app:lottie_speed="2" />
 
     <TextView
         android:id="@+id/tv_contain_ad"
