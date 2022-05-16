@@ -4,12 +4,21 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Handler
 import com.docxmaster.docreader.base.BaseActivity
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.FullScreenContentCallback
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.masterlibs.basestructure.R
 import com.wxiwei.office.utils.RealPathUtil
 
 
 class SplashActivity(override val layoutId: Int = R.layout.activity_splash) : BaseActivity() {
+    var internAds : InterstitialAd? = null
+    var intent1 : Intent? = null
     override fun initView() {
+        loadInternAds()
+        intent1 = Intent(this, MainActivity::class.java)
         Handler().postDelayed(Runnable {
             val intent = intent
             val fileUri: Uri?
@@ -26,12 +35,35 @@ class SplashActivity(override val layoutId: Int = R.layout.activity_splash) : Ba
                 }
                 return@Runnable
             }
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()},
+            internAds?.fullScreenContentCallback = object : FullScreenContentCallback(){
+                override fun onAdDismissedFullScreenContent() {
+                    super.onAdDismissedFullScreenContent()
+                    startActivity(intent1)
+                    finish()
+                }
+            }
+            internAds?.show(this)
+            },
             5000)
 
     }
 
+    private fun loadInternAds() {
+        val requestAds = AdRequest.Builder().build()
+        InterstitialAd.load(this,"ca-app-pub-3940256099942544/1033173712", requestAds, object :
+            InterstitialAdLoadCallback() {
+            override fun onAdFailedToLoad(p0: LoadAdError) {
+                super.onAdFailedToLoad(p0)
+                internAds = null
+            }
+
+            override fun onAdLoaded(p0: InterstitialAd) {
+                super.onAdLoaded(p0)
+                internAds = p0
+            }
+        })
+
+    }
     override fun addEvent() {
     }
 }

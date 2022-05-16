@@ -22,7 +22,15 @@ import com.common.control.utils.PermissionUtils
 import com.documentmaster.documentscan.OnActionCallback
 import com.documentmaster.documentscan.extention.hide
 import com.documentmaster.documentscan.extention.show
+import com.documentmaster.documentscan.extention.showInterAd
 import com.docxmaster.docreader.base.BaseActivity
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.FullScreenContentCallback
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.MobileAds.*
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.masterlibs.basestructure.App
 import com.masterlibs.basestructure.R
 import com.masterlibs.basestructure.model.MyFile
@@ -32,14 +40,17 @@ import com.masterlibs.basestructure.view.dialog.FilterDialog
 import com.masterlibs.basestructure.view.dialog.PermissionDialog
 import com.pdfreaderdreamw.pdfreader.view.widget.CustomEditText
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.dialog_rename.*
 
 class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseActivity() {
     private var fileList: java.util.ArrayList<MyFile> = ArrayList()
     var fileadapter: FileAdapter? = null
+    var internAds : InterstitialAd? = null
 
     @SuppressLint("RestrictedApi")
     override fun initView() {
+        initialize(this){}
+        loadBannerAds()
+        loadInternAds()
         var int =1
         val linearLayoutManager = LinearLayoutManager(this)
         rcvExcel.layoutManager = linearLayoutManager
@@ -49,16 +60,19 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         fileadapter = FileAdapter(fileList, this)
         rcvExcel.adapter = fileadapter
         btn_setting.setOnClickListener {
+            showIntesrAd()
             val back = Intent(this, SettingActivity::class.java)
             startActivity(back)
         }
         btn_allfile.setOnClickListener {
+            showIntesrAd()
             clickAllAfile()
             btn_favourite.setTypeface(Typeface.DEFAULT, Typeface.NORMAL)
             btn_allfile.setTypeface(null, Typeface.BOLD)
         }
 
         btn_favourite.setOnClickListener {
+            showIntesrAd()
             var int = 2
             fileListTempFavourite = App.database?.favoriteDAO()?.list as java.util.ArrayList<MyFile>
             when (FilterDialog.currentStatus) {
@@ -87,6 +101,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
             }.start()
         }
         sort_btn.setOnClickListener {
+            showIntesrAd()
             FilterDialog.start(this, "sort_dialog", object : OnActionCallback {
                 override fun callback(key: String?, vararg data: Any?) {
                     if (key == "by_name") {
@@ -105,6 +120,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         }
 
         search_bar.setOnClickListener {
+            showIntesrAd()
             search_bar.isFocusableInTouchMode = true
             search_bar.isFocusable = true
             showKeyboard(search_bar)
@@ -131,6 +147,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
 
         })
         search_bt_back.setOnClickListener {
+            showIntesrAd()
             search_bar.isFocusableInTouchMode = false
             search_bar.isFocusable = false
             val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
@@ -163,8 +180,44 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
             }
 
         })
+
         initReceiver()
 
+    }
+
+    private fun showIntesrAd() {
+        internAds?.fullScreenContentCallback = object : FullScreenContentCallback(){
+            override fun onAdDismissedFullScreenContent() {
+                super.onAdDismissedFullScreenContent()
+                loadInternAds()
+            }
+        }
+        internAds?.show(this)
+    }
+
+    private fun loadInternAds() {
+        val requestAds = AdRequest.Builder().build()
+        InterstitialAd.load(this,"ca-app-pub-3940256099942544/1033173712", requestAds, object :
+            InterstitialAdLoadCallback() {
+            override fun onAdFailedToLoad(p0: LoadAdError) {
+                super.onAdFailedToLoad(p0)
+                internAds = null
+            }
+
+            override fun onAdLoaded(p0: InterstitialAd) {
+                super.onAdLoaded(p0)
+                internAds = p0
+            }
+            })
+
+    }
+
+    private fun loadBannerAds() {
+        val requestAds = AdRequest.Builder().build()
+        Ad_view.loadAd(requestAds)
+//        Ad_View.adListener = object : AdListener() {
+//
+//        }
     }
 
     private fun showKeyboard(view: View) {
@@ -266,6 +319,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
 
     private fun executeLoadFile() {
         if (checkPermission()) {
+
             clickAllAfile()
         }
         else {
@@ -282,9 +336,6 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         })
 
         }
-
-
-
     }
 
 
