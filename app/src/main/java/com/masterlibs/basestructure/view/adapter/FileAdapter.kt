@@ -271,8 +271,11 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
                 val newName = data[0] as String
                 val file = File(myFile.path)
                 val newFile = File(file.parent + "/" + newName)
-                App.database?.favoriteDAO()?.delete(myFile.path)
+                //App.database?.favoriteDAO()?.delete(myFile.path)
                 file.renameTo(newFile)
+                val favourite = App.database?.favoriteDAO()?.getFile(myFile.path)
+                favourite?.path = newFile.path
+                App.database?.favoriteDAO()?.update(favourite)
                 myFile.path = newFile.path
                 notifyDataSetChanged()
                 context.sendBroadcast(

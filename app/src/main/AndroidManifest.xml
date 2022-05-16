@@ -27,10 +27,12 @@
 
         <activity
             android:name=".view.dialog.DeleteDialog"
-            android:theme="@style/Transparent" />
+            android:theme="@style/Transparent"
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".view.dialog.RenameDialog"
-            android:theme="@style/Transparent" />
+            android:theme="@style/Transparent"
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".view.dialog.DetailDialog"
             android:theme="@style/Transparent" />
