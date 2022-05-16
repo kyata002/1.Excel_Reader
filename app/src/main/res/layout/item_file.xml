@@ -91,6 +91,7 @@
             android:id="@+id/more_options"
             android:layout_width="@dimen/_24sdp"
             android:layout_height="29dp"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
             android:layout_gravity="center"
             android:background="@drawable/ic_more"
             tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
