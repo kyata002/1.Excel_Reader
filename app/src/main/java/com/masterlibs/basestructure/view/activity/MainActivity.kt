@@ -203,12 +203,12 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
 
     private fun updateStatus(int:Int) {
         if (fileList.size == 0&&int==2) {
-            no_file.setImageResource(R.drawable.ic_no_file)
+            no_file.setImageResource(R.drawable.ic_no_file_favourite)
             no_result_search.setImageResource(0)
 
         }
         if(fileList.size == 0&&int==1){
-            no_file.setImageResource(R.drawable.ic_no_file_favourite)
+            no_file.setImageResource(R.drawable.ic_no_file)
             no_result_search.setImageResource(0)
         }
         if(fileList.size != 0){

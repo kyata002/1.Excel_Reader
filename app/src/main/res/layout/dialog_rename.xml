@@ -33,6 +33,7 @@
             android:layout_marginLeft="@dimen/_20sdp"
             android:layout_marginRight="@dimen/_20sdp"
             android:layout_gravity="center"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
             android:orientation="horizontal"
             android:layout_width="@dimen/_256sdp"
             android:layout_height="@dimen/_36sdp">
@@ -57,6 +58,7 @@
                 android:id="@+id/clear_bt_reanme"
                 android:layout_width="@dimen/_16sdp"
                 android:layout_height="@dimen/_16sdp"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
                 android:layout_gravity="center"
                 android:layout_marginLeft="@dimen/_8sdp"
                 android:layout_marginRight="@dimen/_4sdp"

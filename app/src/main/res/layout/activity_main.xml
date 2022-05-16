@@ -63,6 +63,7 @@
                         android:src="@drawable/ic_search"/>
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/search_bt_back"
+                        android:foreground="?attr/selectableItemBackgroundBorderless"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/_8sdp" />

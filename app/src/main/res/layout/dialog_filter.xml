@@ -34,6 +34,7 @@
                 android:orientation="vertical"
                 android:backgroundTint="#F4F4F4"
                 android:padding="@dimen/_4sdp"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
                 android:layout_weight="1"
                 android:background="@drawable/shape_dialog_sort"
                 android:layout_marginRight="@dimen/_4sdp"
@@ -76,6 +77,7 @@
                 android:orientation="vertical"
                 android:backgroundTint="#F4F4F4"
                 android:padding="@dimen/_4sdp"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
                 android:layout_weight="1"
                 android:background="@drawable/shape_dialog_sort"
                 android:layout_marginRight="@dimen/_4sdp">
@@ -114,6 +116,7 @@
                 android:layout_width="@dimen/_90sdp"
                 android:layout_height="@dimen/_120sdp"
                 android:layout_weight="1"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
                 android:background="@drawable/shape_dialog_sort"
                 android:backgroundTint="#F4F4F4"
                 android:orientation="vertical"

@@ -134,6 +134,7 @@
             android:id="@+id/detail_btn"
             android:backgroundTint="#00733B"
             android:text="OK"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
             android:background="@drawable/bg_dialog_button"
             android:textColor="#fff"
             android:textSize="@dimen/_14sdp"

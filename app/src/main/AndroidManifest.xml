@@ -30,6 +30,7 @@
             android:theme="@style/Transparent" />
         <activity
             android:name=".view.dialog.RenameDialog"
+            android:windowSoftInputMode="adjustResize"
             android:theme="@style/Transparent" />
         <activity
             android:name=".view.dialog.DetailDialog"
