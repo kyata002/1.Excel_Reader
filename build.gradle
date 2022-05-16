@@ -14,11 +14,13 @@ buildscript {
     ext.retrofit2_version = '2.9.0'
     ext.material_dialog_version = '3.3.0'
 
-
-    repositories {
-        google()
-        mavenCentral()
+    buildscript {
+        repositories {
+            google()
+            mavenCentral()
+        }
     }
+
     dependencies {
         classpath "com.android.tools.build:gradle:7.0.2"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.30"
