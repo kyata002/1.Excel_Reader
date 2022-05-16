@@ -101,7 +101,7 @@
     <LinearLayout
         android:id="@+id/button_file"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/_35sdp"
         android:layout_marginTop="@dimen/_8sdp"
         android:layout_marginBottom="@dimen/_8sdp"
         android:orientation="horizontal"
@@ -176,5 +176,6 @@
             android:layout_width="@dimen/_150sdp"
             android:layout_height="@dimen/_171sdp"
             android:layout_gravity="center" />
+
     </FrameLayout>
 </LinearLayout>

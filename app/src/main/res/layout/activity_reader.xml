@@ -37,7 +37,7 @@
                 <ImageButton
                     android:foreground="?attr/selectableItemBackgroundBorderless"
                     android:id="@+id/btn_share"
-                    android:background="@drawable/ic_btn_share"
+                    android:background="@drawable/ic_share"
                     android:layout_gravity="center"
                     android:layout_marginLeft="@dimen/_20sdp"
                     android:layout_marginRight="@dimen/_14sdp"

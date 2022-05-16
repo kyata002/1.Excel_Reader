@@ -41,6 +41,8 @@
                 android:textAllCaps="false"
                 android:textSize="@dimen/_14sdp"
                 android:textColor="#605D5D"
+                android:textStyle="bold"
+                android:fontFamily="@font/poppins_regular"
                 android:background="@drawable/bg_action"
                 android:backgroundTint="#EBEBEB"
                 android:layout_marginEnd="@dimen/_8sdp"/>
@@ -51,6 +53,8 @@
                 android:textAllCaps="false"
                 android:foreground="?attr/selectableItemBackgroundBorderless"
                 android:text="Allow"
+                android:textStyle="bold"
+                android:fontFamily="@font/poppins_regular"
                 android:textSize="@dimen/_14sdp"
                 android:textColor="#fff"
                 android:background="@drawable/bg_action"

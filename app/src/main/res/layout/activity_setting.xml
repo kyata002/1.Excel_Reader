@@ -48,18 +48,19 @@
                 android:layout_marginRight="@dimen/_16sdp"
                 android:layout_width="match_parent"
                 android:layout_height="0dp">
+
                 <ImageView
-                    android:layout_width="@dimen/_24sdp"
-                    android:layout_height="@dimen/_24sdp"
+                    android:layout_width="@dimen/_19sdp"
+                    android:layout_height="@dimen/_22sdp"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="@dimen/_16sdp"
-                    android:background="@drawable/ic_share"/>
+                    android:layout_marginLeft="@dimen/_18sdp"
+                    android:background="@drawable/ic_share_setting" />
                 <TextView
                     android:layout_weight="1"
                     android:text="Share App"
                     android:textColor="#000"
                     android:textSize="@dimen/_14sdp"
-                    android:layout_marginLeft="@dimen/_13sdp"
+                    android:layout_marginLeft="@dimen/_15sdp"
                     android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -152,13 +153,13 @@
                 android:foreground="?attr/selectableItemBackgroundBorderless"
                 android:background="@drawable/botron_btn"
                 android:layout_marginTop="@dimen/_13sdp"
-                android:layout_marginLeft="@dimen/_16sdp"
+                android:layout_marginLeft="@dimen/_19sdp"
                 android:layout_marginRight="@dimen/_16sdp"
                 android:layout_width="match_parent"
                 android:layout_height="0dp">
                 <ImageView
-                    android:layout_width="@dimen/_24sdp"
-                    android:layout_height="@dimen/_24sdp"
+                    android:layout_width="@dimen/_19sdp"
+                    android:layout_height="@dimen/_22sdp"
                     android:layout_gravity="center"
                     android:layout_marginLeft="@dimen/_16sdp"
                     android:background="@drawable/ic_privacypolicy"/>
@@ -166,7 +167,7 @@
                     android:layout_weight="1"
                     android:text="Privacy Policy"
                     android:textColor="#000"
-                    android:layout_marginLeft="@dimen/_11sdp"
+                    android:layout_marginLeft="@dimen/_13sdp"
                     android:layout_gravity="center"
                     android:layout_width="0dp"
                     android:textSize="@dimen/_14sdp"

@@ -23,6 +23,11 @@ import com.documentmaster.documentscan.OnActionCallback
 import com.documentmaster.documentscan.extention.hide
 import com.documentmaster.documentscan.extention.show
 import com.docxmaster.docreader.base.BaseActivity
+import com.google.ads.AdSize.SMART_BANNER
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import com.masterlibs.basestructure.App
 import com.masterlibs.basestructure.R
 import com.masterlibs.basestructure.model.MyFile
@@ -41,6 +46,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
 
     @SuppressLint("RestrictedApi")
     override fun initView() {
+        MobileAds.initialize(this) {}
         var int =1
         val linearLayoutManager = LinearLayoutManager(this)
         rcvExcel.layoutManager = linearLayoutManager
@@ -167,7 +173,12 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         initReceiver()
 
     }
-
+//    private fun loadads(){
+//        val adView = AdView(this)
+//        adView.adSize = AdSize.SMART_BANNER
+//        val adRequest = AdRequest.Builder().build()
+//        adView.loadAd(adRequest)
+//    }
     private fun showKeyboard(view: View) {
         view.requestFocus()
         val imm = this.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
@@ -238,7 +249,8 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
 
         val PERMISSIONS_STORAGE = arrayOf(
             Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.INTERNET
         )
         const val RQC_REQUEST_PERMISSION_ANDROID_11 = 333
         val UPDATE_SEARCH = "update_search"
@@ -269,9 +281,11 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
 //        clickAllAfile()
 //    }
 
+    @SuppressLint("MissingPermission")
     private fun executeLoadFile() {
-        if (checkPermission()) {
+        if (checkPermission()){
             clickAllAfile()
+           // loadads()
         }
         else {
             PermissionDialog.start(this, "permission", object : OnActionCallback{
@@ -293,6 +307,8 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
     }
 
 
+
+    // Xin Cấp Quyền
     private fun requestPermission() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -335,6 +351,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 return checkSelfPermission(PERMISSIONS_STORAGE[0]) == PackageManager.PERMISSION_GRANTED
                         && checkSelfPermission(PERMISSIONS_STORAGE[1]) == PackageManager.PERMISSION_GRANTED
+                        && checkSelfPermission(PERMISSIONS_STORAGE[2]) == PackageManager.PERMISSION_GRANTED
             }
             return true
         }
