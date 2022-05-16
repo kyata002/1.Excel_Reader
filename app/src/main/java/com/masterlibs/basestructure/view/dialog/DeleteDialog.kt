@@ -28,8 +28,7 @@ class DeleteDialog(override val layoutId: Int = R.layout.dialog_delete) : BaseAc
     }
 
     override fun initView() {
-        val str = "Are you sure you want to delete ? \n %s"
-        tvNameDelete.text = String.format(str, nameFile)
+        tvNameDelete.text =  nameFile
         border_delete.setOnClickListener {
 
         }

@@ -336,9 +336,14 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         })
 
         }
+
+
+
     }
 
 
+
+    // Xin Cấp Quyền
     private fun requestPermission() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -381,6 +386,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 return checkSelfPermission(PERMISSIONS_STORAGE[0]) == PackageManager.PERMISSION_GRANTED
                         && checkSelfPermission(PERMISSIONS_STORAGE[1]) == PackageManager.PERMISSION_GRANTED
+                        && checkSelfPermission(PERMISSIONS_STORAGE[2]) == PackageManager.PERMISSION_GRANTED
             }
             return true
         }

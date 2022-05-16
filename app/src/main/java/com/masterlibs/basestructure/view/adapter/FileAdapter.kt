@@ -103,6 +103,8 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
             } else {
                 App.database?.favoriteDAO()?.delete(myFile.path)
             }
+            MainActivity.fileListTempFavourite =
+                App.database?.favoriteDAO()?.list as java.util.ArrayList<MyFile>
             notifyDataSetChanged()
         }
         holder.itemView.setOnClickListener {
@@ -157,6 +159,7 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
                 }
             }
         }
+
     }
 
     fun sortByDate(list: ArrayList<MyFile>) {
@@ -268,8 +271,9 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
         RenameDialog.start(context, myFile.path, object : OnActionCallback {
             override fun callback(key: String?, vararg data: Any?) {
                 val newName = data[0] as String
-                var file = File(myFile.path)
+                val file = File(myFile.path)
                 val newFile = File(file.parent + "/" + newName)
+                //App.database?.favoriteDAO()?.delete(myFile.path)
                 file.renameTo(newFile)
                 val favourite = App.database?.favoriteDAO()?.getFile(myFile.path)
                 favourite?.path = newFile.path

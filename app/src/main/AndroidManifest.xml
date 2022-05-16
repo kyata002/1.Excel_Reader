@@ -11,7 +11,6 @@
         android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
 
-
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -29,12 +28,11 @@
 
         <activity
             android:name=".view.dialog.DeleteDialog"
-            android:theme="@style/Transparent"
-            android:windowSoftInputMode="adjustResize"/>
+            android:theme="@style/Transparent" />
         <activity
             android:name=".view.dialog.RenameDialog"
-            android:theme="@style/Transparent"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize"
+            android:theme="@style/Transparent" />
         <activity
             android:name=".view.dialog.DetailDialog"
             android:theme="@style/Transparent" />
