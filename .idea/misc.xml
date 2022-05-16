@@ -21,24 +21,24 @@
         <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/dialog_filter.xml" value="0.4" />
         <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/dialog_rename.xml" value="0.176" />
         <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/fragment_home.xml" value="0.22554347826086957" />
-        <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/item_file.xml" value="0.12158054711246201" />
+        <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/item_file.xml" value="0.4" />
         <entry key="..\:/Users/vipvl/.gradle/caches/transforms-3/3e4fcdaa3e4caae900a09ebd844145c0/transformed/jetified-CommonLibs-1.0.7/res/drawable/bg_action.xml" value="0.1935" />
+        <entry key="..\:/Users/vipvl/AndroidStudioProjects/Excel Reader/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1935" />
         <entry key="..\:/Users/vipvl/AndroidStudioProjects/Excel Reader/app/src/main/res/drawable/bg_dialog.xml" value="0.1935" />
         <entry key="..\:/Users/vipvl/AndroidStudioProjects/Excel Reader/app/src/main/res/drawable/bg_dialog_button.xml" value="0.1935" />
         <entry key="..\:/Users/vipvl/AndroidStudioProjects/Excel Reader/app/src/main/res/drawable/botron_btn.xml" value="0.1935" />
+        <entry key="..\:/Users/vipvl/AndroidStudioProjects/Excel Reader/app/src/main/res/drawable/ic_child_icon_app.xml" value="0.324" />
+        <entry key="..\:/Users/vipvl/AndroidStudioProjects/Excel Reader/app/src/main/res/drawable/ic_icon_app.xml" value="0.1935" />
+        <entry key="..\:/Users/vipvl/AndroidStudioProjects/Excel Reader/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1935" />
         <entry key="..\:/Users/vipvl/AndroidStudioProjects/Excel Reader/app/src/main/res/drawable/shape_dialog_sort.xml" value="0.1935" />
         <entry key="..\:/Users/vipvl/AndroidStudioProjects/Excel Reader/app/src/main/res/layout/activity_main.xml" value="0.15220179563916203" />
+        <entry key="..\:/Users/vipvl/AndroidStudioProjects/Excel Reader/app/src/main/res/layout/activity_splash.xml" value="0.33" />
         <entry key="..\:/Users/vipvl/AndroidStudioProjects/Excel Reader/app/src/main/res/layout/dialog_delete.xml" value="0.2919369786839666" />
         <entry key="..\:/Users/vipvl/AndroidStudioProjects/Excel Reader/app/src/main/res/layout/dialog_detail.xml" value="0.33" />
         <entry key="..\:/Users/vipvl/AndroidStudioProjects/Excel Reader/app/src/main/res/layout/dialog_filter.xml" value="0.2919369786839666" />
         <entry key="..\:/Users/vipvl/AndroidStudioProjects/Excel Reader/app/src/main/res/layout/dialog_rename.xml" value="0.15220179563916203" />
         <entry key="..\:/Users/vipvl/AndroidStudioProjects/Excel Reader/app/src/main/res/layout/item_file.xml" value="0.5" />
-        <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/item_file.xml" value="0.4" />
-        <entry key="..\:/Users/vipvl/AndroidStudioProjects/Excel Reader/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1935" />
-        <entry key="..\:/Users/vipvl/AndroidStudioProjects/Excel Reader/app/src/main/res/drawable/ic_child_icon_app.xml" value="0.324" />
-        <entry key="..\:/Users/vipvl/AndroidStudioProjects/Excel Reader/app/src/main/res/drawable/ic_icon_app.xml" value="0.1935" />
-        <entry key="..\:/Users/vipvl/AndroidStudioProjects/Excel Reader/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1935" />
-        <entry key="..\:/Users/vipvl/AndroidStudioProjects/Excel Reader/app/src/main/res/layout/activity_splash.xml" value="0.15220179563916203" />
+        <entry key="..\:/Users/vipvl/AndroidStudioProjects/Excel Reader/app/src/main/res/layout/splash_test.xml" value="0.2975630611372381" />
         <entry key="..\:/Users/vipvl/AndroidStudioProjects/Excel Reader/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1935" />
         <entry key="..\:/Users/vipvl/AndroidStudioProjects/Excel Reader/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1935" />
         <entry key="..\:/wordkspace/demo/excel-reader/app/src/main/res/drawable/shape.xml" value="0.236" />

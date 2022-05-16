@@ -37,7 +37,6 @@ import kotlinx.android.synthetic.main.dialog_rename.*
 class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseActivity() {
     private var fileList: java.util.ArrayList<MyFile> = ArrayList()
     var fileadapter: FileAdapter? = null
-    var checkClickInSearchBar = false
 
     @SuppressLint("RestrictedApi")
     override fun initView() {
@@ -263,10 +262,6 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
             }
         }
         return mlist
-    }
-    override fun onResume() {
-        super.onResume()
-        clickAllAfile()
     }
 
     private fun executeLoadFile() {
