@@ -27,7 +27,7 @@
         <LinearLayout
             android:layout_weight="1"
             android:layout_height="match_parent"
-            android:layout_marginRight="@dimen/_24sdp"
+            android:layout_marginRight="@dimen/_12sdp"
             android:orientation="vertical"
             android:layout_width="0dp">
 
@@ -61,7 +61,7 @@
                     android:maxLines="2"/>
                 <TextView
                     android:id="@+id/size_file"
-                    android:layout_width="@dimen/_75sdp"
+                    android:layout_width="@dimen/_60sdp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_8sdp"
                     android:fontFamily="@font/poppins_regular"
@@ -80,9 +80,9 @@
         <CheckBox
             android:id="@+id/favorite_checked"
             android:layout_width="@dimen/_24sdp"
-            android:layout_height="@dimen/_24sdp"
+            android:layout_height="54dp"
             android:layout_gravity="center"
-            android:layout_marginRight="@dimen/_8sdp"
+            android:layout_marginRight="@dimen/_4sdp"
             android:button="@drawable/ic_favorite_check"
             android:checked="false"
             tools:ignore="TouchTargetSizeCheck" />
@@ -90,7 +90,7 @@
         <Button
             android:id="@+id/more_options"
             android:layout_width="@dimen/_24sdp"
-            android:layout_height="@dimen/_24sdp"
+            android:layout_height="29dp"
             android:layout_gravity="center"
             android:background="@drawable/ic_more"
             tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />

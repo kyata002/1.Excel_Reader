@@ -264,10 +264,10 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         }
         return mlist
     }
-    override fun onResume() {
-        super.onResume()
-        clickAllAfile()
-    }
+//    override fun onResume() {
+//        super.onResume()
+//        clickAllAfile()
+//    }
 
     private fun executeLoadFile() {
         if (checkPermission()) {

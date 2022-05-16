@@ -31,7 +31,6 @@
             />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvNameDelete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -39,6 +38,19 @@
             android:layout_marginTop="8dp"
             android:gravity="center"
             android:text="Are you sure you want to delete"
+            android:textColor="#000"
+            android:textFontWeight="600"
+            android:textSize="@dimen/_12sdp" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvNameDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="40dp"
+            android:text=""
+            android:gravity="center"
+            android:textStyle="bold"
+            android:fontFamily="@font/poppins_semibold"
             android:textColor="#000"
             android:textFontWeight="600"
             android:textSize="@dimen/_12sdp" />
