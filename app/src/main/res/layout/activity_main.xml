@@ -58,14 +58,13 @@
                     android:layout_height="@dimen/_14sdp">
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/search_bt"
-                        android:layout_width="match_parent"
+                        android:layout_width="@dimen/_24sdp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/_8sdp"
                         android:src="@drawable/ic_search"/>
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/search_bt_back"
-                        android:foreground="?attr/selectableItemBackgroundBorderless"
-                        android:layout_width="match_parent"
+                        android:layout_width="@dimen/_24sdp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/_8sdp" />
                 </FrameLayout>
@@ -125,7 +124,7 @@
             android:textColor="#fff"
             android:textSize="@dimen/_14sdp" />
 
-        <Button
+        <TextView
             android:id="@+id/btn_favourite"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -142,7 +141,7 @@
             android:textColor="#838388"
             android:textSize="@dimen/_14sdp" />
 
-        <Button
+        <TextView
             android:id="@+id/sort_btn"
             android:layout_width="@dimen/_36sdp"
             android:layout_height="@dimen/_36sdp"

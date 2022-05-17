@@ -46,11 +46,13 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
     var fileadapter: FileAdapter? = null
     var internAds : InterstitialAd? = null
 
+
     @SuppressLint("RestrictedApi")
     override fun initView() {
         initialize(this){}
-        loadBannerAds()
-        loadInternAds()
+        btn_favourite.setTypeface(Typeface.DEFAULT, Typeface.NORMAL)
+        //loadBannerAds()
+        //loadInternAds()
         var int =1
         val linearLayoutManager = LinearLayoutManager(this)
         rcvExcel.layoutManager = linearLayoutManager
@@ -60,19 +62,19 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         fileadapter = FileAdapter(fileList, this)
         rcvExcel.adapter = fileadapter
         btn_setting.setOnClickListener {
-            showIntesrAd()
+            //showIntesrAd()
             val back = Intent(this, SettingActivity::class.java)
             startActivity(back)
         }
         btn_allfile.setOnClickListener {
-            showIntesrAd()
+            //showIntesrAd()
             clickAllAfile()
             btn_favourite.setTypeface(Typeface.DEFAULT, Typeface.NORMAL)
             btn_allfile.setTypeface(null, Typeface.BOLD)
         }
 
         btn_favourite.setOnClickListener {
-            showIntesrAd()
+            //showIntesrAd()
             var int = 2
             fileListTempFavourite = App.database?.favoriteDAO()?.list as java.util.ArrayList<MyFile>
             when (FilterDialog.currentStatus) {
@@ -101,7 +103,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
             }.start()
         }
         sort_btn.setOnClickListener {
-            showIntesrAd()
+            //showIntesrAd()
             FilterDialog.start(this, "sort_dialog", object : OnActionCallback {
                 override fun callback(key: String?, vararg data: Any?) {
                     if (key == "by_name") {
@@ -120,9 +122,10 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         }
 
         search_bar.setOnClickListener {
-            showIntesrAd()
+            //showIntesrAd()
             search_bar.isFocusableInTouchMode = true
             search_bar.isFocusable = true
+
             showKeyboard(search_bar)
 //            search_bt_back.setImageResource(R.drawable.ic_btn_back)
 //            search_bt.setImageResource(0)
@@ -130,11 +133,13 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         search_bar.setOnFocusChangeListener { _, b ->
             run {
                 if (b) {
+                    search_bar.hint = ""
                     search_bt_back.setImageResource(R.drawable.ic_btn_back)
                     search_bt.setImageResource(0)
                 } else {
                     search_bt.setImageResource(R.drawable.ic_search)
                     search_bt_back.setImageResource(0)
+                    search_bar.hint = "Find the document"
                 }
             }
         }
@@ -147,7 +152,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
 
         })
         search_bt_back.setOnClickListener {
-            showIntesrAd()
+            //showIntesrAd()
             search_bar.isFocusableInTouchMode = false
             search_bar.isFocusable = false
             val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
@@ -386,7 +391,6 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 return checkSelfPermission(PERMISSIONS_STORAGE[0]) == PackageManager.PERMISSION_GRANTED
                         && checkSelfPermission(PERMISSIONS_STORAGE[1]) == PackageManager.PERMISSION_GRANTED
-                        && checkSelfPermission(PERMISSIONS_STORAGE[2]) == PackageManager.PERMISSION_GRANTED
             }
             return true
         }
