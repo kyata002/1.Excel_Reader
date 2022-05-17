@@ -64,7 +64,7 @@
                     android:layout_gravity="center"
                     android:maxLines="2"
                     android:gravity="center"
-                    android:textSize="@dimen/_8sdp"
+                    android:textSize="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_16sdp"
                     android:textColor="#3C3C3C"
                     android:fontFamily="@font/poppins_regular"
@@ -105,7 +105,7 @@
                     android:layout_gravity="center"
                     android:maxLines="2"
                     android:gravity="center"
-                    android:textSize="@dimen/_8sdp"
+                    android:textSize="@dimen/_10sdp"
                     android:textColor="#3C3C3C"
                     android:fontFamily="@font/poppins_regular"
                     android:textStyle="bold"/>
@@ -149,7 +149,7 @@
                     android:maxLines="2"
                     android:text="Sort By\nCreated Time"
                     android:textColor="#3C3C3C"
-                    android:textSize="@dimen/_8sdp"
+                    android:textSize="@dimen/_10sdp"
                     android:fontFamily="@font/poppins_regular"
                     android:textStyle="bold" />
             </LinearLayout>

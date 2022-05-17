@@ -84,7 +84,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
             btn_allfile.setTypeface(null, Typeface.NORMAL)
             btn_favourite.setTextColor(Color.parseColor("#ffffff"))
             btn_allfile.setBackgroundResource(R.drawable.ic_bg_btn_no)
-            btn_allfile.setTextColor(Color.parseColor("#000000"))
+            btn_allfile.setTextColor(Color.parseColor("#838388"))
             Thread {
                 fileList = fileListTempFavourite
                 runOnUiThread {
@@ -191,7 +191,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         btn_allfile.setBackgroundResource(R.drawable.ic_bg_btn_yes)
         btn_allfile.setTextColor(Color.parseColor("#ffffff"))
         btn_favourite.setBackgroundResource(R.drawable.ic_bg_btn_no)
-        btn_favourite.setTextColor(Color.parseColor("#000000"))
+        btn_favourite.setTextColor(Color.parseColor("#838388"))
         when (FilterDialog.currentStatus) {
             0 -> {
                 fileadapter?.sortByNameAZ(fileListTemp)
@@ -250,7 +250,6 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         val PERMISSIONS_STORAGE = arrayOf(
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.INTERNET
         )
         const val RQC_REQUEST_PERMISSION_ANDROID_11 = 333
         val UPDATE_SEARCH = "update_search"
@@ -351,7 +350,6 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 return checkSelfPermission(PERMISSIONS_STORAGE[0]) == PackageManager.PERMISSION_GRANTED
                         && checkSelfPermission(PERMISSIONS_STORAGE[1]) == PackageManager.PERMISSION_GRANTED
-                        && checkSelfPermission(PERMISSIONS_STORAGE[2]) == PackageManager.PERMISSION_GRANTED
             }
             return true
         }

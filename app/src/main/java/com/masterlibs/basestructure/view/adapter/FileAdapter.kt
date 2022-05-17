@@ -79,7 +79,7 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
         var name = file.name
         name = name.replace(extension!!, "")
         holder.name_view.text =name
-        var datefile: SimpleDateFormat = SimpleDateFormat("hh:mm aa, dd MMMM yyyy")
+        var datefile: SimpleDateFormat = SimpleDateFormat("dd.MM.yyyy")
         holder.date_file.text = datefile.format(Date(File(myFile.path).lastModified()))
         var sizeOfFile = ((File(myFile.path).length() / (1024.0)).toFloat())
         holder.size_file.text = "%.2f KB".format(sizeOfFile)
@@ -271,13 +271,23 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
                 val newName = data[0] as String
                 val file = File(myFile.path)
                 val newFile = File(file.parent + "/" + newName)
-                App.database?.favoriteDAO()?.delete(myFile.path)
+                //App.database?.favoriteDAO()?.delete(myFile.path)
                 file.renameTo(newFile)
+                val favourite = App.database?.favoriteDAO()?.getFile(myFile.path)
+                if(favourite != null){
+                    favourite?.path = newFile.path
+                    App.database?.favoriteDAO()?.update(favourite)
+                }
                 myFile.path = newFile.path
                 notifyDataSetChanged()
                 context.sendBroadcast(
                     Intent(
                         Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(newFile)
+                    )
+                )
+                context.sendBroadcast(
+                    Intent(
+                        Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(file)
                     )
                 )
             }

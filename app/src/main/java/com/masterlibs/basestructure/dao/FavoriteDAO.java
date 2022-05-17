@@ -20,9 +20,8 @@ public interface FavoriteDAO {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void add(MyFile myFile);
-
-   // @Query("UPDATE FROM file_table WHERE path=:path")
-//    void update(MyFile myFile);
+    @Update
+    void update(MyFile myFile);
 
     @Query("DELETE FROM file_table WHERE path =:path")
     void delete(String path);

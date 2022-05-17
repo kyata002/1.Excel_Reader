@@ -16,7 +16,7 @@
         <entry key="..\:/Intership/excel-reader/app/src/main/res/drawable/sahpe_edittext.xml" value="0.166" />
         <entry key="..\:/Intership/excel-reader/app/src/main/res/drawable/shape_dialog_rename.xml" value="0.166" />
         <entry key="..\:/Intership/excel-reader/app/src/main/res/drawable/shape_dialog_sort.xml" value="0.166" />
-        <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/activity_main.xml" value="0.3783303730017762" />
         <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/activity_reader.xml" value="0.264" />
         <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/activity_setting.xml" value="0.536" />
         <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/activity_splash.xml" value="0.25" />
@@ -25,7 +25,7 @@
         <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/dialog_detail.xml" value="0.3556962025316456" />
         <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/dialog_filter.xml" value="0.4" />
         <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/dialog_permission.xml" value="0.22554347826086957" />
-        <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/dialog_rename.xml" value="0.536" />
+        <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/dialog_rename.xml" value="0.4" />
         <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/fragment_home.xml" value="0.22554347826086957" />
         <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/item_file.xml" value="0.4" />
         <entry key="..\:/Intership/excel-reader/app/src/main/res/menu/popup_menu_more.xml" value="0.4" />

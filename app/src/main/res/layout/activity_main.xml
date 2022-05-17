@@ -46,37 +46,39 @@
             <LinearLayout
                 android:id="@+id/bar_search"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_35sdp"
+                android:layout_height="@dimen/_36sdp"
                 android:layout_marginLeft="@dimen/_8sdp"
                 android:layout_marginRight="@dimen/_8sdp"
                 android:background="@drawable/shape"
                 android:gravity="center"
                 android:padding="@dimen/_3sdp">
+
+
                 <FrameLayout
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_14sdp">
+
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/search_bt"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="@dimen/_8sdp"
-                        android:src="@drawable/ic_search"/>
+                        android:layout_width="@dimen/_14sdp"
+                        android:layout_height="@dimen/_14sdp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_search" />
+
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/search_bt_back"
-                        android:foreground="?attr/selectableItemBackgroundBorderless"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="@dimen/_8sdp" />
+                        android:layout_width="30dp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_gravity="center|left"/>
                 </FrameLayout>
-
 
                 <com.pdfreaderdreamw.pdfreader.view.widget.CustomEditText
                     android:id="@+id/search_bar"
                     android:paddingTop="@dimen/_2sdp"
                     android:layout_width="370dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginStart="@dimen/_4sdp"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:fontFamily="@font/poppins_regular"
@@ -111,7 +113,7 @@
         <Button
             android:id="@+id/btn_allfile"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="@dimen/_36sdp"
             android:layout_weight="50"
             android:gravity="center"
             android:layout_gravity="center"
@@ -127,7 +129,7 @@
         <Button
             android:id="@+id/btn_favourite"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="@dimen/_36sdp"
             android:layout_marginLeft="@dimen/_8sdp"
             android:layout_gravity="center"
             android:layout_weight="50"
@@ -167,8 +169,8 @@
 
         <ImageView
             android:id="@+id/no_result_search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/_150sdp"
+            android:layout_height="@dimen/_171sdp"
             android:layout_gravity="center" />
 
         <ImageView
