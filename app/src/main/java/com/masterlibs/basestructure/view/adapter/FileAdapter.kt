@@ -55,7 +55,7 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
     }
 
     @RequiresApi(Build.VERSION_CODES.S)
-    @SuppressLint("RestrictedApi")
+    @SuppressLint("RestrictedApi", "SimpleDateFormat")
     override fun onBindView(viewHolder: RecyclerView.ViewHolder?, position: Int) {
         val holder: FViewHolder = viewHolder as FViewHolder
         val myFile: MyFile = this.mList?.get(position)!!
@@ -79,7 +79,7 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
         var name = file.name
         name = name.replace(extension!!, "")
         holder.name_view.text =name
-        var datefile: SimpleDateFormat = SimpleDateFormat("hh:mm aa, dd MMMM yyyy")
+        var datefile: SimpleDateFormat = SimpleDateFormat("dd.MM.yyyy")
         holder.date_file.text = datefile.format(Date(File(myFile.path).lastModified()))
         var sizeOfFile = ((File(myFile.path).length() / (1024.0)).toFloat())
         holder.size_file.text = "%.2f KB".format(sizeOfFile)
