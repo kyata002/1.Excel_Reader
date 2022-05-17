@@ -276,13 +276,20 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
                 //App.database?.favoriteDAO()?.delete(myFile.path)
                 file.renameTo(newFile)
                 val favourite = App.database?.favoriteDAO()?.getFile(myFile.path)
-                favourite?.path = newFile.path
-                App.database?.favoriteDAO()?.update(favourite)
+                if(favourite != null){
+                    favourite?.path = newFile.path
+                    App.database?.favoriteDAO()?.update(favourite)
+                }
                 myFile.path = newFile.path
                 notifyDataSetChanged()
                 context.sendBroadcast(
                     Intent(
                         Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(newFile)
+                    )
+                )
+                context.sendBroadcast(
+                    Intent(
+                        Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(file)
                     )
                 )
             }

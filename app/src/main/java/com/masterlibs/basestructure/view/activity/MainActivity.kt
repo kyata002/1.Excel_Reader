@@ -22,15 +22,12 @@ import com.common.control.utils.PermissionUtils
 import com.documentmaster.documentscan.OnActionCallback
 import com.documentmaster.documentscan.extention.hide
 import com.documentmaster.documentscan.extention.show
-import com.documentmaster.documentscan.extention.showInterAd
 import com.docxmaster.docreader.base.BaseActivity
+import com.google.ads.AdSize.SMART_BANNER
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
-import com.google.android.gms.ads.FullScreenContentCallback
-import com.google.android.gms.ads.LoadAdError
-import com.google.android.gms.ads.MobileAds.*
-import com.google.android.gms.ads.interstitial.InterstitialAd
-import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import com.masterlibs.basestructure.App
 import com.masterlibs.basestructure.R
 import com.masterlibs.basestructure.model.MyFile
@@ -40,6 +37,7 @@ import com.masterlibs.basestructure.view.dialog.FilterDialog
 import com.masterlibs.basestructure.view.dialog.PermissionDialog
 import com.pdfreaderdreamw.pdfreader.view.widget.CustomEditText
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.dialog_rename.*
 
 class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseActivity() {
     private var fileList: java.util.ArrayList<MyFile> = ArrayList()
@@ -93,7 +91,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
             btn_allfile.setTypeface(null, Typeface.NORMAL)
             btn_favourite.setTextColor(Color.parseColor("#ffffff"))
             btn_allfile.setBackgroundResource(R.drawable.ic_bg_btn_no)
-            btn_allfile.setTextColor(Color.parseColor("#000000"))
+            btn_allfile.setTextColor(Color.parseColor("#838388"))
             Thread {
                 fileList = fileListTempFavourite
                 runOnUiThread {
@@ -237,7 +235,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         btn_allfile.setBackgroundResource(R.drawable.ic_bg_btn_yes)
         btn_allfile.setTextColor(Color.parseColor("#ffffff"))
         btn_favourite.setBackgroundResource(R.drawable.ic_bg_btn_no)
-        btn_favourite.setTextColor(Color.parseColor("#000000"))
+        btn_favourite.setTextColor(Color.parseColor("#838388"))
         when (FilterDialog.currentStatus) {
             0 -> {
                 fileadapter?.sortByNameAZ(fileListTemp)
@@ -321,11 +319,16 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         }
         return mlist
     }
+//    override fun onResume() {
+//        super.onResume()
+//        clickAllAfile()
+//    }
 
+    @SuppressLint("MissingPermission")
     private fun executeLoadFile() {
-        if (checkPermission()) {
-
+        if (checkPermission()){
             clickAllAfile()
+           // loadads()
         }
         else {
             PermissionDialog.start(this, "permission", object : OnActionCallback{
