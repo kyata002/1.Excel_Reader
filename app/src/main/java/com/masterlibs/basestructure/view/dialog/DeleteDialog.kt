@@ -28,12 +28,12 @@ class DeleteDialog(override val layoutId: Int = R.layout.dialog_delete) : BaseAc
     }
 
     override fun initView() {
-        tvNameDelete.text =  nameFile
+        tvNameDelete.text = "$nameFile?"
         border_delete.setOnClickListener {
-
+            finish()
         }
         border_delete_dialog.setOnClickListener {
-            finish()
+
         }
 
     }
