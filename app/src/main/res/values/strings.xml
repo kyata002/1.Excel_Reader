@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Excel Reader</string>
-    <string name="share"><font face="@font/poppins_regular" color="#838388">Share</font></string>
-    <string name="detail"><font face="@font/poppins_regular" color="#838388">Detail</font></string>
-    <string name="rename"><font face="@font/poppins_regular" color="#838388">Rename</font></string>
-    <string name="delete"><font face="@font/poppins_regular" color="#838388">Delete</font></string>
+    <string name="share"><font face="@font/poppins_regular" color="#3C3C3C"><big>Share</big></font></string>
+    <string name="detail"><font face="@font/poppins_regular" color="#3C3C3C"><big>Detail</big></font></string>
+    <string name="rename"><font face="@font/poppins_regular" color="#3C3C3C"><big>Rename</big></font></string>
+    <string name="delete"><font face="@font/poppins_regular" color="#3C3C3C"><big>Delete</big></font></string>
 </resources>

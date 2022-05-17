@@ -35,14 +35,8 @@ class SplashActivity(override val layoutId: Int = R.layout.activity_splash) : Ba
                 }
                 return@Runnable
             }
-            internAds?.fullScreenContentCallback = object : FullScreenContentCallback(){
-                override fun onAdDismissedFullScreenContent() {
-                    super.onAdDismissedFullScreenContent()
-                    startActivity(intent1)
-                    finish()
-                }
-            }
-            internAds?.show(this)
+            startActivity(intent1)
+            finish()
             },
             5000)
 

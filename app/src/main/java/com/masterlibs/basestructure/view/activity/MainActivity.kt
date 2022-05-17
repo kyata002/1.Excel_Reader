@@ -24,10 +24,10 @@ import com.documentmaster.documentscan.extention.hide
 import com.documentmaster.documentscan.extention.show
 import com.docxmaster.docreader.base.BaseActivity
 import com.google.ads.AdSize.SMART_BANNER
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdSize
-import com.google.android.gms.ads.AdView
-import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.*
+import com.google.android.gms.ads.MobileAds.initialize
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.masterlibs.basestructure.App
 import com.masterlibs.basestructure.R
 import com.masterlibs.basestructure.model.MyFile
@@ -217,7 +217,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
 
     private fun loadBannerAds() {
         val requestAds = AdRequest.Builder().build()
-        Ad_view.loadAd(requestAds)
+ //       Ad_view.loadAd(requestAds)
 //        Ad_View.adListener = object : AdListener() {
 //
 //        }

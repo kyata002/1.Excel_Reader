@@ -1,21 +1,23 @@
 package com.masterlibs.basestructure.utils;
 
 
+//import com.masterlibs.basestructure.view.activity.DocReaderActivity
+//import com.masterlibs.basestructure.view.activity.ReadFile
+//import kotlinx.android.synthetic.main.dialog_detail.view.*
+
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Build
-import android.os.StrictMode
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
-import androidx.appcompat.view.menu.MenuBuilder
-import androidx.appcompat.view.menu.MenuPopupHelper
-import androidx.appcompat.widget.PopupMenu
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.documentmaster.documentscan.OnActionCallback
 import com.docxmaster.docreader.base.BaseAdapter
@@ -24,17 +26,14 @@ import com.masterlibs.basestructure.R
 import com.masterlibs.basestructure.model.MyFile
 import com.masterlibs.basestructure.view.activity.DocReaderActivity
 import com.masterlibs.basestructure.view.activity.MainActivity
-//import com.masterlibs.basestructure.view.activity.DocReaderActivity
-//import com.masterlibs.basestructure.view.activity.ReadFile
 import com.masterlibs.basestructure.view.dialog.DeleteDialog
 import com.masterlibs.basestructure.view.dialog.DetailDialog
 import com.masterlibs.basestructure.view.dialog.RenameDialog
 import kotlinx.android.synthetic.main.dialog_rename.*
-//import kotlinx.android.synthetic.main.dialog_detail.view.*
+import kotlinx.android.synthetic.main.popup_menu_more_layout.view.*
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
@@ -59,7 +58,7 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
     override fun onBindView(viewHolder: RecyclerView.ViewHolder?, position: Int) {
         val holder: FViewHolder = viewHolder as FViewHolder
         val myFile: MyFile = this.mList?.get(position)!!
-        var extension:String? = null
+        var extension: String? = null
         holder.img_view.setImageResource(R.drawable.ic_xlsx)
         val file = File(myFile.path)
         if (!file.isDirectory) {
@@ -78,7 +77,7 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
         }
         var name = file.name
         name = name.replace(extension!!, "")
-        holder.name_view.text =name
+        holder.name_view.text = name
         var datefile: SimpleDateFormat = SimpleDateFormat("dd.MM.yyyy")
         holder.date_file.text = datefile.format(Date(File(myFile.path).lastModified()))
         var sizeOfFile = ((File(myFile.path).length() / (1024.0)).toFloat())
@@ -113,22 +112,49 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
 
 
         holder.more_options.setOnClickListener {
-            val pm = PopupMenu(context, holder.more_options)
-            pm.menuInflater.inflate(R.menu.popup_menu_more, pm.menu)
-            pm.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener {
-                when (it.itemId) {
-                    R.id.share -> AppUtils.sharefile(File(myFile.path),context)
-                    R.id.delete -> showDelete(myFile)
-                    R.id.rename -> showRename(myFile)
-                    R.id.detail -> showDetail(myFile)
-                }
-                true
-            })
-//            pm.show()
-            val ph = MenuPopupHelper(context, pm.menu as MenuBuilder, holder.more_options)
-            ph.setForceShowIcon(true)
-            ph.show()
+            val layout: View =LayoutInflater.from(context).inflate(R.layout.popup_menu_more_layout,null)
+            var changeSortPopUp = PopupWindow(context);
+            changeSortPopUp.contentView = layout;
+            changeSortPopUp.width = 500;
+            changeSortPopUp.height = LinearLayout.LayoutParams.WRAP_CONTENT;
+            changeSortPopUp.isFocusable = true;
+            changeSortPopUp.setBackgroundDrawable(BitmapDrawable())
+            changeSortPopUp.showAsDropDown(it)
+            layout.share_file.setOnClickListener {
+                AppUtils.sharefile(File(myFile.path),context)
+                changeSortPopUp.dismiss()
+            }
+            layout.rename_file.setOnClickListener {
+                showRename(myFile)
+                changeSortPopUp.dismiss()
+            }
+            layout.detail_file.setOnClickListener {
+                showDetail(myFile)
+                changeSortPopUp.dismiss()
+            }
+            layout.delete_file.setOnClickListener {
+                showDelete(myFile)
+                changeSortPopUp.dismiss()
+            }
+
+//            val pm = PopupMenu(context, holder.more_options)
+//            pm.menuInflater.inflate(R.menu.popup_menu_more, pm.menu)
+//            pm.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener {
+//                when (it.itemId) {
+//                    R.id.share -> AppUtils.sharefile(File(myFile.path),context)
+//                    R.id.delete -> showDelete(myFile)
+//                    R.id.rename -> showRename(myFile)
+//                    R.id.detail -> showDetail(myFile)
+//                }
+//                true
+//            })
+////            pm.show()
+//            val ph = MenuPopupHelper(context, pm.menu as MenuBuilder, holder.more_options)
+//            ph.setForceShowIcon(true)
+//            ph.show()
         }
+
+
     }
 
     private fun checkFavourite(path: String?): Boolean {
@@ -182,8 +208,7 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
                 var text = p0.toString()
                 if (text.isEmpty()) {
                     listFile = temp
-                }
-                else if (text[0] != ' ') {
+                } else if (text[0] != ' ') {
                     temp?.forEach {
                         if (File(it.path).name.toLowerCase().contains(text.toLowerCase())) {
                             list.add(it)
@@ -238,7 +263,7 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
             override fun callback(key: String?, vararg data: Any?) {
                 when {
                     key.equals("delete") -> {
-                       val b= File(myFile.path).delete()
+                        val b = File(myFile.path).delete()
                         mList?.indexOf(myFile)?.let { notifyItemRemoved(it) }
                         mList?.remove(myFile)
                         App.database?.favoriteDAO()?.delete(myFile.path)
@@ -252,8 +277,6 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
         })
 
     }
-
-
 
 
     fun showDetail(myFile: MyFile) {
@@ -270,13 +293,13 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
     fun showRename(myFile: MyFile) {
         RenameDialog.start(context, myFile.path, object : OnActionCallback {
             override fun callback(key: String?, vararg data: Any?) {
-                val newName = data[0] as String
+                val newName = data[0].toString()
                 val file = File(myFile.path)
                 val newFile = File(file.parent + "/" + newName)
                 //App.database?.favoriteDAO()?.delete(myFile.path)
                 file.renameTo(newFile)
                 val favourite = App.database?.favoriteDAO()?.getFile(myFile.path)
-                if(favourite != null){
+                if (favourite != null) {
                     favourite?.path = newFile.path
                     App.database?.favoriteDAO()?.update(favourite)
                 }
