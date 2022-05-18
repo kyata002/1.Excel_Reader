@@ -111,7 +111,7 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
                 App.database?.favoriteDAO()?.list as java.util.ArrayList<MyFile>
             notifyDataSetChanged()
         }
-        holder.viewFile.setOnClickListener {
+        holder.itemView.setOnClickListener {
             showRead(myFile)
         }
 
