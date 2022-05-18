@@ -88,7 +88,9 @@
                     android:hint="Find the document"
                     android:textColor="#fff"
                     android:textColorHint="#FFF"
-                    android:textSize="@dimen/_13sdp" />
+                    android:textSize="@dimen/_13sdp"
+                    android:theme="@style/CustomEditTextView"
+                    android:textCursorDrawable="@drawable/cursor_color" />
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/clear_bt"
                     android:layout_width="@dimen/_14sdp"

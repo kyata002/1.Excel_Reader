@@ -95,9 +95,9 @@ class DocReaderActivity : BaseDocActivity() {
 //            startActivity(back)
             finish()
         }
-        btn_print.setOnClickListener {
-            printPdfFile(this, Uri.fromFile(File(path)))
-        }
+//        btn_print.setOnClickListener {
+//            printPdfFile(this, Uri.fromFile(File(path)))
+//        }
         btn_share.setOnClickListener {
             AppUtils.sharefile(File(path),this)
 

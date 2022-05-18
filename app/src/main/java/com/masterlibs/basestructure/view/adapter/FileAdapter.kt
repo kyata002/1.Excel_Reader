@@ -6,10 +6,10 @@ package com.masterlibs.basestructure.utils;
 //import kotlinx.android.synthetic.main.dialog_detail.view.*
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.graphics.drawable.BitmapDrawable
+import android.graphics.Color
+import android.graphics.Typeface
 import android.net.Uri
 import android.os.Build
 import android.view.Gravity
@@ -18,6 +18,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.documentmaster.documentscan.OnActionCallback
 import com.docxmaster.docreader.base.BaseAdapter
@@ -29,6 +30,10 @@ import com.masterlibs.basestructure.view.activity.MainActivity
 import com.masterlibs.basestructure.view.dialog.DeleteDialog
 import com.masterlibs.basestructure.view.dialog.DetailDialog
 import com.masterlibs.basestructure.view.dialog.RenameDialog
+import com.skydoves.powermenu.MenuAnimation
+import com.skydoves.powermenu.OnMenuItemClickListener
+import com.skydoves.powermenu.PowerMenu
+import com.skydoves.powermenu.PowerMenuItem
 import kotlinx.android.synthetic.main.dialog_rename.*
 import kotlinx.android.synthetic.main.popup_menu_more_layout.view.*
 import java.io.File
@@ -39,7 +44,7 @@ import java.util.*
 class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
     BaseAdapter<MyFile>(mList, context), Filterable {
     //    var sizeOfFile: Float = 0f
-
+    private var powerMenu: PowerMenu? = null
     private var temp: ArrayList<MyFile> = ArrayList()
     override fun viewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_file, parent, false)
@@ -54,7 +59,7 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
     }
 
     @RequiresApi(Build.VERSION_CODES.S)
-    @SuppressLint("RestrictedApi", "SimpleDateFormat")
+    @SuppressLint("RestrictedApi", "SimpleDateFormat", "ResourceType")
     override fun onBindView(viewHolder: RecyclerView.ViewHolder?, position: Int) {
         val holder: FViewHolder = viewHolder as FViewHolder
         val myFile: MyFile = this.mList?.get(position)!!
@@ -88,11 +93,11 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
             holder.bottom_line.setImageResource(R.drawable.ic_linesperate)
         }
         if (!checkFavourite(myFile.path)) {
-            holder.favorite_checked.setButtonDrawable(R.drawable.ic_favorite)
+            holder.favorite_checked.setButtonDrawable(R.drawable.ic_unfavorite)
             myFile.isFavorite = true
         } else {
             myFile.isFavorite = false
-            holder.favorite_checked.setButtonDrawable(R.drawable.ic_favorite_true)
+            holder.favorite_checked.setButtonDrawable(R.drawable.ic_favorite)
         }
 //        holder.sizeFile.text = "%.2f Mb".format(sizeOfFile)
         holder.favorite_checked.setOnCheckedChangeListener { compoundButton, b ->
@@ -106,36 +111,82 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
                 App.database?.favoriteDAO()?.list as java.util.ArrayList<MyFile>
             notifyDataSetChanged()
         }
-        holder.itemView.setOnClickListener {
+        holder.viewFile.setOnClickListener {
             showRead(myFile)
         }
 
 
         holder.more_options.setOnClickListener {
-            val layout: View =LayoutInflater.from(context).inflate(R.layout.popup_menu_more_layout,null)
-            var changeSortPopUp = PopupWindow(context);
-            changeSortPopUp.contentView = layout;
-            changeSortPopUp.width = 500;
-            changeSortPopUp.height = LinearLayout.LayoutParams.WRAP_CONTENT;
-            changeSortPopUp.isFocusable = true;
-            changeSortPopUp.setBackgroundDrawable(BitmapDrawable())
-            changeSortPopUp.showAsDropDown(it)
-            layout.share_file.setOnClickListener {
-                AppUtils.sharefile(File(myFile.path),context)
-                changeSortPopUp.dismiss()
-            }
-            layout.rename_file.setOnClickListener {
-                showRename(myFile)
-                changeSortPopUp.dismiss()
-            }
-            layout.detail_file.setOnClickListener {
-                showDetail(myFile)
-                changeSortPopUp.dismiss()
-            }
-            layout.delete_file.setOnClickListener {
-                showDelete(myFile)
-                changeSortPopUp.dismiss()
-            }
+            powerMenu = PowerMenu.Builder(context)
+                //.addItemList(list) // list has "Novel", "Poerty", "Art"
+                .addItem(PowerMenuItem("Share", R.drawable.ic_btn_share, false)) // add an item.
+                .addItem(PowerMenuItem("Rename", R.drawable.ic_renamesvg, false))
+                .addItem(PowerMenuItem("Details", R.drawable.ic_detail, false)) // add an item.
+                .addItem(PowerMenuItem("Delete", R.drawable.ic_delete, false)) // aad an item list.
+//                .setAnimation(MenuAnimation.SHOWUP_TOP_LEFT) // Animation start point (TOP | LEFT).
+                .setMenuRadius(36f)
+                .setSize(200*MainActivity.width/160, 280*MainActivity.height/160)
+                .setPadding(16)// sets the corner radius.
+                .setMenuShadow(10f) // sets the shadow.
+                .setIconSize(32)
+                .setTextSize(16)
+                .setIconPadding(2)
+                .setMenuColor(0)
+                .setBackgroundColor(Color.TRANSPARENT)
+                .setOnBackgroundClickListener {
+                    powerMenu?.dismiss()
+                }
+                //.setTextColor(ContextCompat.getColor(context, Color.parseColor("#3C3C3C")))
+                .setTextGravity(Gravity.LEFT)
+                .setTextTypeface(Typeface.create("font/poppins_regular.ttf", Typeface.NORMAL))
+                .setSelectedTextColor(Color.WHITE)
+                .setMenuColor(Color.WHITE)
+                .setSelectedMenuColor(ContextCompat.getColor(context, R.color.colorPrimary))
+                .setOnMenuItemClickListener(OnMenuItemClickListener { position, item ->
+                    when (item.title) {
+                        "Share" -> {
+                            AppUtils.sharefile(File(myFile.path),context)
+                        }
+                        "Rename" -> {
+                            showRename(myFile)
+                        }
+                        "Detail" -> {
+                            showDetail(myFile)
+                        }
+                        "Delete" -> {
+                            showDelete(myFile)
+                        }
+                    }
+                    powerMenu!!.dismiss()
+
+                })
+                .build()
+            powerMenu?.showAsDropDown(it);
+
+//            val layout: View =LayoutInflater.from(context).inflate(R.layout.popup_menu_more_layout,null)
+//            var changeSortPopUp = PopupWindow(context);
+//            changeSortPopUp.contentView = layout;
+//            changeSortPopUp.width = 500;
+//            changeSortPopUp.height = LinearLayout.LayoutParams.WRAP_CONTENT;
+//            changeSortPopUp.isFocusable = true;
+//            changeSortPopUp.setBackgroundDrawable(BitmapDrawable())
+//            changeSortPopUp.showAsDropDown(it)
+//            layout.share_file.setOnClickListener {
+//                AppUtils.sharefile(File(myFile.path),context)
+//                changeSortPopUp.dismiss()
+//            }
+//            layout.rename_file.setOnClickListener {
+//                showRename(myFile)
+//                changeSortPopUp.dismiss()
+//            }
+//            layout.detail_file.setOnClickListener {
+//                showDetail(myFile)
+//                changeSortPopUp.dismiss()
+//            }
+//            layout.delete_file.setOnClickListener {
+//                showDelete(myFile)
+//                changeSortPopUp.dismiss()
+//            }
 
 //            val pm = PopupMenu(context, holder.more_options)
 //            pm.menuInflater.inflate(R.menu.popup_menu_more, pm.menu)
@@ -238,8 +289,8 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
 
     inner class FViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val img_view: ImageView
-
-        val more_options: Button
+        val viewFile : LinearLayout
+        val more_options: FrameLayout
         val name_view: TextView
         val date_file: TextView
         val favorite_checked: CheckBox
@@ -248,6 +299,7 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
 
         init {
             img_view = itemView.findViewById(R.id.img_view_file)
+            viewFile = itemView.findViewById(R.id.view_file)
             more_options = itemView.findViewById(R.id.more_options)
             name_view = itemView.findViewById(R.id.name_file)
             date_file = itemView.findViewById(R.id.date_file)

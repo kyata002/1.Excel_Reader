@@ -16,5 +16,7 @@
         <!-- Used for the background -->
         <item name="android:background">@android:color/white</item>
     </style>
-
+    <style name="CustomEditTextView" parent="TextAppearance.AppCompat">
+        <item name="colorAccent">#02723B</item>
+    </style>
 </resources>

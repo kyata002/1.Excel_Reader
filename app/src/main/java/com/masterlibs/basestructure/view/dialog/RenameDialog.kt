@@ -94,18 +94,24 @@ class RenameDialog(override val layoutId: Int = R.layout.dialog_rename) : BaseAc
         bt_save.setOnClickListener {
             val text = edit_name.text.toString().trim()
             if (TextUtils.isEmpty(text)) {
-                edit_name.error = "Error"
+                shape_edit_text.setBackgroundResource(R.drawable.sahpe_edittext_error)
+                clear_bt_reanme.setImageResource(0)
+                error_text.text = "Please enter file name"
                 return@setOnClickListener
             }
-            val selectName = (text + extension)
+            else{
+                clear_bt_reanme.setImageResource(R.drawable.ic_clear_rename)
+                val selectName = (text + extension)
 
-            if (File(file.parentFile,selectName).exists()) {
-                edit_name.error = "File đã tồn tại, nhập lại"
-                shape_edit_text.setBackgroundResource(R.drawable.sahpe_edittext_error)
-            } else {
-                shape_edit_text.setBackgroundResource(R.drawable.sahpe_edittext)
-                callback?.callback(null, selectName)
-                finish()
+                if (File(file.parentFile,selectName).exists()) {
+                    shape_edit_text.setBackgroundResource(R.drawable.sahpe_edittext_error)
+                    error_text.text = "That file name is already existed"
+                } else {
+                    error_text.text = ""
+                    shape_edit_text.setBackgroundResource(R.drawable.sahpe_edittext)
+                    callback?.callback(null, selectName)
+                    finish()
+                }
             }
 
 //            if (extension == null || text.endsWith(extension!!)) {

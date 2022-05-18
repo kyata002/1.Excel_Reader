@@ -15,16 +15,21 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-                <ImageButton
+                <FrameLayout
                     android:foreground="?attr/selectableItemBackgroundBorderless"
                     android:id="@+id/btn_back"
-                    android:background="@drawable/ic_btn_back"
-                    android:layout_gravity="center|left"
-                    android:layout_marginLeft="@dimen/_16sdp"
-                    android:layout_width="@dimen/_18sdp"
-                    android:layout_height="@dimen/_18sdp"/>
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:background="@drawable/ic_btn_back"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/_8sdp"
+                        android:layout_marginRight="@dimen/_8sdp"
+                        android:layout_width="@dimen/_18sdp"
+                        android:layout_height="@dimen/_18sdp"/>
+                </FrameLayout>
                 <TextView
-                    android:layout_marginLeft="@dimen/_20sdp"
+                    android:layout_marginLeft="@dimen/_8sdp"
                     android:singleLine="true"
                     android:id="@+id/name_file_read"
                     android:textColor="#fff"
@@ -32,7 +37,7 @@
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:layout_width="0dp"
-                    android:textSize="@dimen/_12sdp"
+                    android:textSize="@dimen/_14sdp"
                     android:layout_height="wrap_content"/>
                 <ImageButton
                     android:foreground="?attr/selectableItemBackgroundBorderless"
@@ -40,17 +45,17 @@
                     android:background="@drawable/ic_share"
                     android:layout_gravity="center"
                     android:layout_marginLeft="@dimen/_20sdp"
-                    android:layout_marginRight="@dimen/_14sdp"
-                    android:layout_width="@dimen/_24sdp"
-                    android:layout_height="@dimen/_24sdp"/>
-                <ImageButton
-                    android:foreground="?attr/selectableItemBackgroundBorderless"
-                    android:id="@+id/btn_print"
-                    android:background="@drawable/ic_print"
-                    android:layout_gravity="center"
-                    android:layout_marginRight="@dimen/_16sdp"
-                    android:layout_width="@dimen/_24sdp"
-                    android:layout_height="@dimen/_24sdp"/>
+                    android:layout_marginRight="@dimen/_8sdp"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"/>
+<!--                <ImageButton-->
+<!--                    android:foreground="?attr/selectableItemBackgroundBorderless"-->
+<!--                    android:id="@+id/btn_print"-->
+<!--                    android:background="@drawable/ic_print"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:layout_marginRight="@dimen/_16sdp"-->
+<!--                    android:layout_width="@dimen/_24sdp"-->
+<!--                    android:layout_height="@dimen/_24sdp"/>-->
             </LinearLayout>
 
         </LinearLayout>

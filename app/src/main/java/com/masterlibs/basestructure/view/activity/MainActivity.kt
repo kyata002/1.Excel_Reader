@@ -15,8 +15,10 @@ import android.os.Environment
 import android.provider.Settings
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.DisplayMetrics
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.common.control.utils.PermissionUtils
 import com.documentmaster.documentscan.OnActionCallback
@@ -38,15 +40,18 @@ import com.masterlibs.basestructure.view.dialog.PermissionDialog
 import com.pdfreaderdreamw.pdfreader.view.widget.CustomEditText
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.dialog_rename.*
+import kotlin.math.roundToInt
 
 class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseActivity() {
     private var fileList: java.util.ArrayList<MyFile> = ArrayList()
     var fileadapter: FileAdapter? = null
     var internAds : InterstitialAd? = null
-
-
+    val dm = DisplayMetrics()
     @SuppressLint("RestrictedApi")
     override fun initView() {
+        windowManager.defaultDisplay.getMetrics(dm)
+        width = dm.xdpi.roundToInt()
+        height = dm.ydpi.roundToInt()
         initialize(this){}
         btn_favourite.setTypeface(Typeface.DEFAULT, Typeface.NORMAL)
         //loadBannerAds()
@@ -295,6 +300,8 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
         )
+        var width = 0
+        var height = 0
         const val RQC_REQUEST_PERMISSION_ANDROID_11 = 333
         val UPDATE_SEARCH = "update_search"
         val UPDATE_SEARCH_HAVE_RESULT = "have_result"

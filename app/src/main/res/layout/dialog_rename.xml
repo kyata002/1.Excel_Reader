@@ -42,21 +42,24 @@
 
             <com.common.control.widget.CustomEdittext
                 android:id="@+id/edit_name"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="0dp"
                 android:layout_weight="1"
+                android:layout_height="match_parent"
                 android:background="#0000"
                 android:backgroundTint="#FFF"
                 android:fontFamily="@font/poppins_regular"
                 android:hint="Enter name"
                 android:imeOptions="actionDone"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
+                android:paddingStart="@dimen/_8sdp"
                 android:singleLine="true"
                 android:textColor="#3C3C3C"
+                android:textColorHint="#3C3C3C"
+                android:textColorHighlight="#3302723B"
+                android:textCursorDrawable="@drawable/cursor_color"
                 android:textFontWeight="500"
                 android:textSize="@dimen/_12sdp"
-                android:textStyle="bold">
+                android:textStyle="bold"
+                android:theme="@style/CustomEditTextView">
 
                 <requestFocus />
             </com.common.control.widget.CustomEdittext>
@@ -65,12 +68,22 @@
                 android:id="@+id/clear_bt_reanme"
                 android:layout_width="@dimen/_16sdp"
                 android:layout_height="@dimen/_16sdp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="@dimen/_8sdp"
-                android:layout_marginRight="@dimen/_4sdp"
+                android:layout_gravity="center|right"
+                android:layout_marginLeft="@dimen/_16sdp"
+                android:layout_marginStart="@dimen/_8sdp"
                 android:foreground="?attr/selectableItemBackgroundBorderless" />
         </LinearLayout>
-
+        <TextView
+            android:id="@+id/error_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="right"
+            android:paddingRight="@dimen/_2sdp"
+            android:textSize="@dimen/_8sdp"
+            android:textColor="#E53D41"/>
         <androidx.appcompat.widget.LinearLayoutCompat
 
             android:layout_width="match_parent"
