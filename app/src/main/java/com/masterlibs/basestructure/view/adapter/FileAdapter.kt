@@ -150,7 +150,7 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
                         "Rename" -> {
                             showRename(myFile)
                         }
-                        "Detail" -> {
+                        "Details" -> {
                             showDetail(myFile)
                         }
                         "Delete" -> {
