@@ -13,8 +13,8 @@ android {
         applicationId "com.xlsx.file.reader.xlsx.excel.viewer.spreadsheets.reader"
         minSdk 22
         targetSdk 32
-        versionCode 1
-        versionName "1.0.0"
+        versionCode 2
+        versionName "1.0.1"
         def formattedDate = new Date().format('hh.mm.MM.dd.yyyy')
         archivesBaseName = "ExcelReader_V${versionName}_${formattedDate}"
 
@@ -57,7 +57,6 @@ android {
 
             addConstantTo(owner, "banner_doc", "ca-app-pub-3940256099942544/6300978111")
 
-
         }
 
         vOfficial_ {
@@ -71,18 +70,18 @@ android {
                 target.manifestPlaceholders += [(constantName): constantValue]
                 target.buildConfigField "String", "${constantName}", "\"${constantValue}\""
             }
-            addConstantTo(owner, "APP_ID", "ca-app-pub-3940256099942544~3347511713")
+            addConstantTo(owner, "APP_ID", "ca-app-pub-3270179691816977~3313589082")
 
-            addConstantTo(owner, "inter_splash", "ca-app-pub-3940256099942544/8691691433")
-            addConstantTo(owner, "inter_open_other_app", "ca-app-pub-3940256099942544/1033173712")
-            addConstantTo(owner, "inter_read_file", "ca-app-pub-3940256099942544/1033173712")
+            addConstantTo(owner, "inter_splash", "ca-app-pub-3270179691816977/9495854054")
+            addConstantTo(owner, "inter_open_other_app", "ca-app-pub-3270179691816977/7991200698")
+            addConstantTo(owner, "inter_read_file", "ca-app-pub-3270179691816977/5173465661")
 
-            addConstantTo(owner, "native_home", "ca-app-pub-3940256099942544/2247696110")
-            addConstantTo(owner, "native_setting", "ca-app-pub-3940256099942544/2247696110")
+            addConstantTo(owner, "native_home", "ca-app-pub-3270179691816977/6103403956")
+            addConstantTo(owner, "native_setting", "ca-app-pub-3270179691816977/6777357222")
 
-            addConstantTo(owner, "open_app", "ca-app-pub-3940256099942544/3419835294")
+            addConstantTo(owner, "open_app", "ca-app-pub-3270179691816977/7033342248")
 
-            addConstantTo(owner, "banner_doc", "ca-app-pub-3940256099942544/6300978111")
+            addConstantTo(owner, "banner_doc", "ca-app-pub-3270179691816977/5459857383")
         }
     }
 

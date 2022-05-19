@@ -1,0 +1,43 @@
+package com.masterexcels.excelreader.model;
+
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+import java.io.Serializable;
+
+@Entity(tableName = "file_table")
+public class MyFile implements Serializable {
+    @PrimaryKey(autoGenerate = true)
+    private int id;
+    private String path;
+    private boolean isFavorite = false;
+
+    public MyFile(String path) {
+        this.path = path;
+    }
+
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public String getPath() {
+        return path;
+    }
+}
+

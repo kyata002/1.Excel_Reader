@@ -40,13 +40,21 @@
         <entry key="..\:/Users/vipvl/AndroidStudioProjects/Excel Reader/app/src/main/res/layout/dialog_filter.xml" value="0.2919369786839666" />
         <entry key="..\:/Users/vipvl/AndroidStudioProjects/Excel Reader/app/src/main/res/layout/dialog_rename.xml" value="0.15220179563916203" />
         <entry key="..\:/Users/vipvl/AndroidStudioProjects/Excel Reader/app/src/main/res/layout/item_file.xml" value="0.5" />
+        <entry key="..\:/wordkspace/demo/excel-reader/app/src/main/res/drawable-v24/ic_more.xml" value="0.192" />
+        <entry key="..\:/wordkspace/demo/excel-reader/app/src/main/res/drawable/ic_favorite_check.xml" value="0.192" />
+        <entry key="..\:/wordkspace/demo/excel-reader/app/src/main/res/drawable/ic_icon_app.xml" value="0.192" />
+        <entry key="..\:/wordkspace/demo/excel-reader/app/src/main/res/drawable/ic_unfavorite.xml" value="0.327" />
         <entry key="..\:/wordkspace/demo/excel-reader/app/src/main/res/drawable/shape.xml" value="0.236" />
         <entry key="..\:/wordkspace/demo/excel-reader/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/wordkspace/demo/excel-reader/app/src/main/res/layout/activity_reader.xml" value="0.3609375" />
         <entry key="..\:/wordkspace/demo/excel-reader/app/src/main/res/layout/activity_setting.xml" value="0.22" />
         <entry key="..\:/wordkspace/demo/excel-reader/app/src/main/res/layout/custom_native.xml" value="0.3609375" />
         <entry key="..\:/wordkspace/demo/excel-reader/app/src/main/res/layout/dialog_delete.xml" value="0.3609375" />
+        <entry key="..\:/wordkspace/demo/excel-reader/app/src/main/res/layout/item_file.xml" value="0.3609375" />
         <entry key="..\:/wordkspace/demo/excel-reader/app/src/main/res/layout/item_native.xml" value="0.3609375" />
+        <entry key="..\:/wordkspace/demo/excel-reader/app/src/main/res/menu/popup_menu_more.xml" value="0.3609375" />
+        <entry key="..\:/wordkspace/demo/excel-reader/app/src/main/res/menu/popup_sort.xml" value="0.3609375" />
+        <entry key="..\:/wordkspace/demo/excel-reader/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.192" />
       </map>
     </option>
   </component>

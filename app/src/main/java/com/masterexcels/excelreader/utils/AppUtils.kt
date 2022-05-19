@@ -1,0 +1,28 @@
+package com.masterexcels.excelreader.utils
+
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
+import android.os.StrictMode
+import java.io.File
+
+class AppUtils {
+    companion object {
+        fun sharefile(file: File, context:Context){
+            val intentShareFile = Intent(Intent.ACTION_SEND)
+            val fileWithinMyDir: File = File(file.path)
+            val builder = StrictMode.VmPolicy.Builder()
+            StrictMode.setVmPolicy(builder.build())
+            if (fileWithinMyDir.exists()) {
+                intentShareFile.type = "application/xlsx"
+                intentShareFile.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(fileWithinMyDir))
+                intentShareFile.putExtra(
+                    Intent.EXTRA_SUBJECT,
+                    ""
+                )
+                intentShareFile.putExtra(Intent.EXTRA_TEXT, "")
+                context.startActivity(Intent.createChooser(intentShareFile, "Share File"))
+            }
+        }
+    }
+}
