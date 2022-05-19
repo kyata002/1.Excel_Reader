@@ -4,4 +4,6 @@
     <string name="detail"><font face="@font/poppins_regular" color="#3C3C3C"><big>Detail</big></font></string>
     <string name="rename"><font face="@font/poppins_regular" color="#3C3C3C"><big>Rename</big></font></string>
     <string name="delete"><font face="@font/poppins_regular" color="#3C3C3C"><big>Delete</big></font></string>
+    <string name="thank_you">Thank you for your reviewing</string>
+    <string name="click_back_again">Press again to exit</string>
 </resources>

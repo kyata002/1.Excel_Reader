@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "abc",
-    "project_id": "abc",
-    "storage_bucket": "abc"
+    "project_number": "204605510655",
+    "project_id": "excel-reader-4d86a",
+    "storage_bucket": "excel-reader-4d86a.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "abc",
+        "mobilesdk_app_id": "1:204605510655:android:e4657138ac65ad17eb8dca",
         "android_client_info": {
-          "package_name": "com.masterlibs.basestructorf1"
+          "package_name": "com.xlsx.file.reader.xlsx.excel.viewer.spreadsheets.reader"
         }
       },
       "oauth_client": [
         {
-          "client_id": "abc",
+          "client_id": "204605510655-4k677tmturco96fbn8gsq8brkhke90nf.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "abc"
+          "current_key": "AIzaSyD-R26MTZyNWsKS_Z5O7MaFVcPe6Sf4nj0"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "abc",
+              "client_id": "204605510655-4k677tmturco96fbn8gsq8brkhke90nf.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

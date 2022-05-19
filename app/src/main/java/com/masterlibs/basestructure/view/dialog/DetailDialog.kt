@@ -1,5 +1,6 @@
 package com.masterlibs.basestructure.view.dialog
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import com.documentmaster.documentscan.OnActionCallback
@@ -16,16 +17,17 @@ class DetailDialog(override val layoutId: Int = R.layout.dialog_detail) : BaseAc
     companion object {
         var callback: OnActionCallback? = null
 
-        fun start(context: Context, pathFile:String, onActionCallback: OnActionCallback) {
+        @SuppressLint("SimpleDateFormat")
+        fun start(context: Context, pathFile: String, onActionCallback: OnActionCallback) {
             callback = onActionCallback
             val intent = Intent(context, DetailDialog::class.java)
             val file = File(pathFile)
-            var sizeOfFile = ((File(pathFile).length() / (1024.0)).toFloat())
-            var datefile: SimpleDateFormat = SimpleDateFormat("dd/MM/yyyy")
-            intent.putExtra("name",file.name )
-            intent.putExtra("path",file.path)
+            val sizeOfFile = ((File(pathFile).length() / (1024.0)).toFloat())
+            val datefile: SimpleDateFormat = SimpleDateFormat("dd/MM/yyyy")
+            intent.putExtra("name", file.name)
+            intent.putExtra("path", file.path)
             intent.putExtra("date", datefile.format(Date(File(pathFile).lastModified())))
-            intent.putExtra("size","%.2f KB".format(sizeOfFile))
+            intent.putExtra("size", "%.2f KB".format(sizeOfFile))
             context.startActivity(intent)
         }
     }

@@ -1,4 +1,4 @@
-package com.documentmaster.documentscan.extention
+package com.masterlibs.basestructure.extentions
 
 import android.app.Activity
 import android.content.Context
@@ -8,6 +8,8 @@ import com.common.control.interfaces.AdCallback
 import com.common.control.manager.AdmobManager
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.masterlibs.basestructure.AdCache
+import com.masterlibs.basestructure.BuildConfig
 
 fun Context.loadInterAd(id: String) {
     Log.d("android_log", ":load $id");
@@ -26,15 +28,9 @@ fun Context.loadInterAd(id: String) {
 
 private fun storeInter(id: String, inter: InterstitialAd?) {
     when (id) {
-//        BuildConfig.inter_orc -> {
-//            AdCache.interOrc = inter
-//        }
-//        BuildConfig.inter_open_doc -> {
-//            AdCache.interOpenDoc = inter
-//        }
-//        BuildConfig.inter_save_doc -> {
-//            AdCache.interSaveDoc = inter
-//        }
+        BuildConfig.inter_read_file -> {
+            AdCache.interReadFile = inter
+        }
     }
 }
 
@@ -53,17 +49,10 @@ fun Context.showInterAd(id: String) {
     Log.d("android_log", ":show $id");
     var interstitialAd: InterstitialAd? = null
     when (id) {
-//        BuildConfig.inter_orc -> {
-//            interstitialAd = AdCache.interOrc
-//        }
-//        BuildConfig.inter_open_doc -> {
-//            interstitialAd = AdCache.interOpenDoc
-//        }
-//        BuildConfig.inter_save_doc -> {
-//            interstitialAd = AdCache.interSaveDoc
-//        }
+        BuildConfig.inter_read_file -> {
+            interstitialAd = AdCache.interReadFile
+        }
     }
-
 
     AdmobManager.getInstance().showInterstitial(
         this as Activity,

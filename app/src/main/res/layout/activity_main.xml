@@ -64,19 +64,19 @@
                         android:layout_width="@dimen/_24sdp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/_8sdp"
-                        android:src="@drawable/ic_search"/>
+                        android:src="@drawable/ic_search" />
+
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/search_bt_back"
-                        android:foreground="?attr/selectableItemBackgroundBorderless"
                         android:layout_width="@dimen/_32sdp"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="@dimen/_8sdp" />
+                        android:layout_marginLeft="@dimen/_8sdp"
+                        android:foreground="?attr/selectableItemBackgroundBorderless" />
                 </FrameLayout>
 
 
                 <com.pdfreaderdreamw.pdfreader.view.widget.CustomEditText
                     android:id="@+id/search_bar"
-                    android:paddingTop="@dimen/_2sdp"
                     android:layout_width="370dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -86,22 +86,31 @@
                     android:fontFamily="@font/poppins_regular"
                     android:gravity="center|left"
                     android:hint="Find the document"
+                    android:paddingTop="@dimen/_2sdp"
                     android:textColor="#fff"
                     android:textColorHint="#FFF"
+                    android:textCursorDrawable="@drawable/cursor_color"
                     android:textSize="@dimen/_13sdp"
-                    android:theme="@style/CustomEditTextView"
-                    android:textCursorDrawable="@drawable/cursor_color" />
+                    android:theme="@style/CustomEditTextView" />
+
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/clear_bt"
                     android:layout_width="@dimen/_14sdp"
                     android:layout_height="@dimen/_14sdp"
                     android:layout_marginLeft="@dimen/_8sdp"
-                    android:layout_marginRight="@dimen/_8sdp"
-                     />
+                    android:layout_marginRight="@dimen/_8sdp" />
 
             </LinearLayout>
 
         </LinearLayout>
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/fr_ad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_8sdp">
+        <include layout="@layout/item_native" />
     </FrameLayout>
 
     <LinearLayout
@@ -118,13 +127,13 @@
             android:id="@+id/btn_allfile"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="50"
-            android:gravity="center"
             android:layout_gravity="center"
-            android:paddingTop="@dimen/_2sdp"
+            android:layout_weight="50"
             android:background="@drawable/ic_bg_btn_yes"
-            android:foreground="?attr/selectableItemBackgroundBorderless"
             android:fontFamily="@font/poppins_semibold"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:paddingTop="@dimen/_2sdp"
             android:text="All Files"
             android:textAllCaps="false"
             android:textColor="#fff"
@@ -134,14 +143,14 @@
             android:id="@+id/btn_favourite"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/_8sdp"
             android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/_8sdp"
             android:layout_weight="50"
-            android:gravity="center"
-            android:paddingTop="@dimen/_2sdp"
             android:background="@drawable/ic_bg_btn_no"
             android:fontFamily="@font/poppins_regular"
             android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:paddingTop="@dimen/_2sdp"
             android:text="Favourite"
             android:textAllCaps="false"
             android:textColor="#838388"
@@ -153,10 +162,10 @@
             android:layout_height="@dimen/_36sdp"
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/_8sdp"
-            android:foreground="?attr/selectableItemBackgroundBorderless"
             android:layout_marginRight="@dimen/_8sdp"
             android:layout_weight="1"
-            android:background="@drawable/ic_sort" />
+            android:background="@drawable/ic_sort"
+            android:foreground="?attr/selectableItemBackgroundBorderless" />
     </LinearLayout>
 
     <FrameLayout

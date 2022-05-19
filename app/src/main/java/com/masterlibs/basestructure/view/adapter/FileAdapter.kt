@@ -23,14 +23,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.documentmaster.documentscan.OnActionCallback
 import com.docxmaster.docreader.base.BaseAdapter
 import com.masterlibs.basestructure.App
+import com.masterlibs.basestructure.BuildConfig
 import com.masterlibs.basestructure.R
+import com.masterlibs.basestructure.extentions.showInterAd
 import com.masterlibs.basestructure.model.MyFile
 import com.masterlibs.basestructure.view.activity.DocReaderActivity
 import com.masterlibs.basestructure.view.activity.MainActivity
 import com.masterlibs.basestructure.view.dialog.DeleteDialog
 import com.masterlibs.basestructure.view.dialog.DetailDialog
 import com.masterlibs.basestructure.view.dialog.RenameDialog
-import com.skydoves.powermenu.MenuAnimation
 import com.skydoves.powermenu.OnMenuItemClickListener
 import com.skydoves.powermenu.PowerMenu
 import com.skydoves.powermenu.PowerMenuItem
@@ -125,7 +126,7 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
                 .addItem(PowerMenuItem("Delete", R.drawable.ic_delete, false)) // aad an item list.
 //                .setAnimation(MenuAnimation.SHOWUP_TOP_LEFT) // Animation start point (TOP | LEFT).
                 .setMenuRadius(36f)
-                .setSize(200*MainActivity.width/160, 280*MainActivity.height/160)
+                .setSize(200 * MainActivity.width / 160, 280 * MainActivity.height / 160)
                 .setPadding(16)// sets the corner radius.
                 .setMenuShadow(10f) // sets the shadow.
                 .setIconSize(32)
@@ -145,7 +146,7 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
                 .setOnMenuItemClickListener(OnMenuItemClickListener { position, item ->
                     when (item.title) {
                         "Share" -> {
-                            AppUtils.sharefile(File(myFile.path),context)
+                            AppUtils.sharefile(File(myFile.path), context)
                         }
                         "Rename" -> {
                             showRename(myFile)
@@ -289,7 +290,7 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
 
     inner class FViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val img_view: ImageView
-        val viewFile : LinearLayout
+        val viewFile: LinearLayout
         val more_options: FrameLayout
         val name_view: TextView
         val date_file: TextView
@@ -309,7 +310,7 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
         }
     }
 
-    fun showDelete(myFile: MyFile) {
+    private fun showDelete(myFile: MyFile) {
 
         DeleteDialog.start(context, File(myFile.path).name, object : OnActionCallback {
             override fun callback(key: String?, vararg data: Any?) {
@@ -331,7 +332,7 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
     }
 
 
-    fun showDetail(myFile: MyFile) {
+    private fun showDetail(myFile: MyFile) {
         DetailDialog.start(context, myFile.path, object : OnActionCallback {
             override fun callback(key: String?, vararg data: Any?) {
                 if (key.equals("ok")) {
@@ -342,7 +343,7 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
         })
     }
 
-    fun showRename(myFile: MyFile) {
+    private fun showRename(myFile: MyFile) {
         RenameDialog.start(context, myFile.path, object : OnActionCallback {
             override fun callback(key: String?, vararg data: Any?) {
                 val newName = data[0].toString()
@@ -374,6 +375,7 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
 
     private fun showRead(myFile: MyFile) {
         DocReaderActivity.start(context, myFile.path)
+        context.showInterAd(BuildConfig.inter_read_file)
     }
 
 

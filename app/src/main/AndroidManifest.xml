@@ -4,7 +4,7 @@
     package="com.masterlibs.basestructure">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission
@@ -31,8 +31,8 @@
             android:theme="@style/Transparent" />
         <activity
             android:name=".view.dialog.RenameDialog"
-            android:windowSoftInputMode="adjustResize"
-            android:theme="@style/Transparent" />
+            android:theme="@style/Transparent"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".view.dialog.DetailDialog"
             android:theme="@style/Transparent" />
@@ -83,17 +83,21 @@
             </intent-filter>
 
         </activity>
-        <activity android:name=".view.activity.DocReaderActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".view.activity.SettingActivity"
+        <activity
+            android:name=".view.activity.DocReaderActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.SettingActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.dialog.FilterDialog"
             android:theme="@style/Transparent" />
-        <activity android:name=".view.dialog.PermissionDialog"
+        <activity
+            android:name=".view.dialog.PermissionDialog"
             android:theme="@style/Transparent" />
-        <activity android:name=".view.popup.PopupMenu"
-            android:theme="@style/Transparent"/>
+        <activity
+            android:name=".view.popup.PopupMenu"
+            android:theme="@style/Transparent" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -117,6 +121,13 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="${APP_ID}"
+            tools:replace="android:value" />
+
 
     </application>
 

@@ -1,7 +1,9 @@
 package com.masterlibs.basestructure
 
 import com.common.control.MyApplication
+import com.common.control.manager.AppOpenManager
 import com.masterlibs.basestructure.db.RoomDatabase
+import com.masterlibs.basestructure.view.activity.SplashActivity
 
 class App : MyApplication() {
     companion object {
@@ -13,6 +15,7 @@ class App : MyApplication() {
         super.onCreate()
         instance = this
         database = RoomDatabase.getDatabase(instance)
+        AppOpenManager.getInstance().disableAppResumeWithActivity(SplashActivity::class.java)
     }
 
 
@@ -25,10 +28,10 @@ class App : MyApplication() {
     }
 
     override fun enableAdsResume(): Boolean {
-        return false
+        return true
     }
 
     override fun getOpenAppAdId(): String? {
-        return null
+        return BuildConfig.open_app
     }
 }

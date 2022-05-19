@@ -12,83 +12,88 @@ import android.graphics.Typeface
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
+import android.os.Handler
+import android.os.Looper
 import android.provider.Settings
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.DisplayMetrics
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import androidx.core.content.ContextCompat
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.common.control.dialog.RateAppDialog
+import com.common.control.interfaces.RateCallback
 import com.common.control.utils.PermissionUtils
 import com.documentmaster.documentscan.OnActionCallback
 import com.documentmaster.documentscan.extention.hide
 import com.documentmaster.documentscan.extention.show
 import com.docxmaster.docreader.base.BaseActivity
-import com.google.ads.AdSize.SMART_BANNER
-import com.google.android.gms.ads.*
-import com.google.android.gms.ads.MobileAds.initialize
-import com.google.android.gms.ads.interstitial.InterstitialAd
-import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
+import com.masterlibs.basestructure.AdCache
 import com.masterlibs.basestructure.App
+import com.masterlibs.basestructure.BuildConfig
 import com.masterlibs.basestructure.R
+import com.masterlibs.basestructure.extentions.loadInterAd
+import com.masterlibs.basestructure.extentions.loadNative
 import com.masterlibs.basestructure.model.MyFile
+import com.masterlibs.basestructure.utils.CommonUtils
 import com.masterlibs.basestructure.utils.FileAdapter
 import com.masterlibs.basestructure.utils.LoadFile
+import com.masterlibs.basestructure.utils.SharePreferenceUtils
 import com.masterlibs.basestructure.view.dialog.FilterDialog
 import com.masterlibs.basestructure.view.dialog.PermissionDialog
 import com.pdfreaderdreamw.pdfreader.view.widget.CustomEditText
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.dialog_rename.*
 import kotlin.math.roundToInt
 
 class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseActivity() {
     private var fileList: java.util.ArrayList<MyFile> = ArrayList()
-    var fileadapter: FileAdapter? = null
-    var internAds : InterstitialAd? = null
-    val dm = DisplayMetrics()
+    private var fileAdapter: FileAdapter? = null
+    private val dm = DisplayMetrics()
+
     @SuppressLint("RestrictedApi")
     override fun initView() {
         windowManager.defaultDisplay.getMetrics(dm)
         width = dm.xdpi.roundToInt()
         height = dm.ydpi.roundToInt()
-        initialize(this){}
+
         btn_favourite.setTypeface(Typeface.DEFAULT, Typeface.NORMAL)
-        //loadBannerAds()
-        //loadInternAds()
-        var int =1
         val linearLayoutManager = LinearLayoutManager(this)
         rcvExcel.layoutManager = linearLayoutManager
         executeLoadFile()
         updateStatus(1)
         fileList = fileListTemp
-        fileadapter = FileAdapter(fileList, this)
-        rcvExcel.adapter = fileadapter
+        fileAdapter = FileAdapter(fileList, this)
+        rcvExcel.adapter = fileAdapter
+
+        initReceiver()
+        loadNative(BuildConfig.native_home, fr_ad)
+
+    }
+
+    override fun addEvent() {
         btn_setting.setOnClickListener {
-            //showIntesrAd()
             val back = Intent(this, SettingActivity::class.java)
             startActivity(back)
         }
         btn_allfile.setOnClickListener {
-            //showIntesrAd()
             clickAllAfile()
             btn_favourite.setTypeface(Typeface.DEFAULT, Typeface.NORMAL)
             btn_allfile.setTypeface(null, Typeface.BOLD)
         }
 
         btn_favourite.setOnClickListener {
-            //showIntesrAd()
-            var int = 2
+            val status = 2
             fileListTempFavourite = App.database?.favoriteDAO()?.list as java.util.ArrayList<MyFile>
             when (FilterDialog.currentStatus) {
                 0 -> {
-                    fileadapter?.sortByNameAZ(fileListTempFavourite)
+                    fileAdapter?.sortByNameAZ(fileListTempFavourite)
                 }
                 1 -> {
-                    fileadapter?.sortBySize(fileListTempFavourite)
+                    fileAdapter?.sortBySize(fileListTempFavourite)
                 }
                 2 -> {
-                    fileadapter?.sortByDate(fileListTempFavourite)
+                    fileAdapter?.sortByDate(fileListTempFavourite)
                 }
             }
             btn_favourite.setBackgroundResource(R.drawable.ic_bg_btn_yes)
@@ -100,38 +105,33 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
             Thread {
                 fileList = fileListTempFavourite
                 runOnUiThread {
-                    fileadapter?.updateList(fileList)
-                    updateStatus(int)
+                    fileAdapter?.updateList(fileList)
+                    updateStatus(status)
                 }
             }.start()
         }
         sort_btn.setOnClickListener {
-            //showIntesrAd()
             FilterDialog.start(this, "sort_dialog", object : OnActionCallback {
                 override fun callback(key: String?, vararg data: Any?) {
                     if (key == "by_name") {
-                        fileadapter?.sortByNameAZ(fileList)!!
+                        fileAdapter?.sortByNameAZ(fileList)!!
                     }
                     if (key == "by_size") {
-                        fileadapter?.sortBySize(fileList)!!
+                        fileAdapter?.sortBySize(fileList)!!
                     }
                     if (key == "by_created_time") {
-                        fileadapter?.sortByDate(fileList)!!
+                        fileAdapter?.sortByDate(fileList)!!
                     }
-                    fileadapter?.updateList(fileList)
+                    fileAdapter?.updateList(fileList)
                 }
 
             })
         }
 
         search_bar.setOnClickListener {
-            //showIntesrAd()
             search_bar.isFocusableInTouchMode = true
             search_bar.isFocusable = true
-
             showKeyboard(search_bar)
-//            search_bt_back.setImageResource(R.drawable.ic_btn_back)
-//            search_bt.setImageResource(0)
         }
         search_bar.setOnFocusChangeListener { _, b ->
             run {
@@ -155,22 +155,17 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
 
         })
         search_bt_back.setOnClickListener {
-            //showIntesrAd()
             search_bar.isFocusableInTouchMode = false
             search_bar.isFocusable = false
             val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
-            val b = imm?.hideSoftInputFromWindow(search_bar.windowToken, 0)
-//            if (b!!) {
-//                search_bt.setImageResource(R.drawable.ic_search)
-//                search_bt_back.setImageResource(0)
-//            }
+            imm?.hideSoftInputFromWindow(search_bar.windowToken, 0)
         }
         search_bar.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                fileadapter?.filter?.filter(p0)
+                fileAdapter?.filter?.filter(p0)
                 if (p0!!.isNotEmpty()) {
                     clear_bt.setImageResource(R.drawable.ic_btn_clear)
                     button_file.hide()
@@ -189,44 +184,8 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
 
         })
 
-        initReceiver()
-
     }
 
-    private fun showIntesrAd() {
-        internAds?.fullScreenContentCallback = object : FullScreenContentCallback(){
-            override fun onAdDismissedFullScreenContent() {
-                super.onAdDismissedFullScreenContent()
-                loadInternAds()
-            }
-        }
-        internAds?.show(this)
-    }
-
-    private fun loadInternAds() {
-        val requestAds = AdRequest.Builder().build()
-        InterstitialAd.load(this,"ca-app-pub-3940256099942544/1033173712", requestAds, object :
-            InterstitialAdLoadCallback() {
-            override fun onAdFailedToLoad(p0: LoadAdError) {
-                super.onAdFailedToLoad(p0)
-                internAds = null
-            }
-
-            override fun onAdLoaded(p0: InterstitialAd) {
-                super.onAdLoaded(p0)
-                internAds = p0
-            }
-            })
-
-    }
-
-    private fun loadBannerAds() {
-        val requestAds = AdRequest.Builder().build()
- //       Ad_view.loadAd(requestAds)
-//        Ad_View.adListener = object : AdListener() {
-//
-//        }
-    }
 
     private fun showKeyboard(view: View) {
         view.requestFocus()
@@ -235,7 +194,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
     }
 
     private fun clickAllAfile() {
-        var int = 1
+        val status = 1
         fileListTemp = getFileList()
         btn_allfile.setBackgroundResource(R.drawable.ic_bg_btn_yes)
         btn_allfile.setTextColor(Color.parseColor("#ffffff"))
@@ -243,42 +202,42 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         btn_favourite.setTextColor(Color.parseColor("#838388"))
         when (FilterDialog.currentStatus) {
             0 -> {
-                fileadapter?.sortByNameAZ(fileListTemp)
+                fileAdapter?.sortByNameAZ(fileListTemp)
             }
             1 -> {
-                fileadapter?.sortBySize(fileListTemp)
+                fileAdapter?.sortBySize(fileListTemp)
             }
             2 -> {
-                fileadapter?.sortByDate(fileListTemp)
+                fileAdapter?.sortByDate(fileListTemp)
             }
         }
         Thread {
-            fileList = Companion.fileListTemp
+            fileList = fileListTemp
             runOnUiThread {
-                fileadapter?.updateList(fileList)
-                updateStatus(int)
+                fileAdapter?.updateList(fileList)
+                updateStatus(status)
             }
         }.start()
     }
 
-    private fun updateStatus(int:Int) {
-        if (fileList.size == 0&&int==2) {
+    private fun updateStatus(int: Int) {
+        if (fileList.size == 0 && int == 2) {
             no_file.setImageResource(R.drawable.ic_no_file)
             no_result_search.setImageResource(0)
 
         }
-        if(fileList.size == 0&&int==1){
+        if (fileList.size == 0 && int == 1) {
             no_file.setImageResource(R.drawable.ic_no_file_favourite)
             no_result_search.setImageResource(0)
         }
-        if(fileList.size != 0){
+        if (fileList.size != 0) {
             no_file.setImageResource(0)
             no_result_search.setImageResource(0)
         }
     }
 
     private fun initReceiver() {
-        val filter = IntentFilter();
+        val filter = IntentFilter()
         filter.addAction(UPDATE_SEARCH_HAVE_RESULT)
         filter.addAction(UPDATE_SEARCH)
         registerReceiver(object : BroadcastReceiver() {
@@ -303,15 +262,21 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         var width = 0
         var height = 0
         const val RQC_REQUEST_PERMISSION_ANDROID_11 = 333
-        val UPDATE_SEARCH = "update_search"
-        val UPDATE_SEARCH_HAVE_RESULT = "have_result"
-        var fileListTemp: java.util.ArrayList<MyFile> = ArrayList()
+        const val UPDATE_SEARCH = "update_search"
+        const val UPDATE_SEARCH_HAVE_RESULT = "have_result"
+        var fileListTemp = ArrayList<MyFile>()
         var fileListTempFavourite: java.util.ArrayList<MyFile> = ArrayList()
+
+        @JvmStatic
+        fun start(context: Context) {
+            val starter = Intent(context, MainActivity::class.java)
+            context.startActivity(starter)
+        }
     }
 
     private fun getFileList(): ArrayList<MyFile> {
-        var typeList: ArrayList<String> = ArrayList()
-        var mlist: ArrayList<MyFile> = ArrayList()
+        val typeList: ArrayList<String> = ArrayList()
+        val mlist: ArrayList<MyFile> = ArrayList()
         typeList.add("xlsx")
         typeList.add("xls")
         typeList.add("xlsm")
@@ -326,39 +291,36 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         }
         return mlist
     }
-//    override fun onResume() {
-//        super.onResume()
-//        clickAllAfile()
-//    }
+
+    override fun onResume() {
+        super.onResume()
+        if (AdCache.interReadFile == null) {
+            loadInterAd(BuildConfig.inter_read_file)
+        }
+    }
 
     @SuppressLint("MissingPermission")
     private fun executeLoadFile() {
-        if (checkPermission()){
+        if (checkPermission()) {
             clickAllAfile()
-           // loadads()
-        }
-        else {
-            PermissionDialog.start(this, "permission", object : OnActionCallback{
-            override fun callback(key: String?, vararg data: Any?) {
-                if (key == "deny"){
-                    finish()
+            // loadads()
+        } else {
+            PermissionDialog.start(this, "permission", object : OnActionCallback {
+                override fun callback(key: String?, vararg data: Any?) {
+                    if (key == "deny") {
+                        finish()
+                    } else if (key == "allow") {
+                        requestPermission()
+                    }
                 }
-                else if (key == "allow"){
-                    requestPermission()
-                }
-            }
 
-        })
+            })
 
         }
-
 
 
     }
 
-
-
-    // Xin Cấp Quyền
     private fun requestPermission() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -407,7 +369,55 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         return Environment.isExternalStorageManager()
     }
 
-    override fun addEvent() {
+    override fun onBackPressed() {
+        if (SharePreferenceUtils.shouldShowRatePopup(this)) {
+            showRateDialog(true)
+            return
+        }
+        executeBack()
     }
+
+    var doubleBackToExitPressedOnce = false
+
+    private fun executeBack() {
+        if (doubleBackToExitPressedOnce) {
+            SharePreferenceUtils.increaseCountRate(this@MainActivity)
+            super.onBackPressed()
+            return
+        }
+        this.doubleBackToExitPressedOnce = true
+        Toast.makeText(this, getString(R.string.click_back_again), Toast.LENGTH_SHORT).show()
+        Handler(Looper.getMainLooper()).postDelayed({
+            doubleBackToExitPressedOnce = false
+        }, 2000)
+    }
+
+
+    private fun showRateDialog(isFinish: Boolean) {
+        val dialog = RateAppDialog(this)
+        dialog.setCallback(object : RateCallback {
+            override fun onMaybeLater() {
+                if (isFinish) {
+                    SharePreferenceUtils.increaseCountRate(this@MainActivity)
+                    finishAffinity()
+                }
+            }
+
+            override fun onSubmit(review: String?) {
+                Toast.makeText(this@MainActivity, R.string.thank_you, Toast.LENGTH_SHORT).show()
+                SharePreferenceUtils.setRated(this@MainActivity)
+                if (isFinish) {
+                    finishAffinity()
+                }
+            }
+
+            override fun onRate() {
+                CommonUtils.getInstance().rateApp(this@MainActivity)
+                SharePreferenceUtils.setRated(this@MainActivity)
+            }
+        })
+        dialog.show()
+    }
+
 
 }

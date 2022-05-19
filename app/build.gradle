@@ -10,15 +10,26 @@ android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.masterlibs.basestructorf1"
+        applicationId "com.xlsx.file.reader.xlsx.excel.viewer.spreadsheets.reader"
         minSdk 22
         targetSdk 32
         versionCode 1
         versionName "1.0.0"
         def formattedDate = new Date().format('hh.mm.MM.dd.yyyy')
-        archivesBaseName = "Base_V${versionName}_${formattedDate}"
-    }
+        archivesBaseName = "ExcelReader_V${versionName}_${formattedDate}"
 
+        ndk {
+            abiFilters 'armeabi-v7a', 'arm64-v8a'
+        }
+    }
+    signingConfigs {
+        release {
+            storeFile file('key/release.jks')
+            storePassword '12345678'
+            keyAlias 'key'
+            keyPassword '12345678'
+        }
+    }
     flavorDimensions "dimen"
     productFlavors {
         vDevelop_ {
@@ -35,12 +46,22 @@ android {
             }
             addConstantTo(owner, "APP_ID", "ca-app-pub-3940256099942544~3347511713")
 
-            addConstantTo(owner, "inter_splash", "ca-app-pub-3940256099942544/1033173712")
+            addConstantTo(owner, "inter_splash", "ca-app-pub-3940256099942544/8691691433")
+            addConstantTo(owner, "inter_open_other_app", "ca-app-pub-3940256099942544/1033173712")
+            addConstantTo(owner, "inter_read_file", "ca-app-pub-3940256099942544/1033173712")
+
+            addConstantTo(owner, "native_home", "ca-app-pub-3940256099942544/2247696110")
+            addConstantTo(owner, "native_setting", "ca-app-pub-3940256099942544/2247696110")
+
+            addConstantTo(owner, "open_app", "ca-app-pub-3940256099942544/3419835294")
+
+            addConstantTo(owner, "banner_doc", "ca-app-pub-3940256099942544/6300978111")
+
 
         }
 
         vOfficial_ {
-            applicationId "com.masterlibs.basestructorf1"
+            applicationId "com.xlsx.file.reader.xlsx.excel.viewer.spreadsheets.reader"
 
             buildConfigField "boolean", "TEST_AD", "false"
             buildConfigField "boolean", "PURCHASED", "false"
@@ -52,7 +73,16 @@ android {
             }
             addConstantTo(owner, "APP_ID", "ca-app-pub-3940256099942544~3347511713")
 
-            addConstantTo(owner, "inter_splash", "ca-app-pub-3940256099942544/1033173712")
+            addConstantTo(owner, "inter_splash", "ca-app-pub-3940256099942544/8691691433")
+            addConstantTo(owner, "inter_open_other_app", "ca-app-pub-3940256099942544/1033173712")
+            addConstantTo(owner, "inter_read_file", "ca-app-pub-3940256099942544/1033173712")
+
+            addConstantTo(owner, "native_home", "ca-app-pub-3940256099942544/2247696110")
+            addConstantTo(owner, "native_setting", "ca-app-pub-3940256099942544/2247696110")
+
+            addConstantTo(owner, "open_app", "ca-app-pub-3940256099942544/3419835294")
+
+            addConstantTo(owner, "banner_doc", "ca-app-pub-3940256099942544/6300978111")
         }
     }
 
@@ -61,6 +91,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
 
         debug {
@@ -123,8 +154,6 @@ dependencies {
     //eventbus
     implementation 'org.greenrobot:eventbus:3.2.0'
 
-    implementation 'com.github.datcorona:CommonLibs:1.0.7'
-
     implementation 'androidx.work:work-runtime:2.7.1'
     implementation 'androidx.work:work-runtime-ktx:2.7.1'
     implementation 'com.google.firebase:protolite-well-known-types:18.0.0'
@@ -136,6 +165,8 @@ dependencies {
     annotationProcessor "androidx.room:room-compiler:$room_version"
     implementation "androidx.multidex:multidex:2.0.1"
     implementation 'com.github.MTGLibs:DocLibs:1.0.8'
+    implementation 'com.github.MTGLibs:CommonLibs:1.0.8'
+
     implementation 'com.tom_roush:pdfbox-android:1.8.10.1'
     implementation 'com.airbnb.android:lottie:5.0.3'
     implementation 'com.google.android.gms:play-services-ads:20.6.0'
