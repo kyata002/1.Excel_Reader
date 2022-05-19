@@ -10,12 +10,12 @@
         android:id="@+id/rename_dialog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginStart="@dimen/_16sdp"
         android:layout_marginEnd="@dimen/_16sdp"
-        android:backgroundTint="#fff"
         android:background="@drawable/shape_dialog_sort"
-        android:orientation="vertical"
-        android:layout_gravity="center">
+        android:backgroundTint="#fff"
+        android:orientation="vertical">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
@@ -27,95 +27,112 @@
             android:text="Rename"
             android:textColor="#000"
             android:textFontWeight="700"
-            android:textSize="@dimen/_16sdp" />
+            android:textSize="@dimen/_16sdp"
+            app:fontFamily="@font/poppins_semibold" />
+
         <LinearLayout
-            android:background="@drawable/sahpe_edittext"
+            android:id="@+id/shape_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_36sdp"
+            android:layout_gravity="center"
             android:layout_marginLeft="@dimen/_20sdp"
             android:layout_marginRight="@dimen/_20sdp"
-            android:layout_gravity="center"
-            android:foreground="?attr/selectableItemBackgroundBorderless"
-            android:orientation="horizontal"
-            android:layout_width="@dimen/_256sdp"
-            android:layout_height="@dimen/_36sdp">
+            android:background="@drawable/sahpe_edittext"
+            android:orientation="horizontal">
+
             <com.common.control.widget.CustomEdittext
                 android:id="@+id/edit_name"
+                android:layout_width="0dp"
                 android:layout_weight="1"
-                android:background="#0000"
-                android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="#0000"
                 android:backgroundTint="#FFF"
+                android:fontFamily="@font/poppins_regular"
                 android:hint="Enter name"
                 android:imeOptions="actionDone"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
+                android:paddingStart="@dimen/_8sdp"
                 android:singleLine="true"
                 android:textColor="#3C3C3C"
+                android:textColorHint="#3C3C3C"
+                android:textColorHighlight="#3302723B"
+                android:textCursorDrawable="@drawable/cursor_color"
                 android:textFontWeight="500"
-                android:textSize="@dimen/_12sdp">
+                android:textSize="@dimen/_12sdp"
+                android:textStyle="bold"
+                android:theme="@style/CustomEditTextView">
+
                 <requestFocus />
             </com.common.control.widget.CustomEdittext>
+
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/clear_bt_reanme"
                 android:layout_width="@dimen/_16sdp"
                 android:layout_height="@dimen/_16sdp"
-                android:foreground="?attr/selectableItemBackgroundBorderless"
-                android:layout_gravity="center"
-                android:layout_marginLeft="@dimen/_8sdp"
-                android:layout_marginRight="@dimen/_4sdp"
-                android:background="@drawable/ic_clear_rename"
-                />
+                android:layout_gravity="center|right"
+                android:layout_marginLeft="@dimen/_16sdp"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:foreground="?attr/selectableItemBackgroundBorderless" />
         </LinearLayout>
-
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <TextView
+            android:id="@+id/error_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_1sdp"
-            android:layout_marginVertical="@dimen/_8sdp">
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="right"
+            android:paddingRight="@dimen/_2sdp"
+            android:textSize="@dimen/_8sdp"
+            android:textColor="#E53D41"/>
+        <androidx.appcompat.widget.LinearLayoutCompat
 
-            <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
+            android:layout_weight="1"
+            android:backgroundTint="#EFEFEF"
+
+            android:gravity="center"
+            android:weightSum="2">
+
+
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/bt_cancel"
                 android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_margin="11dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginBottom="@dimen/_4sdp"
+                android:layout_marginEnd="@dimen/_2sdp"
                 android:layout_weight="1"
+                android:background="@drawable/bg_action"
                 android:backgroundTint="#EFEFEF"
-                android:foreground="?attr/selectableItemBackground"
-                android:gravity="center">
+                android:gravity="center"
+                android:text="Cancel"
+                android:textColor="#E53D41"
+                android:textFontWeight="600"
+                android:textSize="@dimen/_12sdp" />
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:background="@drawable/bg_dialog_button"
-                    android:gravity="center"
-                    android:text="Cancel"
-                    android:textColor="#E53D41"
-                    android:textFontWeight="600"
-                    android:textSize="@dimen/_12sdp" />
-            </LinearLayout>
-
-            <LinearLayout
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/bt_save"
                 android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_margin="12dp"
-                android:layout_marginVertical="11dp"
-                android:layout_marginEnd="16dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginBottom="@dimen/_4sdp"
+                android:layout_marginStart="@dimen/_2sdp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_action"
                 android:backgroundTint="#00733B"
-                android:foreground="?attr/selectableItemBackground"
-                android:gravity="center">
+                android:gravity="center"
+                android:text="Rename"
+                android:textColor="#FFF"
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Rename"
-                    android:textColor="#FFF"
-                    android:textFontWeight="600"
-                    android:textSize="@dimen/_12sdp" />
-            </LinearLayout>
-
+                android:textFontWeight="600"
+                android:textSize="@dimen/_12sdp" />
         </androidx.appcompat.widget.LinearLayoutCompat>
     </LinearLayout>
 </LinearLayout>

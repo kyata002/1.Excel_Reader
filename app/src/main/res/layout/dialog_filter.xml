@@ -64,8 +64,8 @@
                     android:layout_gravity="center"
                     android:maxLines="2"
                     android:gravity="center"
-                    android:textSize="@dimen/_8sdp"
-                    android:layout_marginTop="@dimen/_16sdp"
+                    android:textSize="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
                     android:textColor="#3C3C3C"
                     android:fontFamily="@font/poppins_regular"
                     android:textStyle="bold"/>
@@ -101,11 +101,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Sort By\nSize"
-                    android:layout_marginTop="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
                     android:layout_gravity="center"
                     android:maxLines="2"
                     android:gravity="center"
-                    android:textSize="@dimen/_8sdp"
+                    android:textSize="@dimen/_12sdp"
                     android:textColor="#3C3C3C"
                     android:fontFamily="@font/poppins_regular"
                     android:textStyle="bold"/>
@@ -145,11 +145,11 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:layout_marginTop="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
                     android:maxLines="2"
                     android:text="Sort By\nCreated Time"
                     android:textColor="#3C3C3C"
-                    android:textSize="@dimen/_8sdp"
+                    android:textSize="@dimen/_12sdp"
                     android:fontFamily="@font/poppins_regular"
                     android:textStyle="bold" />
             </LinearLayout>

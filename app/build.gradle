@@ -135,8 +135,10 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
     implementation "androidx.multidex:multidex:2.0.1"
-    implementation 'com.github.MTGLibs:DocLibs:1.0.4'
+    implementation 'com.github.MTGLibs:DocLibs:1.0.8'
     implementation 'com.tom_roush:pdfbox-android:1.8.10.1'
     implementation 'com.airbnb.android:lottie:5.0.3'
+    implementation 'com.google.android.gms:play-services-ads:20.6.0'
+    implementation "com.github.skydoves:powermenu:2.2.0"
 
 }

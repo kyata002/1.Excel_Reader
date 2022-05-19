@@ -45,17 +45,19 @@
                     android:layout_weight="6"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textSize="@dimen/_14sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textSize="@dimen/_12sdp"
                     android:text="File name"
-                    android:textColor="#000"
+                    android:textColor="#6E7175"
                     android:paddingTop="@dimen/_16sdp" />
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvNameFile"
                     android:layout_weight="4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/_14sdp"
+                    android:textSize="@dimen/_12sdp"
                     android:textColor="#000"
+                    android:fontFamily="@font/poppins_regular"
                     android:text="h1"
                     android:paddingTop="@dimen/_16sdp"
                     />
@@ -67,18 +69,20 @@
                 android:orientation="horizontal">
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_weight="6"
+                    android:fontFamily="@font/poppins_regular"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textSize="@dimen/_14sdp"
-                    android:textColor="#000"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColor="#6E7175"
                     android:text="Path"
                     android:paddingTop="@dimen/_16sdp"/>
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvPathFile"
                     android:layout_weight="4"
+                    android:fontFamily="@font/poppins_regular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/_14sdp"
+                    android:textSize="@dimen/_12sdp"
                     android:text="h1"
                     android:textColor="#000"
                     android:paddingTop="@dimen/_16sdp"/>
@@ -91,17 +95,19 @@
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_weight="6"
                     android:layout_width="match_parent"
+                    android:fontFamily="@font/poppins_regular"
                     android:layout_height="match_parent"
-                    android:textSize="@dimen/_14sdp"
-                    android:textColor="#000"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColor="#6E7175"
                     android:text="Last modified"
                     android:paddingTop="@dimen/_16sdp"/>
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvDateFile"
                     android:layout_weight="4"
+                    android:fontFamily="@font/poppins_regular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/_14sdp"
+                    android:textSize="@dimen/_12sdp"
                     android:textColor="#000"
                     android:text="h1"
                     android:paddingTop="@dimen/_16sdp"/>
@@ -114,18 +120,20 @@
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_weight="6"
                     android:layout_width="match_parent"
+                    android:fontFamily="@font/poppins_regular"
                     android:layout_height="match_parent"
-                    android:textColor="#000"
-                    android:textSize="@dimen/_14sdp"
+                    android:textColor="#6E7175"
+                    android:textSize="@dimen/_12sdp"
                     android:text="Size"
                     android:paddingTop="@dimen/_16sdp" />
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvSizeFile"
                     android:layout_weight="4"
+                    android:fontFamily="@font/poppins_regular"
                     android:layout_width="match_parent"
                     android:textColor="#000"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/_14sdp"
+                    android:textSize="@dimen/_12sdp"
                     android:text="h1"
                     android:paddingTop="@dimen/_16sdp"/>
             </LinearLayout>

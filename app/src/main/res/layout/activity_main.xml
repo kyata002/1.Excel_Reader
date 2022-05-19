@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -52,19 +53,22 @@
                 android:background="@drawable/shape"
                 android:gravity="center"
                 android:padding="@dimen/_3sdp">
+
+
                 <FrameLayout
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_14sdp">
+
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/search_bt"
-                        android:layout_width="match_parent"
+                        android:layout_width="@dimen/_24sdp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/_8sdp"
                         android:src="@drawable/ic_search"/>
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/search_bt_back"
                         android:foreground="?attr/selectableItemBackgroundBorderless"
-                        android:layout_width="match_parent"
+                        android:layout_width="@dimen/_32sdp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/_8sdp" />
                 </FrameLayout>
@@ -84,7 +88,9 @@
                     android:hint="Find the document"
                     android:textColor="#fff"
                     android:textColorHint="#FFF"
-                    android:textSize="@dimen/_13sdp" />
+                    android:textSize="@dimen/_13sdp"
+                    android:theme="@style/CustomEditTextView"
+                    android:textCursorDrawable="@drawable/cursor_color" />
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/clear_bt"
                     android:layout_width="@dimen/_14sdp"
@@ -101,7 +107,7 @@
     <LinearLayout
         android:id="@+id/button_file"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/_35sdp"
         android:layout_marginTop="@dimen/_8sdp"
         android:layout_marginBottom="@dimen/_8sdp"
         android:orientation="horizontal"
@@ -124,7 +130,7 @@
             android:textColor="#fff"
             android:textSize="@dimen/_14sdp" />
 
-        <Button
+        <TextView
             android:id="@+id/btn_favourite"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -141,7 +147,7 @@
             android:textColor="#838388"
             android:textSize="@dimen/_14sdp" />
 
-        <Button
+        <TextView
             android:id="@+id/sort_btn"
             android:layout_width="@dimen/_36sdp"
             android:layout_height="@dimen/_36sdp"
@@ -176,5 +182,6 @@
             android:layout_width="@dimen/_150sdp"
             android:layout_height="@dimen/_171sdp"
             android:layout_gravity="center" />
+
     </FrameLayout>
 </LinearLayout>

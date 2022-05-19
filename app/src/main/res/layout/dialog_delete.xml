@@ -1,112 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/border_delete"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#99000000"
-    android:layout_gravity="center">
+    android:background="#99000000">
 
     <LinearLayout
         android:id="@+id/border_delete_dialog"
-        android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="24dp"
-        android:backgroundTint="#fff"
+        android:layout_gravity="center"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginEnd="@dimen/_16sdp"
         android:background="@drawable/shape_dialog_sort"
-        android:clickable="false"
-        android:longClickable="false"
+        android:backgroundTint="#fff"
         android:orientation="vertical">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/_14sdp"
-            android:paddingBottom="@dimen/_14sdp"
+            android:layout_gravity="center"
+            android:fontFamily="@font/poppins_semibold"
+            android:paddingTop="@dimen/_8sdp"
+            android:paddingBottom="@dimen/_8sdp"
             android:text="Delete"
-            android:fontFamily="@font/poppins_semibold"
             android:textColor="#000"
-            android:layout_gravity="center"
+            android:textFontWeight="700"
             android:textSize="@dimen/_16sdp"
-            />
+            app:fontFamily="@font/poppins_semibold" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginHorizontal="40dp"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
-            android:text="Are you sure you want to delete"
-            android:textColor="#000"
-            android:textFontWeight="600"
-            android:textSize="@dimen/_12sdp" />
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvNameDelete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginHorizontal="40dp"
-            android:text=""
-            android:gravity="center"
-            android:textStyle="bold"
-            android:fontFamily="@font/poppins_semibold"
-            android:textColor="#000"
-            android:textFontWeight="600"
-            android:textSize="@dimen/_12sdp" />
-
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <LinearLayout
+            android:id="@+id/shape_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="40dp"
-            android:layout_marginVertical="16dp">
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:background="@android:color/transparent"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/text_delete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Are you sure you want to delete"
+                android:textSize="@dimen/_12sdp"
+                android:gravity="center"
+                android:fontFamily="@font/poppins_regular"
+                android:textColor="#3C3C3C"
+                />
+            <TextView
+                android:id="@+id/text_delete_file"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="abcdxyzt"
+                android:layout_gravity="center"
+                android:textSize="@dimen/_12sdp"
+                android:gravity="center"
+                android:fontFamily="@font/poppins_semibold"
+                android:textColor="#3C3C3C"
+                />
 
-            <LinearLayout
+        </LinearLayout>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
+            android:layout_weight="1"
+            android:backgroundTint="#EFEFEF"
+
+            android:gravity="center"
+            android:weightSum="2">
+
+
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/bt_cancel"
                 android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_margin="16dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginBottom="@dimen/_4sdp"
+                android:layout_marginEnd="@dimen/_2sdp"
                 android:layout_weight="1"
-                android:foreground="?attr/selectableItemBackgroundBorderless"
                 android:background="@drawable/bg_action"
-                android:backgroundTint="#fff"
-                android:gravity="center">
+                android:backgroundTint="#EFEFEF"
+                android:gravity="center"
+                android:text="Cancel"
+                android:textColor="#E53D41"
+                android:textFontWeight="600"
+                android:textSize="@dimen/_12sdp" />
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:background="@drawable/bg_dialog_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="Cancel"
-                    android:textColor="#ff0000"
-                    android:textFontWeight="600"
-                    android:textSize="@dimen/_12sdp" />
-            </LinearLayout>
-
-            <LinearLayout
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/bt_delete"
                 android:layout_width="0dp"
-                android:foreground="?attr/selectableItemBackgroundBorderless"
-                android:layout_height="40dp"
-                android:layout_marginVertical="16dp"
-                android:layout_marginEnd="16dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginBottom="@dimen/_4sdp"
+                android:layout_marginStart="@dimen/_2sdp"
                 android:layout_weight="1"
-                android:backgroundTint="#02723B"
                 android:background="@drawable/bg_action"
+                android:backgroundTint="#00733B"
                 android:gravity="center"
-                >
+                android:text="Delete"
+                android:textColor="#FFF"
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:text="Delete"
-                    android:textColor="#fff"
-                    android:textFontWeight="600"
-                    android:textSize="@dimen/_12sdp" />
-            </LinearLayout>
-
+                android:textFontWeight="600"
+                android:textSize="@dimen/_12sdp" />
         </androidx.appcompat.widget.LinearLayoutCompat>
     </LinearLayout>
 </LinearLayout>

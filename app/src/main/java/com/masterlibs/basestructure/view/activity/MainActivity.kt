@@ -15,14 +15,21 @@ import android.os.Environment
 import android.provider.Settings
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.DisplayMetrics
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.common.control.utils.PermissionUtils
 import com.documentmaster.documentscan.OnActionCallback
 import com.documentmaster.documentscan.extention.hide
 import com.documentmaster.documentscan.extention.show
 import com.docxmaster.docreader.base.BaseActivity
+import com.google.ads.AdSize.SMART_BANNER
+import com.google.android.gms.ads.*
+import com.google.android.gms.ads.MobileAds.initialize
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.masterlibs.basestructure.App
 import com.masterlibs.basestructure.R
 import com.masterlibs.basestructure.model.MyFile
@@ -33,14 +40,22 @@ import com.masterlibs.basestructure.view.dialog.PermissionDialog
 import com.pdfreaderdreamw.pdfreader.view.widget.CustomEditText
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.dialog_rename.*
+import kotlin.math.roundToInt
 
 class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseActivity() {
     private var fileList: java.util.ArrayList<MyFile> = ArrayList()
     var fileadapter: FileAdapter? = null
-    var checkClickInSearchBar = false
-
+    var internAds : InterstitialAd? = null
+    val dm = DisplayMetrics()
     @SuppressLint("RestrictedApi")
     override fun initView() {
+        windowManager.defaultDisplay.getMetrics(dm)
+        width = dm.xdpi.roundToInt()
+        height = dm.ydpi.roundToInt()
+        initialize(this){}
+        btn_favourite.setTypeface(Typeface.DEFAULT, Typeface.NORMAL)
+        //loadBannerAds()
+        //loadInternAds()
         var int =1
         val linearLayoutManager = LinearLayoutManager(this)
         rcvExcel.layoutManager = linearLayoutManager
@@ -50,16 +65,19 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         fileadapter = FileAdapter(fileList, this)
         rcvExcel.adapter = fileadapter
         btn_setting.setOnClickListener {
+            //showIntesrAd()
             val back = Intent(this, SettingActivity::class.java)
             startActivity(back)
         }
         btn_allfile.setOnClickListener {
+            //showIntesrAd()
             clickAllAfile()
             btn_favourite.setTypeface(Typeface.DEFAULT, Typeface.NORMAL)
             btn_allfile.setTypeface(null, Typeface.BOLD)
         }
 
         btn_favourite.setOnClickListener {
+            //showIntesrAd()
             var int = 2
             fileListTempFavourite = App.database?.favoriteDAO()?.list as java.util.ArrayList<MyFile>
             when (FilterDialog.currentStatus) {
@@ -78,7 +96,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
             btn_allfile.setTypeface(null, Typeface.NORMAL)
             btn_favourite.setTextColor(Color.parseColor("#ffffff"))
             btn_allfile.setBackgroundResource(R.drawable.ic_bg_btn_no)
-            btn_allfile.setTextColor(Color.parseColor("#000000"))
+            btn_allfile.setTextColor(Color.parseColor("#838388"))
             Thread {
                 fileList = fileListTempFavourite
                 runOnUiThread {
@@ -88,6 +106,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
             }.start()
         }
         sort_btn.setOnClickListener {
+            //showIntesrAd()
             FilterDialog.start(this, "sort_dialog", object : OnActionCallback {
                 override fun callback(key: String?, vararg data: Any?) {
                     if (key == "by_name") {
@@ -106,8 +125,10 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         }
 
         search_bar.setOnClickListener {
+            //showIntesrAd()
             search_bar.isFocusableInTouchMode = true
             search_bar.isFocusable = true
+
             showKeyboard(search_bar)
 //            search_bt_back.setImageResource(R.drawable.ic_btn_back)
 //            search_bt.setImageResource(0)
@@ -115,11 +136,13 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         search_bar.setOnFocusChangeListener { _, b ->
             run {
                 if (b) {
+                    search_bar.hint = ""
                     search_bt_back.setImageResource(R.drawable.ic_btn_back)
                     search_bt.setImageResource(0)
                 } else {
                     search_bt.setImageResource(R.drawable.ic_search)
                     search_bt_back.setImageResource(0)
+                    search_bar.hint = "Find the document"
                 }
             }
         }
@@ -132,6 +155,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
 
         })
         search_bt_back.setOnClickListener {
+            //showIntesrAd()
             search_bar.isFocusableInTouchMode = false
             search_bar.isFocusable = false
             val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
@@ -164,8 +188,44 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
             }
 
         })
+
         initReceiver()
 
+    }
+
+    private fun showIntesrAd() {
+        internAds?.fullScreenContentCallback = object : FullScreenContentCallback(){
+            override fun onAdDismissedFullScreenContent() {
+                super.onAdDismissedFullScreenContent()
+                loadInternAds()
+            }
+        }
+        internAds?.show(this)
+    }
+
+    private fun loadInternAds() {
+        val requestAds = AdRequest.Builder().build()
+        InterstitialAd.load(this,"ca-app-pub-3940256099942544/1033173712", requestAds, object :
+            InterstitialAdLoadCallback() {
+            override fun onAdFailedToLoad(p0: LoadAdError) {
+                super.onAdFailedToLoad(p0)
+                internAds = null
+            }
+
+            override fun onAdLoaded(p0: InterstitialAd) {
+                super.onAdLoaded(p0)
+                internAds = p0
+            }
+            })
+
+    }
+
+    private fun loadBannerAds() {
+        val requestAds = AdRequest.Builder().build()
+ //       Ad_view.loadAd(requestAds)
+//        Ad_View.adListener = object : AdListener() {
+//
+//        }
     }
 
     private fun showKeyboard(view: View) {
@@ -180,7 +240,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         btn_allfile.setBackgroundResource(R.drawable.ic_bg_btn_yes)
         btn_allfile.setTextColor(Color.parseColor("#ffffff"))
         btn_favourite.setBackgroundResource(R.drawable.ic_bg_btn_no)
-        btn_favourite.setTextColor(Color.parseColor("#000000"))
+        btn_favourite.setTextColor(Color.parseColor("#838388"))
         when (FilterDialog.currentStatus) {
             0 -> {
                 fileadapter?.sortByNameAZ(fileListTemp)
@@ -203,12 +263,12 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
 
     private fun updateStatus(int:Int) {
         if (fileList.size == 0&&int==2) {
-            no_file.setImageResource(R.drawable.ic_no_file_favourite)
+            no_file.setImageResource(R.drawable.ic_no_file)
             no_result_search.setImageResource(0)
 
         }
         if(fileList.size == 0&&int==1){
-            no_file.setImageResource(R.drawable.ic_no_file)
+            no_file.setImageResource(R.drawable.ic_no_file_favourite)
             no_result_search.setImageResource(0)
         }
         if(fileList.size != 0){
@@ -240,6 +300,8 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
         )
+        var width = 0
+        var height = 0
         const val RQC_REQUEST_PERMISSION_ANDROID_11 = 333
         val UPDATE_SEARCH = "update_search"
         val UPDATE_SEARCH_HAVE_RESULT = "have_result"
@@ -269,9 +331,11 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
 //        clickAllAfile()
 //    }
 
+    @SuppressLint("MissingPermission")
     private fun executeLoadFile() {
-        if (checkPermission()) {
+        if (checkPermission()){
             clickAllAfile()
+           // loadads()
         }
         else {
             PermissionDialog.start(this, "permission", object : OnActionCallback{
@@ -293,6 +357,8 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
     }
 
 
+
+    // Xin Cấp Quyền
     private fun requestPermission() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
