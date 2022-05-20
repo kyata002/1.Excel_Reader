@@ -133,12 +133,18 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
             search_bar.isFocusable = true
             showKeyboard(search_bar)
         }
+        search_bt.setOnClickListener {
+            search_bar.isFocusableInTouchMode = true
+            search_bar.isFocusable = true
+            showKeyboard(search_bar)
+        }
         search_bar.setOnFocusChangeListener { _, b ->
             run {
                 if (b) {
                     search_bar.hint = ""
                     search_bt_back.setImageResource(R.drawable.ic_btn_back)
                     search_bt.setImageResource(0)
+
                 } else {
                     search_bt.setImageResource(R.drawable.ic_search)
                     search_bt_back.setImageResource(0)

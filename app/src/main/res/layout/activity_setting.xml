@@ -34,7 +34,7 @@
                     android:fontFamily="@font/poppins_semibold"
                     android:text="Settings"
                     android:textColor="#fff"
-                    android:textSize="@dimen/_18sdp" />
+                    android:textSize="@dimen/_16sdp" />
             </FrameLayout>
 
         </LinearLayout>
