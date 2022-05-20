@@ -147,7 +147,7 @@
                     android:gravity="center"
                     android:layout_marginTop="@dimen/_8sdp"
                     android:maxLines="2"
-                    android:text="Sort By\nCreated Time"
+                    android:text="Sort By\nDate"
                     android:textColor="#3C3C3C"
                     android:textSize="@dimen/_12sdp"
                     android:fontFamily="@font/poppins_regular"
