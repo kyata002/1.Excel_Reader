@@ -56,7 +56,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         windowManager.defaultDisplay.getMetrics(dm)
         width = dm.xdpi.roundToInt()
         height = dm.ydpi.roundToInt()
-
+        cancelSearch()
         btn_favourite.setTypeface(Typeface.DEFAULT, Typeface.NORMAL)
         val linearLayoutManager = LinearLayoutManager(this)
         rcvExcel.layoutManager = linearLayoutManager
@@ -155,10 +155,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
 
         })
         search_bt_back.setOnClickListener {
-            search_bar.isFocusableInTouchMode = false
-            search_bar.isFocusable = false
-            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
-            imm?.hideSoftInputFromWindow(search_bar.windowToken, 0)
+            cancelSearch()
         }
         search_bar.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -184,6 +181,13 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
 
         })
 
+    }
+
+    private fun cancelSearch() {
+        search_bar.isFocusableInTouchMode = false
+        search_bar.isFocusable = false
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+        imm?.hideSoftInputFromWindow(search_bar.windowToken, 0)
     }
 
 
@@ -303,7 +307,6 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
     private fun executeLoadFile() {
         if (checkPermission()) {
             clickAllAfile()
-            // loadads()
         } else {
             PermissionDialog.start(this, "permission", object : OnActionCallback {
                 override fun callback(key: String?, vararg data: Any?) {
