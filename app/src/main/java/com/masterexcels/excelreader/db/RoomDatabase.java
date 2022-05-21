@@ -14,12 +14,14 @@ import com.masterexcels.excelreader.model.MyFile;
 public abstract class RoomDatabase extends androidx.room.RoomDatabase {
 
     public abstract HistoryDao historyDao();
+
     public abstract FavoriteDAO favoriteDAO();
+
     private static RoomDatabase instance;
 
     public static RoomDatabase getDatabase(Context context) {
         if (instance == null) {
-            instance = Room.databaseBuilder(context, RoomDatabase.class, "my_db").allowMainThreadQueries()
+            instance = Room.databaseBuilder(context, RoomDatabase.class, "excel_db").allowMainThreadQueries()
                     .fallbackToDestructiveMigration().build();
         }
         return instance;
