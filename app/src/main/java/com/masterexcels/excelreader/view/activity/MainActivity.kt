@@ -27,6 +27,7 @@ import com.common.control.interfaces.RateCallback
 import com.common.control.utils.PermissionUtils
 import com.documentmaster.documentscan.OnActionCallback
 import com.documentmaster.documentscan.extention.hide
+import com.documentmaster.documentscan.extention.setUserProperty
 import com.documentmaster.documentscan.extention.show
 import com.docxmaster.docreader.base.BaseActivity
 import com.masterexcels.excelreader.AdCache
@@ -75,6 +76,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         btn_setting.setOnClickListener {
             val back = Intent(this, SettingActivity::class.java)
             startActivity(back)
+            setUserProperty("CLICK_Main_Settings")
         }
         btn_allfile.setOnClickListener {
             clickAllAfile()
@@ -172,20 +174,21 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
                 if (p0!!.isNotEmpty()) {
                     clear_bt.setImageResource(R.drawable.ic_btn_clear)
                     button_file.hide()
+                    setUserProperty("SEARCH_File")
                 } else {
                     button_file.show()
-                    clear_bt.setImageResource(0)
-                }
-                clear_bt.setOnClickListener {
-                    search_bar.text = null
                     clear_bt.setImageResource(0)
                 }
             }
 
             override fun afterTextChanged(p0: Editable?) {
             }
-
         })
+
+        clear_bt.setOnClickListener {
+            search_bar.text = null
+            clear_bt.setImageResource(0)
+        }
 
     }
 
@@ -313,6 +316,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
     private fun executeLoadFile() {
         if (checkPermission()) {
             clickAllAfile()
+            setUserProperty("ACCEPT_File_Permission")
         } else {
             PermissionDialog.start(this, "permission", object : OnActionCallback {
                 override fun callback(key: String?, vararg data: Any?) {
