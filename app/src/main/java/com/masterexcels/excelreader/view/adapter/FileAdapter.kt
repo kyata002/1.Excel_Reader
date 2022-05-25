@@ -8,6 +8,8 @@ package com.masterexcels.excelreader.utils;
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.res.AssetManager
+import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.Typeface
 import android.net.Uri
@@ -19,6 +21,8 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.TypefaceCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.documentmaster.documentscan.OnActionCallback
 import com.docxmaster.docreader.base.BaseAdapter
@@ -35,6 +39,7 @@ import com.masterexcels.excelreader.view.dialog.RenameDialog
 import com.skydoves.powermenu.OnMenuItemClickListener
 import com.skydoves.powermenu.PowerMenu
 import com.skydoves.powermenu.PowerMenuItem
+import com.wxiwei.office.simpletext.font.FontTypefaceManage
 import kotlinx.android.synthetic.main.dialog_rename.*
 import kotlinx.android.synthetic.main.popup_menu_more_layout.view.*
 import java.io.File
@@ -126,6 +131,7 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
                 .addItem(PowerMenuItem("Delete", R.drawable.ic_delete, false)) // aad an item list.
 //                .setAnimation(MenuAnimation.SHOWUP_TOP_LEFT) // Animation start point (TOP | LEFT).
                 .setMenuRadius(36f)
+                .setTextTypeface(ResourcesCompat.getFont(context, R.font.poppins_regular)!!)
                 .setSize(200 * MainActivity.width / 160, 280 * MainActivity.height / 160)
                 .setPadding(16)// sets the corner radius.
                 .setMenuShadow(10f) // sets the shadow.
@@ -139,7 +145,6 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
                 }
                 //.setTextColor(ContextCompat.getColor(context, Color.parseColor("#3C3C3C")))
                 .setTextGravity(Gravity.LEFT)
-                .setTextTypeface(Typeface.create("font/poppins_regular.ttf", Typeface.NORMAL))
                 .setSelectedTextColor(Color.WHITE)
                 .setMenuColor(Color.WHITE)
                 .setSelectedMenuColor(ContextCompat.getColor(context, R.color.colorPrimary))

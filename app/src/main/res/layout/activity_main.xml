@@ -57,18 +57,18 @@
 
                 <FrameLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/_14sdp">
+                    android:layout_height="@dimen/_16sdp">
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/search_bt"
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/_16sdp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/_8sdp"
                         android:src="@drawable/ic_search" />
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/search_bt_back"
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/_16sdp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/_8sdp"
                         android:foreground="?attr/selectableItemBackgroundBorderless" />
