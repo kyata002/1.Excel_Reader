@@ -25,6 +25,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.TypefaceCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.documentmaster.documentscan.OnActionCallback
+import com.documentmaster.documentscan.extention.setUserProperty
 import com.docxmaster.docreader.base.BaseAdapter
 import com.masterexcels.excelreader.App
 import com.masterexcels.excelreader.BuildConfig
@@ -39,7 +40,6 @@ import com.masterexcels.excelreader.view.dialog.RenameDialog
 import com.skydoves.powermenu.OnMenuItemClickListener
 import com.skydoves.powermenu.PowerMenu
 import com.skydoves.powermenu.PowerMenuItem
-import com.wxiwei.office.simpletext.font.FontTypefaceManage
 import kotlinx.android.synthetic.main.dialog_rename.*
 import kotlinx.android.synthetic.main.popup_menu_more_layout.view.*
 import java.io.File
@@ -65,7 +65,7 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
     }
 
     @RequiresApi(Build.VERSION_CODES.S)
-    @SuppressLint("RestrictedApi", "SimpleDateFormat", "ResourceType")
+    @SuppressLint("RestrictedApi", "SimpleDateFormat", "ResourceType", "SetTextI18n")
     override fun onBindView(viewHolder: RecyclerView.ViewHolder?, position: Int) {
         val holder: FViewHolder = viewHolder as FViewHolder
         val myFile: MyFile = this.mList?.get(position)!!
@@ -89,9 +89,9 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
         var name = file.name
         name = name.replace(extension!!, "")
         holder.name_view.text = name
-        var datefile: SimpleDateFormat = SimpleDateFormat("dd.MM.yyyy")
-        holder.date_file.text = datefile.format(Date(File(myFile.path).lastModified()))
-        var sizeOfFile = ((File(myFile.path).length() / (1024.0)).toFloat())
+        val dateFile: SimpleDateFormat = SimpleDateFormat("dd.MM.yyyy")
+        holder.date_file.text = dateFile.format(Date(File(myFile.path).lastModified()))
+        val sizeOfFile = ((File(myFile.path).length() / (1024.0)).toFloat())
         holder.size_file.text = "%.2f KB".format(sizeOfFile)
         if (position == mList?.size!! - 1) {
             holder.bottom_line.setImageResource(0)
@@ -106,7 +106,8 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
             holder.favorite_checked.setButtonDrawable(R.drawable.ic_favorite)
         }
 //        holder.sizeFile.text = "%.2f Mb".format(sizeOfFile)
-        holder.favorite_checked.setOnCheckedChangeListener { compoundButton, b ->
+        holder.favorite_checked.setOnCheckedChangeListener { _, b ->
+            context.setUserProperty("CLICK_Favourite")
             myFile.isFavorite = b
             if (b && !checkFavourite(myFile.path)) {
                 App.database?.favoriteDAO()?.add(myFile)
@@ -145,12 +146,14 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
                 }
                 //.setTextColor(ContextCompat.getColor(context, Color.parseColor("#3C3C3C")))
                 .setTextGravity(Gravity.LEFT)
+                .setTextTypeface(Typeface.create("font/poppins_regular.ttf", Typeface.NORMAL))
                 .setSelectedTextColor(Color.WHITE)
                 .setMenuColor(Color.WHITE)
                 .setSelectedMenuColor(ContextCompat.getColor(context, R.color.colorPrimary))
                 .setOnMenuItemClickListener(OnMenuItemClickListener { position, item ->
                     when (item.title) {
                         "Share" -> {
+                            context?.setUserProperty("CLICK_Main_Share")
                             AppUtils.sharefile(File(myFile.path), context)
                         }
                         "Rename" -> {
@@ -326,6 +329,7 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
                         mList?.remove(myFile)
                         App.database?.favoriteDAO()?.delete(myFile.path)
                         notifyDataSetChanged()
+                        context.setUserProperty("FINISH_Main_Delete")
                     }
                     key.equals("cancel") -> {
 
@@ -338,6 +342,8 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
 
 
     private fun showDetail(myFile: MyFile) {
+        context.setUserProperty("CLICK_Main_Details")
+
         DetailDialog.start(context, myFile.path, object : OnActionCallback {
             override fun callback(key: String?, vararg data: Any?) {
                 if (key.equals("ok")) {
@@ -373,12 +379,14 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
                         Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(file)
                     )
                 )
+                context.setUserProperty("FINISH_Rename")
             }
 
         })
     }
 
     private fun showRead(myFile: MyFile) {
+        context.setUserProperty("CLICK_Main_ReadFile")
         DocReaderActivity.start(context, myFile.path)
         context.showInterAd(BuildConfig.inter_read_file)
     }

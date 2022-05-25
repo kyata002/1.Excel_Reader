@@ -13,8 +13,8 @@ android {
         applicationId "com.xlsx.file.reader.xlsx.excel.viewer.spreadsheets.reader"
         minSdk 22
         targetSdk 32
-        versionCode 2
-        versionName "1.0.1"
+        versionCode 102
+        versionName "1.0.2"
         def formattedDate = new Date().format('hh.mm.MM.dd.yyyy')
         archivesBaseName = "ExcelReader_V${versionName}_${formattedDate}"
 
@@ -33,7 +33,7 @@ android {
     flavorDimensions "dimen"
     productFlavors {
         vDevelop_ {
-            applicationId "com.example.develop.test"
+            applicationId "com.example.develop.excelreader.test"
             buildConfigField "boolean", "TEST_AD", "false"
             buildConfigField "boolean", "PURCHASED", "false"
             dimension "dimen"
@@ -162,7 +162,7 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
     implementation "androidx.multidex:multidex:2.0.1"
-    implementation 'com.github.MTGLibs:DocLibs:1.0.8'
+    implementation 'com.github.MTGLibs:DocLibs:1.0.10'
     implementation 'com.github.MTGLibs:CommonLibs:1.0.8'
 
     implementation 'com.tom_roush:pdfbox-android:1.8.10.1'

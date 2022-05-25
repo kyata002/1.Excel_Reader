@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Handler
 import com.common.control.interfaces.AdCallback
 import com.common.control.manager.AdmobManager
+import com.documentmaster.documentscan.extention.setUserProperty
 import com.docxmaster.docreader.base.BaseActivity
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.interstitial.InterstitialAd
@@ -45,6 +46,7 @@ class SplashActivity(override val layoutId: Int = R.layout.activity_splash) : Ba
 
     private fun startMain() {
         if ("android.intent.action.VIEW" == intent.action) {
+            setUserProperty("OPEN_File_FromDevice")
             val fileUri: Uri?
             val data: Uri? = intent.data
             fileUri = data

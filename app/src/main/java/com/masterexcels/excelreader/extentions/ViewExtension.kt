@@ -3,6 +3,7 @@ package com.documentmaster.documentscan.extention
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
@@ -11,6 +12,7 @@ import com.common.control.interfaces.RateCallback
 import com.common.control.utils.CommonUtils
 import com.common.control.utils.RatePrefUtils
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.masterexcels.excelreader.BuildConfig
 
 fun View.disableFocus() {
     this.isFocusableInTouchMode = false
@@ -43,12 +45,6 @@ fun Context.logEvent(eventName: String) {
     mFirebaseAnalytics.logEvent(eventName, bundle)
 }
 
-fun Context.setUserProperty(param: String) {
-    val mFirebaseAnalytics = FirebaseAnalytics.getInstance(this)
-    mFirebaseAnalytics.setUserProperty(param, param)
-}
-
-
 fun Context.showRate(isFinish: Boolean) {
     val dialog = RateAppDialog(this)
     dialog.setCallback(object : RateCallback {
@@ -78,3 +74,22 @@ fun Context.showRate(isFinish: Boolean) {
     })
     dialog.show()
 }
+
+
+fun Context.setUserProperty(key: String) {
+    try {
+        val mFirebaseAnalytics = this.let { FirebaseAnalytics.getInstance(it) }
+        mFirebaseAnalytics.setUserProperty(key, key)
+        showToastDebug(key)
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
+}
+
+fun Context.showToastDebug(msg: String) {
+    if (BuildConfig.DEBUG) {
+        Log.d("android_log", ": $msg");
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+    }
+}
+
