@@ -80,7 +80,7 @@ fun Context.setUserProperty(key: String) {
     try {
         val mFirebaseAnalytics = this.let { FirebaseAnalytics.getInstance(it) }
         mFirebaseAnalytics.setUserProperty(key, key)
-        showToastDebug(key)
+//        showToastDebug(key)
     } catch (e: Exception) {
         e.printStackTrace()
     }

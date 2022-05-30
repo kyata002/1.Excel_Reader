@@ -51,9 +51,6 @@ class SplashActivity(override val layoutId: Int = R.layout.activity_splash) : Ba
             val data: Uri? = intent.data
             fileUri = data
             if (data != null) {
-                val sb = StringBuilder()
-                sb.append(" fileUri = ")
-                sb.append(fileUri)
                 val filePath = RealPathUtil.getPathFromData(this, fileUri)
                 DocReaderActivity.start(this, filePath)
             }

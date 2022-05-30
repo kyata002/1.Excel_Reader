@@ -13,13 +13,20 @@ android {
         applicationId "com.xlsx.file.reader.xlsx.excel.viewer.spreadsheets.reader"
         minSdk 22
         targetSdk 32
-        versionCode 102
-        versionName "1.0.2"
+        versionCode 104
+        versionName "1.0.4"
         def formattedDate = new Date().format('hh.mm.MM.dd.yyyy')
         archivesBaseName = "ExcelReader_V${versionName}_${formattedDate}"
 
         ndk {
             abiFilters 'armeabi-v7a', 'arm64-v8a'
+        }
+        lintOptions {
+            checkReleaseBuilds false
+            abortOnError false
+        }
+        firebaseCrashlytics {
+            mappingFileUploadEnabled = false
         }
     }
     signingConfigs {
@@ -30,6 +37,8 @@ android {
             keyPassword '12345678'
         }
     }
+
+
     flavorDimensions "dimen"
     productFlavors {
         vDevelop_ {
@@ -87,13 +96,13 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
 
         debug {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -109,8 +118,8 @@ android {
 dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.4.1'
-    implementation 'com.google.android.material:material:1.5.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
+    implementation 'com.google.android.material:material:1.6.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     // Glide
@@ -162,8 +171,8 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
     implementation "androidx.multidex:multidex:2.0.1"
-    implementation 'com.github.MTGLibs:DocLibs:1.0.10'
-    implementation 'com.github.MTGLibs:CommonLibs:1.0.8'
+    implementation 'com.github.MTGLibs:DocLibs:1.1.3'
+    implementation 'com.github.MTGLibs:CommonLibs:1.0.9'
 
     implementation 'com.tom_roush:pdfbox-android:1.8.10.1'
     implementation 'com.airbnb.android:lottie:5.0.3'

@@ -5,22 +5,68 @@ import android.content.Context
 import android.content.Intent
 import android.view.View
 import android.widget.FrameLayout
+import android.widget.Toast
+import com.documentmaster.documentscan.OnActionCallback
 import com.documentmaster.documentscan.extention.setUserProperty
+import com.github.barteksc.pdfviewer.source.FileSource
 import com.masterexcels.excelreader.BuildConfig
 import com.masterexcels.excelreader.R
+import com.masterexcels.excelreader.base.BaseDocActivity
 import com.masterexcels.excelreader.extentions.loadBanner
 import com.masterexcels.excelreader.utils.AppUtils
+import com.masterexcels.excelreader.view.dialog.PasswordDialog
+import com.shockwave.pdfium.PdfiumCore
 import com.wxiwei.office.constant.MainConstant
-import com.wxiwei.office.officereader.BaseDocActivity
 import kotlinx.android.synthetic.main.activity_reader.*
 import java.io.File
+import java.io.IOException
 
 
 class DocReaderActivity : BaseDocActivity() {
     private var path: String? = null
+
     @SuppressLint("SetTextI18n")
     override fun pageChanged(page: Int, pageCount: Int) {
         tv_page.text = "$page/$pageCount"
+    }
+
+    override fun errorLoadPdf(t: Throwable?) {
+        val passDialog: PasswordDialog = PasswordDialog.newInstance()
+        passDialog.setCallback(object : OnActionCallback {
+            override fun callback(key: String?, vararg data: Any?) {
+                try {
+                    if (key != null && key == "cancel") {
+                        finish()
+                        return
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+                val pass = data[0] as String?
+                if (!passwordCorrect(pass)) {
+                    Toast.makeText(
+                        this@DocReaderActivity,
+                        "The password you entered is incorrect",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    return
+                }
+                readPdfFile(pass)
+                passDialog.dismiss()
+            }
+        })
+        passDialog.show(supportFragmentManager, null)
+    }
+
+    private fun passwordCorrect(pass: String?): Boolean {
+        val docSource = FileSource(File(path))
+        try {
+            val pdfDocument = docSource.createDocument(this, PdfiumCore(this), pass)
+        } catch (e: IOException) {
+            e.printStackTrace()
+            return false
+        }
+        return true
     }
 
     override fun getLayoutId(): Int {
