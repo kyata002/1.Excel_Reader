@@ -248,3 +248,6 @@
 -keep class com.pdfreaderdreamw.**       { * ; }
 -keep class com.tom_roush.**       { * ; }
 -keep class com.github.barteksc.**       { * ; }
+-keep class com.masterexcels.**       { * ; }
+-keep class com.google.**       { * ; }
+-keep class com.common.control.**       { * ; }

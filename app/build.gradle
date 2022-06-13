@@ -13,8 +13,8 @@ android {
         applicationId "com.xlsx.file.reader.xlsx.excel.viewer.spreadsheets.reader"
         minSdk 22
         targetSdk 32
-        versionCode 104
-        versionName "1.0.4"
+        versionCode 105
+        versionName "1.0.5"
         def formattedDate = new Date().format('hh.mm.MM.dd.yyyy')
         archivesBaseName = "ExcelReader_V${versionName}_${formattedDate}"
 

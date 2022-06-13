@@ -14,7 +14,7 @@ import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.masterexcels.excelreader.R
-import com.masterexcels.excelreader.view.activity.MainActivity
+import com.masterexcels.excelreader.view.activity.SplashActivity
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
     override fun onNewToken(token: String) {
@@ -33,12 +33,16 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         }
         // Check if message contains a notification payload.
         if (remoteMessage.notification != null) {
-            val intentAct = Intent(this, MainActivity::class.java)
+            val intentAct = Intent(this, SplashActivity::class.java)
             intentAct.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
             Log.d(
                 ContentValues.TAG,
                 "Message Notification Body: " + remoteMessage.notification?.body
             )
+            var flag = 0
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                flag = PendingIntent.FLAG_IMMUTABLE
+            }
             val notificationBuilder: NotificationCompat.Builder =
                 NotificationCompat.Builder(this, "channel_id")
                     .setContentTitle(remoteMessage.notification?.title)
@@ -46,13 +50,13 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                     .setStyle(NotificationCompat.BigTextStyle())
                     .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
-                    .setSmallIcon(R.mipmap.ic_launcher_round)
+                    .setSmallIcon(R.mipmap.ic_launcher)
                     .setContentIntent(
                         PendingIntent.getActivity(
                             this,
                             0,
                             intentAct,
-                            PendingIntent.FLAG_UPDATE_CURRENT
+                            flag
                         )
                     )
                     .setAutoCancel(true)
