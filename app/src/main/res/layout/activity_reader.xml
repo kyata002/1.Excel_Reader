@@ -1,84 +1,188 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/toolBar"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutToolbar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_56sdp"
+        android:layout_height="56dp"
         android:background="#00733B"
-        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <FrameLayout
-            android:id="@+id/btn_back"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:foreground="?attr/selectableItemBackgroundBorderless">
-
-            <ImageView
-                android:layout_width="@dimen/_18sdp"
-                android:layout_height="@dimen/_18sdp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="@dimen/_8sdp"
-                android:layout_marginRight="@dimen/_8sdp"
-                android:background="@drawable/ic_btn_back" />
-        </FrameLayout>
-
         <TextView
-            android:id="@+id/name_file_read"
+            android:id="@+id/tv_title"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="@dimen/_8sdp"
             android:layout_marginLeft="@dimen/_8sdp"
-            android:layout_weight="1"
-            android:singleLine="true"
-            android:text=""
-            android:textColor="#fff"
-            android:textSize="@dimen/_14sdp" />
-
-        <ImageButton
-            android:id="@+id/btn_share"
-            android:layout_width="@dimen/_20sdp"
-            android:layout_height="@dimen/_20sdp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/_20sdp"
             android:layout_marginRight="@dimen/_8sdp"
-            android:background="@drawable/ic_share"
-            android:foreground="?attr/selectableItemBackgroundBorderless" />
-        <!--                <ImageButton-->
-        <!--                    android:foreground="?attr/selectableItemBackgroundBorderless"-->
-        <!--                    android:id="@+id/btn_print"-->
-        <!--                    android:background="@drawable/ic_print"-->
-        <!--                    android:layout_gravity="center"-->
-        <!--                    android:layout_marginRight="@dimen/_16sdp"-->
-        <!--                    android:layout_width="@dimen/_24sdp"-->
-        <!--                    android:layout_height="@dimen/_24sdp"/>-->
-    </LinearLayout>
+            android:layout_toEndOf="@+id/iv_back"
+            android:fontFamily="@font/poppins_regular"
+            android:singleLine="true"
+            android:text="sds dsa sd asd asdd sa dsadsadsadsadasdsadsada"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/_16sdp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_back"
+            app:layout_constraintLeft_toRightOf="@+id/iv_back"
+            app:layout_constraintRight_toLeftOf="@+id/bt_share"
+            app:layout_constraintTop_toTopOf="@id/iv_back" />
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:layout_marginEnd="10dp"
+            android:adjustViewBounds="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="@dimen/_5sdp"
+            android:src="@drawable/ic_btn_back"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+
+        <ImageView
+            android:id="@+id/bt_share"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/_16sdp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_share"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="#FFF" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     <FrameLayout
         android:id="@+id/fr_doc"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/fr_ad"
-        app:layout_constraintTop_toBottomOf="@+id/toolBar" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_page"
-        android:layout_width="@dimen/_60sdp"
-        android:layout_height="@dimen/_30sdp"
         android:layout_marginBottom="@dimen/_8sdp"
-        android:background="@drawable/bg_page"
-        android:backgroundTint="#00733B"
-        android:gravity="center"
-        android:textColor="#FFF"
-        android:textSize="@dimen/_12sdp"
-        app:layout_constraintBottom_toTopOf="@id/fr_ad"
+        app:layout_constraintBottom_toTopOf="@id/fr_slide"
+        app:layout_constraintTop_toBottomOf="@+id/layoutToolbar" />
+
+    <com.wxiwei.office.wp.scroll.ScrollBarView
+        android:id="@+id/scrollView"
+        android:layout_width="40dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/_8sdp"
+        app:layout_constraintBottom_toTopOf="@id/fr_slide"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutToolbar" />
+
+
+    <FrameLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_16sdp"
+        app:layout_constraintBottom_toTopOf="@id/fr_slide"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+
+            android:id="@+id/bt_slide_show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+<!--            <androidx.appcompat.widget.AppCompatImageView-->
+<!--                android:layout_width="@dimen/_20sdp"-->
+<!--                android:layout_height="@dimen/_20sdp"-->
+<!--                android:layout_marginTop="@dimen/_12sdp"-->
+<!--                android:src="@drawable/ic_slide_show" />-->
+
+<!--            <androidx.appcompat.widget.AppCompatTextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:fontFamily="@font/poppins_regular"-->
+<!--                android:text="Slideshow"-->
+<!--                android:textColor="#6E7175"-->
+<!--                android:textSize="@dimen/_8sdp" />-->
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_page"
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_gravity="center"
+            android:background="@drawable/bg_page"
+            android:backgroundTint="#00733B"
+            android:gravity="center"
+            android:text="0/0"
+            android:textColor="#FFF"
+            android:textSize="@dimen/_12sdp" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/fr_slide"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_80sdp"
+        android:background="#FFF"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/fr_ad">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvSlide"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_slide" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tvZoom"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/bg_page_current"
+        android:fontFamily="@font/poppins_regular"
+        android:gravity="center"
+        android:text="100%"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_16sdp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1.75:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.31" />
+
+    <TextView
+        android:id="@+id/tvScrollPage"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/bg_page_current"
+        android:fontFamily="@font/poppins_regular"
+        android:gravity="center"
+        android:text="1/30"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_16sdp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1.75:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.31" />
 
 
     <FrameLayout

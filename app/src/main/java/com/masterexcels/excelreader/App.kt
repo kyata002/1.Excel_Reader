@@ -11,16 +11,18 @@ class App : MyApplication() {
         var database: RoomDatabase? = null
     }
 
-    override fun onCreate() {
-        super.onCreate()
+    override fun onApplicationCreate() {
         instance = this
         database = RoomDatabase.getDatabase(instance)
         AppOpenManager.getInstance().disableAppResumeWithActivity(SplashActivity::class.java)
     }
 
+    override fun hasAds(): Boolean {
+        return true
+    }
 
-    override fun isPurchased(): Boolean {
-        return BuildConfig.PURCHASED
+    override fun isShowDialogLoadingAd(): Boolean {
+       return false
     }
 
     override fun isShowAdsTest(): Boolean {

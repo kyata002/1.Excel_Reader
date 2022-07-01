@@ -8,8 +8,6 @@ package com.masterexcels.excelreader.utils;
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.content.res.AssetManager
-import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.Typeface
 import android.net.Uri
@@ -22,7 +20,6 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.graphics.TypefaceCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.documentmaster.documentscan.OnActionCallback
 import com.documentmaster.documentscan.extention.setUserProperty
@@ -216,7 +213,9 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
 
 
     }
-
+    private fun convertDpToPx(dp: Float): Float {
+        return dp * context.getResources().getDisplayMetrics().density
+    }
     private fun checkFavourite(path: String?): Boolean {
         return App.database?.favoriteDAO()?.getFile(path) != null
     }

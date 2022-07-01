@@ -61,7 +61,7 @@ fun Context.showInterAd(id: String) {
                 loadInterAd(id)
             }
 
-            override fun onAdFailedToLoad(i: LoadAdError?) {
+            override fun onAdFailedToLoad(i: LoadAdError) {
                 storeInter(id, null)
             }
         }

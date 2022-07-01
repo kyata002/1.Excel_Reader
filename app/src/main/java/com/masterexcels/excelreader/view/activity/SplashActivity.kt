@@ -3,6 +3,7 @@ package com.masterexcels.excelreader.view.activity
 import android.annotation.SuppressLint
 import android.net.Uri
 import android.os.Handler
+import android.text.TextUtils
 import com.common.control.interfaces.AdCallback
 import com.common.control.manager.AdmobManager
 import com.documentmaster.documentscan.extention.setUserProperty
@@ -34,7 +35,7 @@ class SplashActivity(override val layoutId: Int = R.layout.activity_splash) : Ba
                             startMain()
                         }
 
-                        override fun onAdFailedToLoad(i: LoadAdError?) {
+                        override fun onAdFailedToLoad(i: LoadAdError) {
                             super.onAdFailedToLoad(i)
                             startMain()
                         }
@@ -51,8 +52,20 @@ class SplashActivity(override val layoutId: Int = R.layout.activity_splash) : Ba
             val data: Uri? = intent.data
             fileUri = data
             if (data != null) {
-                val filePath = RealPathUtil.getPathFromData(this, fileUri)
-                DocReaderActivity.start(this, filePath)
+                var path = RealPathUtil.getPathFromData(this, fileUri)
+                if (TextUtils.isEmpty(path)) {
+                    path = intent.dataString
+                    val indexOf = path!!.indexOf(":")
+                    if (indexOf > 0) {
+                        path = path!!.substring(indexOf + 3)
+                    }
+                    path = Uri.decode(path)
+                }
+                if (!TextUtils.isEmpty(path) && path!!.contains("/raw:")) {
+                    val str = path
+                    path = str!!.substring(str.indexOf("/raw:") + 5)
+                }
+                DocReaderActivity.start(this, path)
             }
             finish()
             return
