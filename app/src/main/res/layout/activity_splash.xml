@@ -64,7 +64,7 @@
         android:layout_marginTop="@dimen/_18sdp"
         android:layout_marginEnd="@dimen/_92sdp"
         android:layout_marginBottom="@dimen/_40sdp"
-        android:fontFamily="@font/poppins_regular"
+        android:fontFamily="@font/lexend_regular"
         android:gravity="center"
         android:text="This action can contain ads..."
         android:textColor="@color/white"

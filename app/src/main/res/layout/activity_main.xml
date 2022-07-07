@@ -19,7 +19,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_56sdp"
+                android:layout_height="@dimen/_50sdp"
                 android:weightSum="10">
 
                 <TextView
@@ -38,7 +38,7 @@
                     android:layout_width="@dimen/_28sdp"
                     android:layout_height="@dimen/_28sdp"
                     android:layout_gravity="left|center"
-                    android:layout_marginRight="@dimen/_8sdp"
+                    android:layout_marginRight="@dimen/_4sdp"
                     android:foreground="?attr/selectableItemBackgroundBorderless"
                     android:src="@drawable/ic_setting"
                     tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
@@ -53,8 +53,6 @@
                 android:background="@drawable/shape"
                 android:gravity="center"
                 android:padding="@dimen/_3sdp">
-
-
                 <FrameLayout
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_16sdp">
@@ -64,7 +62,7 @@
                         android:layout_width="@dimen/_16sdp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/_8sdp"
-                        android:src="@drawable/ic_search" />
+                        android:src="@drawable/ic_btn_share2" />
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/search_bt_back"
@@ -83,12 +81,12 @@
                     android:layout_marginStart="@dimen/_8sdp"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
-                    android:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/lexend_regular"
                     android:gravity="center|left"
-                    android:hint="Find the document"
+                    android:hint="Share files"
                     android:paddingTop="@dimen/_2sdp"
-                    android:textColor="#fff"
-                    android:textColorHint="#FFF"
+                    android:textColor="#B9B9B9"
+                    android:textColorHint="#B9B9B9"
                     android:textCursorDrawable="@drawable/cursor_color"
                     android:textSize="@dimen/_13sdp"
                     android:theme="@style/CustomEditTextView" />
@@ -116,7 +114,7 @@
     <LinearLayout
         android:id="@+id/button_file"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_35sdp"
+        android:layout_height="@dimen/_30sdp"
         android:layout_marginTop="@dimen/_8sdp"
         android:layout_marginBottom="@dimen/_8sdp"
         android:orientation="horizontal"
@@ -128,16 +126,32 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_weight="50"
+            android:layout_weight="40"
             android:background="@drawable/ic_bg_btn_yes"
-            android:fontFamily="@font/poppins_semibold"
+            android:fontFamily="@font/lexend_regular"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:gravity="center"
             android:paddingTop="@dimen/_2sdp"
-            android:text="All Files"
+            android:text="All Documents"
             android:textAllCaps="false"
             android:textColor="#fff"
-            android:textSize="@dimen/_14sdp" />
+            android:textSize="@dimen/_11sdp" />
+        <TextView
+            android:id="@+id/btn_recent"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/_8sdp"
+            android:layout_weight="25"
+            android:background="@drawable/bg_btn"
+            android:fontFamily="@font/lexend_regular"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:paddingTop="@dimen/_2sdp"
+            android:text="Recent"
+            android:textAllCaps="false"
+            android:textColor="#838388"
+            android:textSize="@dimen/_11sdp" />
 
         <TextView
             android:id="@+id/btn_favourite"
@@ -145,26 +159,29 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/_8sdp"
-            android:layout_weight="50"
-            android:background="@drawable/ic_bg_btn_no"
-            android:fontFamily="@font/poppins_regular"
+            android:layout_weight="30"
+            android:background="@drawable/bg_btn"
+            android:fontFamily="@font/lexend_regular"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:gravity="center"
             android:paddingTop="@dimen/_2sdp"
             android:text="Favourite"
             android:textAllCaps="false"
             android:textColor="#838388"
-            android:textSize="@dimen/_14sdp" />
-
+            android:textSize="@dimen/_11sdp" />
+        <ImageView
+            android:layout_weight="6"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
         <TextView
             android:id="@+id/sort_btn"
-            android:layout_width="@dimen/_36sdp"
-            android:layout_height="@dimen/_36sdp"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/_8sdp"
             android:layout_marginRight="@dimen/_8sdp"
             android:layout_weight="1"
-            android:background="@drawable/ic_sort"
+            android:background="@drawable/ic_sort2"
             android:foreground="?attr/selectableItemBackgroundBorderless" />
     </LinearLayout>
 

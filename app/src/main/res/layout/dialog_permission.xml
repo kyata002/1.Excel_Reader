@@ -26,7 +26,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/_32sdp"
             android:textSize="@dimen/_12sdp"
-            android:fontFamily="@font/poppins_regular"
+            android:fontFamily="@font/lexend_regular"
             />
         <LinearLayout
             android:layout_width="wrap_content"
@@ -42,7 +42,7 @@
                 android:layout_marginRight="@dimen/_8sdp"
                 android:background="@drawable/bg_action"
                 android:backgroundTint="#EBEBEB"
-                android:fontFamily="@font/poppins_regular"
+                android:fontFamily="@font/lexend_regular"
                 android:foreground="?attr/selectableItemBackgroundBorderless"
                 android:gravity="center"
                 android:text="Deny"

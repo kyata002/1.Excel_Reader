@@ -29,7 +29,7 @@
         android:layout_height="@dimen/_14sdp"
         android:layout_margin="1.5dp"
         android:background="#A6A6A6"
-        android:fontFamily="@font/poppins_regular"
+        android:fontFamily="@font/lexend_regular"
         android:gravity="center"
         android:paddingTop="@dimen/_2sdp"
         android:singleLine="true"

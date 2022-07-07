@@ -68,7 +68,7 @@
                     android:layout_gravity="center"
                     android:layout_marginLeft="@dimen/_15sdp"
                     android:layout_weight="1"
-                    android:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/lexend_regular"
                     android:text="Share App"
                     android:textColor="#000"
                     android:textSize="@dimen/_14sdp" />
@@ -106,7 +106,7 @@
             <!--                    android:layout_gravity="center"-->
             <!--                    android:layout_width="wrap_content"-->
             <!--                    android:layout_height="wrap_content"-->
-            <!--                    android:fontFamily="@font/poppins_regular"/>-->
+            <!--                    android:fontFamily="@font/lexend_regular"/>-->
             <!--                <ImageView-->
             <!--                    android:layout_gravity="center"-->
             <!--                    android:background="@drawable/ic_show"-->
@@ -141,7 +141,7 @@
                     android:layout_gravity="center"
                     android:layout_marginLeft="@dimen/_11sdp"
                     android:layout_weight="1"
-                    android:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/lexend_regular"
                     android:text="Feedback"
                     android:textColor="#000"
                     android:textSize="@dimen/_14sdp" />
@@ -179,7 +179,7 @@
                     android:layout_gravity="center"
                     android:layout_marginLeft="@dimen/_13sdp"
                     android:layout_weight="1"
-                    android:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/lexend_regular"
                     android:gravity="center|left"
                     android:text="Privacy Policy"
                     android:textColor="#000"

@@ -34,7 +34,7 @@
                     android:layout_weight="1"
                     android:text="@string/share"
                     android:gravity="center"
-                    android:fontFamily="@font/poppins_regular" />
+                    android:fontFamily="@font/lexend_regular" />
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/rename_file"
@@ -52,7 +52,7 @@
                     android:layout_weight="1"
                     android:text="@string/rename"
                     android:gravity="center"
-                    android:fontFamily="@font/poppins_regular" />
+                    android:fontFamily="@font/lexend_regular" />
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/detail_file"
@@ -72,7 +72,7 @@
                     android:layout_weight="1"
                     android:text="@string/detail"
                     android:gravity="center"
-                    android:fontFamily="@font/poppins_regular" />
+                    android:fontFamily="@font/lexend_regular" />
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/delete_file"
@@ -90,7 +90,7 @@
                     android:layout_weight="1"
                     android:text="@string/delete"
                     android:gravity="center"
-                    android:fontFamily="@font/poppins_regular" />
+                    android:fontFamily="@font/lexend_regular" />
             </LinearLayout>
 
         </LinearLayout>

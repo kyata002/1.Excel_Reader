@@ -129,7 +129,7 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
                 .addItem(PowerMenuItem("Delete", R.drawable.ic_delete, false)) // aad an item list.
 //                .setAnimation(MenuAnimation.SHOWUP_TOP_LEFT) // Animation start point (TOP | LEFT).
                 .setMenuRadius(36f)
-                .setTextTypeface(ResourcesCompat.getFont(context, R.font.poppins_regular)!!)
+                .setTextTypeface(ResourcesCompat.getFont(context, R.font.lexend_regular)!!)
                 .setSize(200 * MainActivity.width / 160, 280 * MainActivity.height / 160)
                 .setPadding(16)// sets the corner radius.
                 .setMenuShadow(10f) // sets the shadow.
@@ -143,7 +143,7 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
                 }
                 //.setTextColor(ContextCompat.getColor(context, Color.parseColor("#3C3C3C")))
                 .setTextGravity(Gravity.LEFT)
-                .setTextTypeface(Typeface.create("font/poppins_regular.ttf", Typeface.NORMAL))
+                .setTextTypeface(Typeface.create("font/lexend_regular.ttf", Typeface.NORMAL))
                 .setSelectedTextColor(Color.WHITE)
                 .setMenuColor(Color.WHITE)
                 .setSelectedMenuColor(ContextCompat.getColor(context, R.color.colorPrimary))
