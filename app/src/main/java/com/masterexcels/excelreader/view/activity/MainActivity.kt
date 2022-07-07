@@ -36,11 +36,13 @@ import com.masterexcels.excelreader.BuildConfig
 import com.masterexcels.excelreader.R
 import com.masterexcels.excelreader.extentions.loadInterAd
 import com.masterexcels.excelreader.extentions.loadNative
+import com.masterexcels.excelreader.model.FileRecent
 import com.masterexcels.excelreader.model.MyFile
 import com.masterexcels.excelreader.utils.CommonUtils
 import com.masterexcels.excelreader.utils.FileAdapter
 import com.masterexcels.excelreader.utils.LoadFile
 import com.masterexcels.excelreader.utils.SharePreferenceUtils
+import com.masterexcels.excelreader.view.adapter.FileAdapterRecent
 import com.masterexcels.excelreader.view.dialog.FilterDialog
 import com.masterexcels.excelreader.view.dialog.PermissionDialog
 import com.pdfreaderdreamw.pdfreader.view.widget.CustomEditText
@@ -49,7 +51,9 @@ import kotlin.math.roundToInt
 
 class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseActivity() {
     private var fileList: java.util.ArrayList<MyFile> = ArrayList()
+    private var fileList2:java.util.ArrayList<FileRecent> = ArrayList()
     private var fileAdapter: FileAdapter? = null
+    private var fileRecentAdapter:FileAdapterRecent? = null
     private val dm = DisplayMetrics()
 
     @SuppressLint("RestrictedApi")
@@ -81,6 +85,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         btn_allfile.setOnClickListener {
             clickAllAfile()
             btn_favourite.setTypeface(Typeface.DEFAULT, Typeface.NORMAL)
+            btn_recent.setTypeface(Typeface.DEFAULT, Typeface.NORMAL)
             btn_allfile.setTypeface(null, Typeface.BOLD)
         }
 
@@ -100,10 +105,13 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
             }
             btn_favourite.setBackgroundResource(R.drawable.ic_bg_btn_yes)
             btn_favourite.setTypeface(Typeface.DEFAULT, Typeface.BOLD)
-            btn_allfile.setTypeface(null, Typeface.NORMAL)
             btn_favourite.setTextColor(Color.parseColor("#ffffff"))
-            btn_allfile.setBackgroundResource(R.drawable.ic_bg_btn_no)
+            btn_allfile.setTypeface(null, Typeface.NORMAL)
+            btn_allfile.setBackgroundResource(R.drawable.bg_btn)
             btn_allfile.setTextColor(Color.parseColor("#838388"))
+            btn_recent.setTypeface(null, Typeface.NORMAL)
+            btn_recent.setBackgroundResource(R.drawable.bg_btn)
+            btn_recent.setTextColor(Color.parseColor("#838388"))
             Thread {
                 fileList = fileListTempFavourite
                 runOnUiThread {
@@ -111,6 +119,26 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
                     updateStatus(status)
                 }
             }.start()
+        }
+        btn_recent.setOnClickListener {
+            btn_recent.setBackgroundResource(R.drawable.ic_bg_btn_yes)
+            btn_recent.setTypeface(Typeface.DEFAULT, Typeface.BOLD)
+            btn_recent.setTextColor(Color.parseColor("#ffffff"))
+            btn_allfile.setTypeface(null, Typeface.NORMAL)
+            btn_allfile.setBackgroundResource(R.drawable.bg_btn)
+            btn_allfile.setTextColor(Color.parseColor("#838388"))
+            btn_favourite.setTypeface(null, Typeface.NORMAL)
+            btn_favourite.setBackgroundResource(R.drawable.bg_btn)
+            btn_favourite.setTextColor(Color.parseColor("#838388"))
+
+            fileListTempRecent = App.database?.recentDao()?.list as java.util.ArrayList<FileRecent>
+            Thread {
+                fileList2 = fileListTempRecent
+                runOnUiThread {
+                    fileRecentAdapter?.updateList2(fileList2)
+                }
+            }.start()
+            updateStatus(3)
         }
         sort_btn.setOnClickListener {
             FilterDialog.start(this, "sort_dialog", object : OnActionCallback {
@@ -148,9 +176,9 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
                     search_bt.setImageResource(0)
 
                 } else {
-                    search_bt.setImageResource(R.drawable.ic_search)
+                    search_bt.setImageResource(R.drawable.ic_btn_share2)
                     search_bt_back.setImageResource(0)
-                    search_bar.hint = "Find the document"
+                    search_bar.hint = "Share files"
                 }
             }
         }
@@ -211,8 +239,10 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         fileListTemp = getFileList()
         btn_allfile.setBackgroundResource(R.drawable.ic_bg_btn_yes)
         btn_allfile.setTextColor(Color.parseColor("#ffffff"))
-        btn_favourite.setBackgroundResource(R.drawable.ic_bg_btn_no)
+        btn_favourite.setBackgroundResource(R.drawable.bg_btn)
         btn_favourite.setTextColor(Color.parseColor("#838388"))
+        btn_recent.setBackgroundResource(R.drawable.bg_btn)
+        btn_recent.setTextColor(Color.parseColor("#838388"))
         when (FilterDialog.currentStatus) {
             0 -> {
                 fileAdapter?.sortByNameAZ(fileListTemp)
@@ -242,6 +272,11 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         if (fileList.size == 0 && int == 1) {
             no_file.setImageResource(R.drawable.ic_no_file_favourite)
             no_result_search.setImageResource(0)
+        }
+        if (fileList2.size==0 && int ==3){
+            no_file.setImageResource(R.drawable.ic_no_file)
+        }else{
+            no_file.setImageResource(0)
         }
         if (fileList.size != 0) {
             no_file.setImageResource(0)
@@ -279,6 +314,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         const val UPDATE_SEARCH_HAVE_RESULT = "have_result"
         var fileListTemp = ArrayList<MyFile>()
         var fileListTempFavourite: java.util.ArrayList<MyFile> = ArrayList()
+        var fileListTempRecent:java.util.ArrayList<FileRecent> = ArrayList()
 
         @JvmStatic
         fun start(context: Context) {
