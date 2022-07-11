@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.net.Uri
 import android.os.Handler
 import android.view.View
 import android.widget.FrameLayout
@@ -12,11 +13,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.common.control.manager.AdmobManager
 import com.documentmaster.documentscan.OnActionCallback
+import com.documentmaster.documentscan.extention.setUserProperty
 import com.github.barteksc.pdfviewer.source.FileSource
 import com.masterexcels.excelreader.BuildConfig
 import com.masterexcels.excelreader.R
 import com.masterexcels.excelreader.model.MySlide
 import com.masterexcels.excelreader.utils.CommonUtils
+import com.masterexcels.excelreader.utils.NotificationUtil
 import com.masterexcels.excelreader.view.adapter.SlideAdapter
 import com.shockwave.pdfium.PdfiumCore
 import com.wxiwei.office.constant.MainConstant
@@ -25,7 +28,9 @@ import com.wxiwei.office.pg.control.Presentation
 import com.wxiwei.office.ss.control.ExcelView
 import com.wxiwei.office.wp.control.Word
 import com.wxiwei.office.wp.scroll.ScrollBarView
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_reader.*
+import kotlinx.android.synthetic.main.activity_reader.fr_ad
 import java.io.File
 import java.io.IOException
 
@@ -113,10 +118,18 @@ open class DocReaderActivity : BaseDocActivity() {
     }
 
     private fun addEvent() {
-        findViewById<View>(R.id.iv_back).setOnClickListener { v: View? -> onBackPressed() }
-        findViewById<View>(R.id.bt_share).setOnClickListener { v: View? ->
-            CommonUtils.getInstance().shareFile(this, File(path))
+        findViewById<View>(R.id.iv_back).setOnClickListener {
+                v: View? -> onBackPressed()
+
         }
+        findViewById<View>(R.id.bt_share).setOnClickListener {
+                v: View? ->shareFileRead()
+        }
+    }
+
+    fun shareFileRead(){
+        setUserProperty("CLICK_Share_AtRead")
+        CommonUtils.getInstance().shareFile(this, File(path))
     }
 
     private fun updateList(index: Int) = try {
@@ -260,6 +273,27 @@ open class DocReaderActivity : BaseDocActivity() {
             return false
         }
         return true
+    }
+    override fun onBackPressed() {
+        MainActivity.isShowRate = true
+        val bitmap = getThumbnail()
+        if (bitmap == null) {
+            super.onBackPressed()
+            return
+        }
+        val intent = Intent(this, SplashActivity::class.java)
+//        intent.putExtra("android.intent.action.VIEW", BuildConfig.inter_open_other_app)
+        intent.action="android.intent.action.VIEW"
+        intent.data = Uri.fromFile(File(path))
+        NotificationUtil.getInstance().showNotification(
+            this,
+            "You have read this file recently \uD83D\uDCDA",
+            "Check now \uD83D\uDC49",
+            intent,
+            bitmap
+        )
+//        fr_ad.visibility = View.VISIBLE
+        super.onBackPressed()
     }
 
     override fun onDestroy() {

@@ -61,7 +61,7 @@
                 android:textSize="@dimen/_12sdp"
                 android:textColor="#fff"
                 android:background="@drawable/bg_action"
-                android:backgroundTint="#02723B"/>
+                android:backgroundTint="#129253"/>
         </LinearLayout>
 
     </LinearLayout>

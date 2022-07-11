@@ -7,14 +7,17 @@ import androidx.room.Room;
 
 import com.masterexcels.excelreader.dao.FavoriteDAO;
 import com.masterexcels.excelreader.dao.HistoryDao;
+import com.masterexcels.excelreader.dao.RecentDao;
+import com.masterexcels.excelreader.model.FileRecent;
 import com.masterexcels.excelreader.model.MyFile;
 
 
-@Database(entities = {MyFile.class}, version = 2, exportSchema = false)
+@Database(entities = {MyFile.class, FileRecent.class}, version = 4, exportSchema = false)
 public abstract class RoomDatabase extends androidx.room.RoomDatabase {
 
     public abstract HistoryDao historyDao();
 
+    public abstract RecentDao recentDao();
     public abstract FavoriteDAO favoriteDAO();
 
     private static RoomDatabase instance;

@@ -38,6 +38,8 @@
             android:theme="@style/Transparent" />
         <activity
             android:name=".view.activity.SplashActivity"
+
+            android:launchMode="singleTask"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>

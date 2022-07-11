@@ -39,10 +39,9 @@ import com.masterexcels.excelreader.extentions.loadNative
 import com.masterexcels.excelreader.model.FileRecent
 import com.masterexcels.excelreader.model.MyFile
 import com.masterexcels.excelreader.utils.CommonUtils
-import com.masterexcels.excelreader.utils.FileAdapter
 import com.masterexcels.excelreader.utils.LoadFile
 import com.masterexcels.excelreader.utils.SharePreferenceUtils
-import com.masterexcels.excelreader.view.adapter.FileAdapterRecent
+import com.masterexcels.excelreader.view.adapter.FileAdapter
 import com.masterexcels.excelreader.view.dialog.FilterDialog
 import com.masterexcels.excelreader.view.dialog.PermissionDialog
 import com.pdfreaderdreamw.pdfreader.view.widget.CustomEditText
@@ -51,9 +50,8 @@ import kotlin.math.roundToInt
 
 class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseActivity() {
     private var fileList: java.util.ArrayList<MyFile> = ArrayList()
-    private var fileList2:java.util.ArrayList<FileRecent> = ArrayList()
     private var fileAdapter: FileAdapter? = null
-    private var fileRecentAdapter:FileAdapterRecent? = null
+    var status = 1
     private val dm = DisplayMetrics()
 
     @SuppressLint("RestrictedApi")
@@ -66,9 +64,12 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         val linearLayoutManager = LinearLayoutManager(this)
         rcvExcel.layoutManager = linearLayoutManager
         executeLoadFile()
-        updateStatus(1)
+        updateStatus(status)
         fileList = fileListTemp
-        fileAdapter = FileAdapter(fileList, this)
+        fileAdapter = FileAdapter(
+            fileList  /* = java.util.ArrayList<com.masterexcels.excelreader.model.FileRecent> */,
+            this
+        )
         rcvExcel.adapter = fileAdapter
 
         initReceiver()
@@ -83,14 +84,13 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
             setUserProperty("CLICK_Main_Settings")
         }
         btn_allfile.setOnClickListener {
+            status=1
             clickAllAfile()
-            btn_favourite.setTypeface(Typeface.DEFAULT, Typeface.NORMAL)
-            btn_recent.setTypeface(Typeface.DEFAULT, Typeface.NORMAL)
-            btn_allfile.setTypeface(null, Typeface.BOLD)
         }
 
         btn_favourite.setOnClickListener {
-            val status = 2
+            setUserProperty("CLICK_Favourite")
+            status = 2
             fileListTempFavourite = App.database?.favoriteDAO()?.list as java.util.ArrayList<MyFile>
             when (FilterDialog.currentStatus) {
                 0 -> {
@@ -103,7 +103,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
                     fileAdapter?.sortByDate(fileListTempFavourite)
                 }
             }
-            btn_favourite.setBackgroundResource(R.drawable.ic_bg_btn_yes)
+            btn_favourite.setBackgroundResource(R.drawable.bg_btn_yes)
             btn_favourite.setTypeface(Typeface.DEFAULT, Typeface.BOLD)
             btn_favourite.setTextColor(Color.parseColor("#ffffff"))
             btn_allfile.setTypeface(null, Typeface.NORMAL)
@@ -115,13 +115,14 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
             Thread {
                 fileList = fileListTempFavourite
                 runOnUiThread {
-                    fileAdapter?.updateList(fileList)
+                    fileAdapter?.updateList(fileList /* = java.util.ArrayList<com.masterexcels.excelreader.model.FileRecent> */)
                     updateStatus(status)
                 }
             }.start()
         }
         btn_recent.setOnClickListener {
-            btn_recent.setBackgroundResource(R.drawable.ic_bg_btn_yes)
+            status = 3
+            btn_recent.setBackgroundResource(R.drawable.bg_btn_yes)
             btn_recent.setTypeface(Typeface.DEFAULT, Typeface.BOLD)
             btn_recent.setTextColor(Color.parseColor("#ffffff"))
             btn_allfile.setTypeface(null, Typeface.NORMAL)
@@ -130,15 +131,19 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
             btn_favourite.setTypeface(null, Typeface.NORMAL)
             btn_favourite.setBackgroundResource(R.drawable.bg_btn)
             btn_favourite.setTextColor(Color.parseColor("#838388"))
-
-            fileListTempRecent = App.database?.recentDao()?.list as java.util.ArrayList<FileRecent>
             Thread {
-                fileList2 = fileListTempRecent
-                runOnUiThread {
-                    fileRecentAdapter?.updateList2(fileList2)
+                fileList.clear()
+                fileRecentList = App.database?.recentDao()?.list!!
+                fileRecentList.forEach {
+                    val myFile = MyFile(it.path)
+                    fileList.add(myFile)
                 }
+                runOnUiThread {
+                    fileAdapter?.updateList(fileList/* = java.util.ArrayList<com.masterexcels.excelreader.model.FileRecent> */)
+                }
+                updateStatus(status)
             }.start()
-            updateStatus(3)
+
         }
         sort_btn.setOnClickListener {
             FilterDialog.start(this, "sort_dialog", object : OnActionCallback {
@@ -152,13 +157,16 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
                     if (key == "by_created_time") {
                         fileAdapter?.sortByDate(fileList)!!
                     }
-                    fileAdapter?.updateList(fileList)
+                    fileAdapter?.updateList(fileList/* = java.util.ArrayList<com.masterexcels.excelreader.model.FileRecent> */)
                 }
 
             })
         }
 
         search_bar.setOnClickListener {
+            setUserProperty("SEARCH_File")
+            fr_ad.visibility = View.GONE
+            checkLocation()
             search_bar.isFocusableInTouchMode = true
             search_bar.isFocusable = true
             showKeyboard(search_bar)
@@ -178,7 +186,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
                 } else {
                     search_bt.setImageResource(R.drawable.ic_btn_share2)
                     search_bt_back.setImageResource(0)
-                    search_bar.hint = "Share files"
+                    search_bar.hint = "Search files"
                 }
             }
         }
@@ -192,6 +200,8 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         })
         search_bt_back.setOnClickListener {
             cancelSearch()
+            showAllbtn()
+            fr_ad.visibility = View.VISIBLE
         }
         search_bar.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -201,10 +211,10 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
                 fileAdapter?.filter?.filter(p0)
                 if (p0!!.isNotEmpty()) {
                     clear_bt.setImageResource(R.drawable.ic_btn_clear)
-                    button_file.hide()
+                    checkLocation()
                     setUserProperty("SEARCH_File")
                 } else {
-                    button_file.show()
+                    checkLocation()
                     clear_bt.setImageResource(0)
                 }
             }
@@ -235,12 +245,14 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
     }
 
     private fun clickAllAfile() {
-        val status = 1
         fileListTemp = getFileList()
-        btn_allfile.setBackgroundResource(R.drawable.ic_bg_btn_yes)
+        btn_allfile.setTypeface(null, Typeface.BOLD)
+        btn_allfile.setBackgroundResource(R.drawable.bg_btn_yes)
         btn_allfile.setTextColor(Color.parseColor("#ffffff"))
+        btn_favourite.setTypeface(Typeface.DEFAULT, Typeface.NORMAL)
         btn_favourite.setBackgroundResource(R.drawable.bg_btn)
         btn_favourite.setTextColor(Color.parseColor("#838388"))
+        btn_recent.setTypeface(Typeface.DEFAULT, Typeface.NORMAL)
         btn_recent.setBackgroundResource(R.drawable.bg_btn)
         btn_recent.setTextColor(Color.parseColor("#838388"))
         when (FilterDialog.currentStatus) {
@@ -257,30 +269,33 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         Thread {
             fileList = fileListTemp
             runOnUiThread {
-                fileAdapter?.updateList(fileList)
+                fileAdapter?.updateList(fileList/* = java.util.ArrayList<com.masterexcels.excelreader.model.FileRecent> */)
                 updateStatus(status)
             }
         }.start()
     }
 
-    private fun updateStatus(int: Int) {
-        if (fileList.size == 0 && int == 2) {
-            no_file.setImageResource(R.drawable.ic_no_file)
-            no_result_search.setImageResource(0)
 
-        }
-        if (fileList.size == 0 && int == 1) {
-            no_file.setImageResource(R.drawable.ic_no_file_favourite)
-            no_result_search.setImageResource(0)
-        }
-        if (fileList2.size==0 && int ==3){
-            no_file.setImageResource(R.drawable.ic_no_file)
-        }else{
-            no_file.setImageResource(0)
-        }
-        if (fileList.size != 0) {
-            no_file.setImageResource(0)
-            no_result_search.setImageResource(0)
+    private fun updateStatus(int: Int) {
+        runOnUiThread {
+            if (fileList.size == 0 && int == 2) {
+                no_file.setImageResource(R.drawable.ic_no_file_favourite2)
+                no_result_search.setImageResource(0)
+
+            }
+            if (fileList.size == 0 && int == 3) {
+                no_file.setImageResource(R.drawable.ic_nofile_recent)
+                no_result_search.setImageResource(0)
+
+            }
+            if (fileList.size == 0 && int == 1) {
+                no_file.setImageResource(0)
+                no_result_search.setImageResource(R.drawable.ic_no_all_file)
+            }
+            if (fileList.size != 0) {
+                no_file.setImageResource(0)
+                no_result_search.setImageResource(0)
+            }
         }
     }
 
@@ -302,11 +317,11 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
     }
 
     companion object {
-
         val PERMISSIONS_STORAGE = arrayOf(
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
         )
+        var isShowRate = false
         var width = 0
         var height = 0
         const val RQC_REQUEST_PERMISSION_ANDROID_11 = 333
@@ -314,7 +329,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         const val UPDATE_SEARCH_HAVE_RESULT = "have_result"
         var fileListTemp = ArrayList<MyFile>()
         var fileListTempFavourite: java.util.ArrayList<MyFile> = ArrayList()
-        var fileListTempRecent:java.util.ArrayList<FileRecent> = ArrayList()
+        var fileRecentList: List<FileRecent> = ArrayList()
 
         @JvmStatic
         fun start(context: Context) {
@@ -346,13 +361,17 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         if (AdCache.interReadFile == null) {
             loadInterAd(BuildConfig.inter_read_file)
         }
+        if (isShowRate) {
+            showRateDialog(false)
+            isShowRate = false
+        }
     }
 
     @SuppressLint("MissingPermission")
     private fun executeLoadFile() {
         if (checkPermission()) {
-            clickAllAfile()
             setUserProperty("ACCEPT_File_Permission")
+            clickAllAfile()
         } else {
             PermissionDialog.start(this, "permission", object : OnActionCallback {
                 override fun callback(key: String?, vararg data: Any?) {
@@ -370,7 +389,9 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
 
     }
 
+
     private fun requestPermission() {
+        setUserProperty("ACCEPT_File_Permission")
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 requestPermissions(
@@ -419,6 +440,8 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
     }
 
     override fun onBackPressed() {
+        showAllbtn()
+        fr_ad.visibility = View.VISIBLE
         if (SharePreferenceUtils.shouldShowRatePopup(this)) {
             showRateDialog(true)
             return
@@ -466,6 +489,22 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
             }
         })
         dialog.show()
+    }
+
+    fun checkLocation() {
+            clickAllAfile()
+            btn_favourite.hide()
+            btn_recent.hide()
+            sort_btn.hide()
+            btn_allfile.show()
+
+    }
+    fun showAllbtn()
+    {
+        btn_favourite.show()
+        btn_recent.show()
+        sort_btn.show()
+        btn_allfile.show()
     }
 
 

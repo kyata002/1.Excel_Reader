@@ -1,9 +1,5 @@
-package com.masterexcels.excelreader.utils;
+package com.masterexcels.excelreader.view.adapter;
 
-
-//import com.masterlibs.basestructure.view.activity.DocReaderActivity
-//import com.masterlibs.basestructure.view.activity.ReadFile
-//import kotlinx.android.synthetic.main.dialog_detail.view.*
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -28,7 +24,9 @@ import com.masterexcels.excelreader.App
 import com.masterexcels.excelreader.BuildConfig
 import com.masterexcels.excelreader.R
 import com.masterexcels.excelreader.extentions.showInterAd
+import com.masterexcels.excelreader.model.FileRecent
 import com.masterexcels.excelreader.model.MyFile
+import com.masterexcels.excelreader.utils.AppUtils
 import com.masterexcels.excelreader.view.activity.DocReaderActivity
 import com.masterexcels.excelreader.view.activity.MainActivity
 import com.masterexcels.excelreader.view.dialog.DeleteDialog
@@ -37,14 +35,13 @@ import com.masterexcels.excelreader.view.dialog.RenameDialog
 import com.skydoves.powermenu.OnMenuItemClickListener
 import com.skydoves.powermenu.PowerMenu
 import com.skydoves.powermenu.PowerMenuItem
-import kotlinx.android.synthetic.main.dialog_rename.*
-import kotlinx.android.synthetic.main.popup_menu_more_layout.view.*
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 
-class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
+class FileAdapter(mList: ArrayList<MyFile>, context: Context) :
     BaseAdapter<MyFile>(mList, context), Filterable {
     //    var sizeOfFile: Float = 0f
     private var powerMenu: PowerMenu? = null
@@ -57,7 +54,7 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
     fun updateList(list: ArrayList<MyFile>) {
         this.mList = list
 
-        temp = this.mList as ArrayList<MyFile>
+        temp = list
         notifyDataSetChanged()
     }
 
@@ -65,9 +62,9 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
     @SuppressLint("RestrictedApi", "SimpleDateFormat", "ResourceType", "SetTextI18n")
     override fun onBindView(viewHolder: RecyclerView.ViewHolder?, position: Int) {
         val holder: FViewHolder = viewHolder as FViewHolder
-        val myFile: MyFile = this.mList?.get(position)!!
+        val myFile = mList?.get(position)!!
         var extension: String? = null
-        holder.img_view.setImageResource(R.drawable.ic_xlsx)
+        holder.img_view.setImageResource(R.drawable.ic_item_file)
         val file = File(myFile.path)
         if (!file.isDirectory) {
             if (file.path.endsWith(".xls"!!))
@@ -89,20 +86,15 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
         val dateFile: SimpleDateFormat = SimpleDateFormat("dd.MM.yyyy")
         holder.date_file.text = dateFile.format(Date(File(myFile.path).lastModified()))
         val sizeOfFile = ((File(myFile.path).length() / (1024.0)).toFloat())
-        holder.size_file.text = "%.2f KB".format(sizeOfFile)
-        if (position == mList?.size!! - 1) {
-            holder.bottom_line.setImageResource(0)
-        } else {
-            holder.bottom_line.setImageResource(R.drawable.ic_linesperate)
-        }
+        holder.size_file.text = "%.2fKB".format(sizeOfFile)
         if (!checkFavourite(myFile.path)) {
             holder.favorite_checked.setButtonDrawable(R.drawable.ic_unfavorite)
             myFile.isFavorite = true
         } else {
             myFile.isFavorite = false
-            holder.favorite_checked.setButtonDrawable(R.drawable.ic_favorite)
+            holder.favorite_checked.setButtonDrawable(R.drawable.ic_favorite_true)
         }
-//        holder.sizeFile.text = "%.2f Mb".format(sizeOfFile)
+
         holder.favorite_checked.setOnCheckedChangeListener { _, b ->
             context.setUserProperty("CLICK_Favourite")
             myFile.isFavorite = b
@@ -117,6 +109,13 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
         }
         holder.itemView.setOnClickListener {
             showRead(myFile)
+            val hasFile = App.database?.recentDao()?.hasFile(myFile.path)
+            if (hasFile == true) {
+                App.database?.recentDao()?.delete(myFile.path)
+                App.database?.recentDao()?.add(FileRecent(myFile.path))
+            }else{
+                App.database?.recentDao()?.add(FileRecent(myFile.path))
+            }
         }
 
 
@@ -130,7 +129,7 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
 //                .setAnimation(MenuAnimation.SHOWUP_TOP_LEFT) // Animation start point (TOP | LEFT).
                 .setMenuRadius(36f)
                 .setTextTypeface(ResourcesCompat.getFont(context, R.font.lexend_regular)!!)
-                .setSize(200 * MainActivity.width / 160, 280 * MainActivity.height / 160)
+                .setSize(200 * MainActivity.width / 160, 245 * MainActivity.height / 160)
                 .setPadding(16)// sets the corner radius.
                 .setMenuShadow(10f) // sets the shadow.
                 .setIconSize(32)
@@ -210,15 +209,28 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
 //            ph.setForceShowIcon(true)
 //            ph.show()
         }
-
-
+//        holder.sizeFile.text = "%.2f Mb".format(sizeOfFile)
     }
+
     private fun convertDpToPx(dp: Float): Float {
         return dp * context.getResources().getDisplayMetrics().density
     }
+
     private fun checkFavourite(path: String?): Boolean {
         return App.database?.favoriteDAO()?.getFile(path) != null
     }
+
+//    fun check(file: MyFile, list: ArrayList<MyFile>) {
+//        list.forEach {
+//            if (file == it) {
+//                App.database!!.recentDao().delete(file.path)
+////                App.database!!.recentDao().add(FileRecent(file.path))
+//            } else {
+//                App.database!!.recentDao().add(FileRecent(file.path))
+//            }
+//        }
+//
+//    }
 
     fun sortByNameAZ(list: ArrayList<MyFile>) {
         for (i in 0 until list.size!!) {
@@ -268,7 +280,7 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
                 if (text.isEmpty()) {
                     listFile = temp
                 } else if (text[0] != ' ') {
-                    temp?.forEach {
+                    temp.forEach {
                         if (File(it.path).name.toLowerCase().contains(text.toLowerCase())) {
                             list.add(it)
                         }
@@ -303,7 +315,6 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
         val date_file: TextView
         val favorite_checked: CheckBox
         val size_file: TextView
-        var bottom_line: ImageView
 
         init {
             img_view = itemView.findViewById(R.id.img_view_file)
@@ -313,7 +324,6 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
             date_file = itemView.findViewById(R.id.date_file)
             favorite_checked = itemView.findViewById(R.id.favorite_checked)
             size_file = itemView.findViewById(R.id.size_file)
-            bottom_line = itemView.findViewById(R.id.bottom_line)
         }
     }
 
@@ -327,6 +337,7 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
                         mList?.indexOf(myFile)?.let { notifyItemRemoved(it) }
                         mList?.remove(myFile)
                         App.database?.favoriteDAO()?.delete(myFile.path)
+                        App.database?.recentDao()?.delete(myFile.path)
                         notifyDataSetChanged()
                         context.setUserProperty("FINISH_Main_Delete")
                     }
@@ -385,7 +396,7 @@ class FileAdapter(mList: ArrayList<MyFile>?, context: Context) :
     }
 
     private fun showRead(myFile: MyFile) {
-        context.setUserProperty("CLICK_Main_ReadFile")
+        context.setUserProperty("CLICK_Read_File")
         DocReaderActivity.start(context, myFile.path)
         context.showInterAd(BuildConfig.inter_read_file)
     }

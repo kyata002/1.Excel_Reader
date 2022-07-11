@@ -11,7 +11,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/_56sdp"
-            android:background="#00733B"
+            android:background="#129253"
             android:orientation="horizontal">
 
             <FrameLayout
@@ -20,11 +20,11 @@
 
                 <ImageButton
                     android:id="@+id/btn_setting_back"
-                    android:layout_width="@dimen/_18sdp"
-                    android:layout_height="@dimen/_18sdp"
+                    android:layout_width="@dimen/_21sdp"
+                    android:layout_height="@dimen/_21sdp"
                     android:layout_gravity="center|left"
                     android:layout_marginLeft="@dimen/_16sdp"
-                    android:background="@drawable/ic_btn_back"
+                    android:background="@drawable/ic_btn_back_w"
                     android:foreground="?attr/selectableItemBackgroundBorderless" />
 
                 <TextView
@@ -43,6 +43,43 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+            <LinearLayout
+                android:id="@+id/btn_setting_rate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_13sdp"
+                android:layout_marginRight="@dimen/_16sdp"
+                android:background="@drawable/botron_btn"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:padding="@dimen/_10sdp">
+
+                <ImageView
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/_16sdp"
+                    android:background="@drawable/ic_rate" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/_15sdp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/lexend_regular"
+                    android:text="Rate App"
+                    android:textColor="#000"
+                    android:textSize="@dimen/_14sdp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="@dimen/_16sdp"
+                    android:background="@drawable/ic_show" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/btn_setting_share"

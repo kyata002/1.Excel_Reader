@@ -21,7 +21,10 @@ class SplashActivity(override val layoutId: Int = R.layout.activity_splash) : Ba
         Handler().postDelayed(
             {
                 val interId =
-                    if ("android.intent.action.VIEW" == intent.action) BuildConfig.inter_open_other_app else BuildConfig.inter_splash
+                    if ("android.intent.action.VIEW" == intent.action)
+                        BuildConfig.inter_open_other_app
+                    else
+                        BuildConfig.inter_splash
                 AdmobManager.getInstance()
                     .loadInterAds(this, interId, object : AdCallback() {
                         override fun interCallback(interstitialAd: InterstitialAd?) {
@@ -65,6 +68,7 @@ class SplashActivity(override val layoutId: Int = R.layout.activity_splash) : Ba
                     val str = path
                     path = str!!.substring(str.indexOf("/raw:") + 5)
                 }
+                MainActivity.start(this)
                 DocReaderActivity.start(this, path)
             }
             finish()

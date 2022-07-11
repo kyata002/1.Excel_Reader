@@ -105,7 +105,7 @@
                 android:layout_marginStart="@dimen/_2sdp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_action"
-                android:backgroundTint="#00733B"
+                android:backgroundTint="#129253"
                 android:gravity="center"
                 android:text="Delete"
                 android:textColor="#FFF"

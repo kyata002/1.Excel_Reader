@@ -4,21 +4,36 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Intership/excel-reader/app/src/main/res/drawable/bg_btn.xml" value="0.147" />
-        <entry key="..\:/Intership/excel-reader/app/src/main/res/drawable/bg_item.xml" value="0.121" />
-        <entry key="..\:/Intership/excel-reader/app/src/main/res/drawable/ic_bg_btn_no.xml" value="0.147" />
+        <entry key="..\:/Intership/excel-reader/app/src/main/res/drawable/bg_btn_yes.xml" value="0.147" />
         <entry key="..\:/Intership/excel-reader/app/src/main/res/drawable/ic_bg_btn_yes.xml" value="0.147" />
-        <entry key="..\:/Intership/excel-reader/app/src/main/res/drawable/ic_btn_share2.xml" value="0.121" />
-        <entry key="..\:/Intership/excel-reader/app/src/main/res/drawable/ic_favorite_check.xml" value="0.121" />
-        <entry key="..\:/Intership/excel-reader/app/src/main/res/drawable/ic_favorite_true.xml" value="0.121" />
-        <entry key="..\:/Intership/excel-reader/app/src/main/res/drawable/ic_feedback.xml" value="0.121" />
-        <entry key="..\:/Intership/excel-reader/app/src/main/res/drawable/ic_search.xml" value="0.121" />
-        <entry key="..\:/Intership/excel-reader/app/src/main/res/drawable/ic_unfavorite.xml" value="0.121" />
-        <entry key="..\:/Intership/excel-reader/app/src/main/res/drawable/shape.xml" value="0.147" />
-        <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/activity_main.xml" value="0.3734513274336283" />
+        <entry key="..\:/Intership/excel-reader/app/src/main/res/drawable/ic_btn_back.xml" value="0.147" />
+        <entry key="..\:/Intership/excel-reader/app/src/main/res/drawable/ic_btn_back_w.xml" value="0.147" />
+        <entry key="..\:/Intership/excel-reader/app/src/main/res/drawable/ic_btn_clear.xml" value="0.147" />
+        <entry key="..\:/Intership/excel-reader/app/src/main/res/drawable/ic_btn_share2.xml" value="0.147" />
+        <entry key="..\:/Intership/excel-reader/app/src/main/res/drawable/ic_favorite_check.xml" value="0.147" />
+        <entry key="..\:/Intership/excel-reader/app/src/main/res/drawable/ic_favorite_true.xml" value="0.147" />
+        <entry key="..\:/Intership/excel-reader/app/src/main/res/drawable/ic_no_file_favourite.xml" value="0.147" />
+        <entry key="..\:/Intership/excel-reader/app/src/main/res/drawable/ic_no_file_favourite2.xml" value="0.147" />
+        <entry key="..\:/Intership/excel-reader/app/src/main/res/drawable/ic_nofile_recent.xml" value="0.121" />
+        <entry key="..\:/Intership/excel-reader/app/src/main/res/drawable/ic_unfavorite.xml" value="0.147" />
+        <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/activity_reader.xml" value="0.3911671924290221" />
+        <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/activity_setting.xml" value="0.136" />
+        <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/activity_splash.xml" value="0.25" />
+        <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/custom_native.xml" value="0.25" />
+        <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/dialog_delete.xml" value="0.25" />
+        <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/dialog_detail.xml" value="0.25" />
+        <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/dialog_enter_password.xml" value="0.25" />
         <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/dialog_filter.xml" value="0.25" />
         <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/dialog_permission.xml" value="0.25" />
         <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/dialog_rename.xml" value="0.25" />
-        <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/item_file.xml" value="0.4979919678714859" />
+        <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/fragment_home.xml" value="0.25" />
+        <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/ic_btn_back_w.xml" value="0.24895833333333334" />
+        <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/item_file.xml" value="0.287369640787949" />
+        <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/item_native.xml" value="0.25" />
+        <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/item_slide.xml" value="0.25" />
+        <entry key="..\:/Intership/excel-reader/app/src/main/res/layout/popup_menu_more_layout.xml" value="0.6775956284153005" />
+        <entry key="..\:/Intership/excel-reader/app/src/main/res/menu/popup_menu_more.xml" value="0.25" />
       </map>
     </option>
   </component>

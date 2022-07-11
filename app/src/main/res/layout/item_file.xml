@@ -28,8 +28,8 @@
 
                 <ImageView
                     android:id="@+id/img_view_file"
-                    android:layout_width="@dimen/_40sdp"
-                    android:layout_height="@dimen/_40sdp"
+                    android:layout_width="@dimen/_36sdp"
+                    android:layout_height="@dimen/_36sdp"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_item_file" />
             </FrameLayout>
@@ -53,7 +53,7 @@
                     android:fontFamily="@font/lexend_regular"
                     android:singleLine="true"
                     android:text="@string/app_name"
-                    android:textColor="@color/black"
+                    android:textColor="#3C3C3C"
                     android:textSize="@dimen/_12sdp"
                     android:textStyle="bold" />
 
@@ -74,7 +74,7 @@
                         android:textColor="#838388"
                         android:textSize="@dimen/_10sdp" />
                     <TextView
-                        android:text="|"
+                        android:text=" | "
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/_13sdp"
                         />
@@ -96,25 +96,25 @@
 
         <CheckBox
             android:id="@+id/favorite_checked"
-            android:layout_width="@dimen/_24sdp"
+            android:layout_width="@dimen/_30sdp"
             android:layout_height="54dp"
             android:layout_gravity="center"
-            android:layout_marginRight="@dimen/_4sdp"
-            android:button="@drawable/ic_unfavorite"
+            android:layout_marginRight="@dimen/_12sdp"
+            android:button="@drawable/ic_favorite_true"
             android:checked="false"
             tools:ignore="TouchTargetSizeCheck" />
 
         <FrameLayout
             android:id="@+id/more_options"
-            android:layout_marginEnd="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:layout_gravity="center">
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
+                android:layout_width="@dimen/_23sdp"
+                android:layout_height="@dimen/_23sdp"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_more" />
         </FrameLayout>
