@@ -19,6 +19,9 @@ public interface RecentDao {
     @Query("SELECT * FROM file_recent WHERE path=:path")
     boolean hasFile(String path);
 
+    @Query("SELECT * FROM file_recent WHERE path=:path")
+    FileRecent getFileRecent(String path);
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void add(FileRecent myFile);
 

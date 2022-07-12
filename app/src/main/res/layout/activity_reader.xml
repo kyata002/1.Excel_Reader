@@ -18,32 +18,44 @@
             android:id="@+id/tv_title"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginHorizontal="@dimen/_8sdp"
             android:layout_toEndOf="@+id/iv_back"
-            android:gravity="center"
-            android:singleLine="true"
-            android:paddingBottom="@dimen/_3sdp"
             android:fontFamily="@font/lexend_regular"
+            android:layout_marginStart="@dimen/_3sdp"
+            android:paddingEnd="@dimen/_3sdp"
+            android:gravity="center"
+            android:paddingBottom="@dimen/_3sdp"
+            android:singleLine="true"
             android:text="sds dsa sd asd asdd sa dsadsadsadsadasdsadsada"
             android:textColor="#FFFFFF"
             android:textSize="@dimen/_16sdp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toRightOf="@+id/iv_back"
             app:layout_constraintRight_toLeftOf="@+id/bt_share"
             app:layout_constraintTop_toTopOf="parent"
-             />
+            app:layout_constraintVertical_bias="0.0" />
 
-        <TextView
+        <FrameLayout
             android:id="@+id/iv_back"
-            android:layout_width="@dimen/_18sdp"
-            android:layout_height="@dimen/_18sdp"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
             android:layout_gravity="center|left"
-            android:layout_marginLeft="@dimen/_16sdp"
-            android:background="@drawable/ic_btn_back_w"
-            android:foreground="?attr/selectableItemBackgroundBorderless"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints">
+            <TextView
+                android:layout_width="@dimen/_18sdp"
+                android:layout_height="@dimen/_18sdp"
+                android:layout_gravity="center|right"
+                android:gravity="center"
+                android:layout_marginLeft="@dimen/_16sdp"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:background="@drawable/ic_btn_back_w"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </FrameLayout>
 
 
         <ImageView

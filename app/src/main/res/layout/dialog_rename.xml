@@ -53,7 +53,7 @@
                 android:paddingStart="@dimen/_8sdp"
                 android:singleLine="true"
                 android:textColor="#3C3C3C"
-                android:textColorHint="#3C3C3C"
+                android:textColorHint="#B9B9B9"
                 android:textColorHighlight="#3302723B"
                 android:textCursorDrawable="@drawable/cursor_color"
                 android:textFontWeight="500"

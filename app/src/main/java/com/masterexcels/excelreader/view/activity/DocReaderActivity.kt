@@ -10,6 +10,7 @@ import android.os.Handler
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.common.control.manager.AdmobManager
 import com.documentmaster.documentscan.OnActionCallback
@@ -128,7 +129,8 @@ open class DocReaderActivity : BaseDocActivity() {
     }
 
     fun shareFileRead(){
-        setUserProperty("CLICK_Share_AtRead")
+        setUserProperty("CLICK_Read_Share")
+        Toast.makeText(this, "CLICK_Read_Share", Toast.LENGTH_SHORT).show()
         CommonUtils.getInstance().shareFile(this, File(path))
     }
 

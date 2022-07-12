@@ -4,19 +4,26 @@ import android.annotation.SuppressLint
 import android.net.Uri
 import android.os.Handler
 import android.text.TextUtils
+import android.widget.Toast
 import com.common.control.interfaces.AdCallback
 import com.common.control.manager.AdmobManager
 import com.documentmaster.documentscan.extention.setUserProperty
 import com.docxmaster.docreader.base.BaseActivity
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.masterexcels.excelreader.App
 import com.masterexcels.excelreader.BuildConfig
 import com.masterexcels.excelreader.R
+import com.masterexcels.excelreader.model.FileRecent
+import com.masterexcels.excelreader.model.MyFile
+import com.masterexcels.excelreader.utils.LoadFile
 import com.wxiwei.office.utils.RealPathUtil
+import java.io.File
 
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity(override val layoutId: Int = R.layout.activity_splash) : BaseActivity() {
+    var check = false
     override fun initView() {
         Handler().postDelayed(
             {
@@ -44,13 +51,14 @@ class SplashActivity(override val layoutId: Int = R.layout.activity_splash) : Ba
                         }
                     })
             },
-            2000
+            200
         )
     }
 
     private fun startMain() {
         if ("android.intent.action.VIEW" == intent.action) {
             setUserProperty("OPEN_File_FromDevice")
+            Toast.makeText(this, "OPEN_File_FromDevice", Toast.LENGTH_SHORT).show()
             val fileUri: Uri?
             val data: Uri? = intent.data
             fileUri = data
@@ -70,6 +78,28 @@ class SplashActivity(override val layoutId: Int = R.layout.activity_splash) : Ba
                 }
                 MainActivity.start(this)
                 DocReaderActivity.start(this, path)
+                val typeList: ArrayList<String> = ArrayList()
+                typeList.add("xlsx")
+                typeList.add("xls")
+                typeList.add("xlsm")
+                typeList.add("xlsb")
+                typeList.add("xlam")
+                typeList.add("csv")
+                typeList.forEach {
+                    if(File(path).name.endsWith(it)){
+                        check=true
+                    }
+                }
+                if(check){
+                    val hasFile = App.database?.recentDao()?.hasFile(path)
+                    if (hasFile == true) {
+                        App.database?.recentDao()?.delete(path)
+                        App.database?.recentDao()?.add(FileRecent(path))
+                    }else{
+                        App.database?.recentDao()?.add(FileRecent(path))
+                    }
+                    check=false
+                }
             }
             finish()
             return

@@ -80,23 +80,31 @@ class FileAdapter(mList: ArrayList<MyFile>, context: Context) :
             if (file.path.endsWith(".csv"!!))
                 extension = ".csv"
         }
-        var name = file.name
-        name = name.replace(extension!!, "")
-        holder.name_view.text = name
-        val dateFile: SimpleDateFormat = SimpleDateFormat("dd.MM.yyyy")
-        holder.date_file.text = dateFile.format(Date(File(myFile.path).lastModified()))
-        val sizeOfFile = ((File(myFile.path).length() / (1024.0)).toFloat())
-        holder.size_file.text = "%.2fKB".format(sizeOfFile)
-        if (!checkFavourite(myFile.path)) {
-            holder.favorite_checked.setButtonDrawable(R.drawable.ic_unfavorite)
-            myFile.isFavorite = true
-        } else {
-            myFile.isFavorite = false
-            holder.favorite_checked.setButtonDrawable(R.drawable.ic_favorite_true)
+        try {
+            var name = file.name
+            name = name.replace(extension!!, "")
+            holder.name_view.text = name
+            val dateFile: SimpleDateFormat = SimpleDateFormat("dd.MM.yyyy")
+            holder.date_file.text = dateFile.format(Date(File(myFile.path).lastModified()))
+            val sizeOfFile = ((File(myFile.path).length() / (1024.0)).toFloat())
+            if(sizeOfFile >= 1024){
+                holder.size_file.text = "%.2fMB".format(sizeOfFile/1024)
+            }else{
+                holder.size_file.text = "%.2fKB".format(sizeOfFile)
+            }
+            if (!checkFavourite(myFile.path)) {
+                holder.favorite_checked.setButtonDrawable(R.drawable.ic_unfavorite)
+                myFile.isFavorite = true
+            } else {
+                myFile.isFavorite = false
+                holder.favorite_checked.setButtonDrawable(R.drawable.ic_favorite_true)
+            }
+        } catch (e: Exception) {
         }
 
         holder.favorite_checked.setOnCheckedChangeListener { _, b ->
             context.setUserProperty("CLICK_Favourite")
+            Toast.makeText(context, "CLICK_Favourite", Toast.LENGTH_SHORT).show()
             myFile.isFavorite = b
             if (b && !checkFavourite(myFile.path)) {
                 App.database?.favoriteDAO()?.add(myFile)
@@ -118,55 +126,62 @@ class FileAdapter(mList: ArrayList<MyFile>, context: Context) :
             }
         }
 
-
         holder.more_options.setOnClickListener {
-            powerMenu = PowerMenu.Builder(context)
-                //.addItemList(list) // list has "Novel", "Poerty", "Art"
-                .addItem(PowerMenuItem("Share", R.drawable.ic_btn_share, false)) // add an item.
-                .addItem(PowerMenuItem("Rename", R.drawable.ic_renamesvg, false))
-                .addItem(PowerMenuItem("Details", R.drawable.ic_detail, false)) // add an item.
-                .addItem(PowerMenuItem("Delete", R.drawable.ic_delete, false)) // aad an item list.
-//                .setAnimation(MenuAnimation.SHOWUP_TOP_LEFT) // Animation start point (TOP | LEFT).
-                .setMenuRadius(36f)
-                .setTextTypeface(ResourcesCompat.getFont(context, R.font.lexend_regular)!!)
-                .setSize(200 * MainActivity.width / 160, 245 * MainActivity.height / 160)
-                .setPadding(16)// sets the corner radius.
-                .setMenuShadow(10f) // sets the shadow.
-                .setIconSize(32)
-                .setTextSize(16)
-                .setIconPadding(2)
-                .setMenuColor(0)
-                .setBackgroundColor(Color.TRANSPARENT)
-                .setOnBackgroundClickListener {
-                    powerMenu?.dismiss()
-                }
-                //.setTextColor(ContextCompat.getColor(context, Color.parseColor("#3C3C3C")))
-                .setTextGravity(Gravity.LEFT)
-                .setTextTypeface(Typeface.create("font/lexend_regular.ttf", Typeface.NORMAL))
-                .setSelectedTextColor(Color.WHITE)
-                .setMenuColor(Color.WHITE)
-                .setSelectedMenuColor(ContextCompat.getColor(context, R.color.colorPrimary))
-                .setOnMenuItemClickListener(OnMenuItemClickListener { position, item ->
-                    when (item.title) {
-                        "Share" -> {
-                            context?.setUserProperty("CLICK_Main_Share")
-                            AppUtils.sharefile(File(myFile.path), context)
-                        }
-                        "Rename" -> {
-                            showRename(myFile)
-                        }
-                        "Details" -> {
-                            showDetail(myFile)
-                        }
-                        "Delete" -> {
-                            showDelete(myFile)
-                        }
+            if(powerMenu!=null&&powerMenu?.isShowing==true){
+             return@setOnClickListener
+            }
+                powerMenu = PowerMenu.Builder(context)
+                    //.addItemList(list) // list has "Novel", "Poerty", "Art"
+                    .addItem(PowerMenuItem("Share", R.drawable.ic_btn_share, false)) // add an item.
+                    .addItem(PowerMenuItem("Rename", R.drawable.ic_renamesvg, false))
+                    .addItem(PowerMenuItem("Details", R.drawable.ic_detail, false)) // add an item.
+                    .addItem(PowerMenuItem("Delete", R.drawable.ic_delete, false)) // aad an item list.
+                    //.setAnimation(MenuAnimation.SHOWUP_TOP_LEFT) // Animation start point (TOP | LEFT).
+                    .setMenuRadius(36f)
+                    .setTextTypeface(ResourcesCompat.getFont(context, R.font.lexend_regular)!!)
+                    .setSize(200 * MainActivity.width / 160, 245 * MainActivity.height / 160)
+                    .setPadding(16)// sets the corner radius.
+                    .setMenuShadow(10f) // sets the shadow.
+                    .setIconSize(32)
+                    .setTextSize(16)
+                    .setIconPadding(2)
+                    .setMenuColor(0)
+                    .setBackgroundColor(Color.TRANSPARENT)
+                    .setOnBackgroundClickListener {
+                        powerMenu?.dismiss()
                     }
-                    powerMenu!!.dismiss()
+                    //.setTextColor(ContextCompat.getColor(context, Color.parseColor("#3C3C3C")))
+                    .setTextGravity(Gravity.LEFT)
+                    .setTextTypeface(Typeface.create("font/lexend_regular.ttf", Typeface.NORMAL))
+                    .setSelectedTextColor(Color.WHITE)
+                    .setMenuColor(Color.WHITE)
+                    .setSelectedMenuColor(ContextCompat.getColor(context, R.color.colorPrimary))
+                    .setOnMenuItemClickListener(OnMenuItemClickListener { position, item ->
+                        when (item.title) {
+                            "Share" -> {
+                                context?.setUserProperty("CLICK_Main_Share")
+                                Toast.makeText(context, "CLICK_Main_Share", Toast.LENGTH_SHORT).show()
+                                AppUtils.sharefile(File(myFile.path), context)
+                            }
+                            "Rename" -> {
+                                showRename(myFile)
+                            }
+                            "Details" -> {
+                                showDetail(myFile)
+                            }
+                            "Delete" -> {
+                                showDelete(myFile)
+                            }
+                        }
+                        powerMenu!!.dismiss()
 
-                })
-                .build()
+                    })
+                    .build()
+
             powerMenu?.showAsDropDown(it);
+
+
+
 
 //            val layout: View =LayoutInflater.from(context).inflate(R.layout.popup_menu_more_layout,null)
 //            var changeSortPopUp = PopupWindow(context);
@@ -210,6 +225,9 @@ class FileAdapter(mList: ArrayList<MyFile>, context: Context) :
 //            ph.show()
         }
 //        holder.sizeFile.text = "%.2f Mb".format(sizeOfFile)
+    }
+    fun btnMore(){
+
     }
 
     private fun convertDpToPx(dp: Float): Float {
@@ -340,6 +358,7 @@ class FileAdapter(mList: ArrayList<MyFile>, context: Context) :
                         App.database?.recentDao()?.delete(myFile.path)
                         notifyDataSetChanged()
                         context.setUserProperty("FINISH_Main_Delete")
+                        Toast.makeText(context, "FINISH_Main_Delete", Toast.LENGTH_SHORT).show()
                     }
                     key.equals("cancel") -> {
 
@@ -353,7 +372,7 @@ class FileAdapter(mList: ArrayList<MyFile>, context: Context) :
 
     private fun showDetail(myFile: MyFile) {
         context.setUserProperty("CLICK_Main_Details")
-
+        Toast.makeText(context, "CLICK_Main_Details", Toast.LENGTH_SHORT).show()
         DetailDialog.start(context, myFile.path, object : OnActionCallback {
             override fun callback(key: String?, vararg data: Any?) {
                 if (key.equals("ok")) {
@@ -373,9 +392,14 @@ class FileAdapter(mList: ArrayList<MyFile>, context: Context) :
                 //App.database?.favoriteDAO()?.delete(myFile.path)
                 file.renameTo(newFile)
                 val favourite = App.database?.favoriteDAO()?.getFile(myFile.path)
+                val recent = App.database?.recentDao()?.getFileRecent(myFile.path)
                 if (favourite != null) {
                     favourite?.path = newFile.path
                     App.database?.favoriteDAO()?.update(favourite)
+                }
+                if (recent!=null) {
+                    recent.path=newFile.path
+                    App.database?.recentDao()?.update(recent)
                 }
                 myFile.path = newFile.path
                 notifyDataSetChanged()
@@ -390,13 +414,15 @@ class FileAdapter(mList: ArrayList<MyFile>, context: Context) :
                     )
                 )
                 context.setUserProperty("FINISH_Rename")
+                Toast.makeText(context, "FINISH_Rename", Toast.LENGTH_SHORT).show()
             }
 
         })
     }
 
     private fun showRead(myFile: MyFile) {
-        context.setUserProperty("CLICK_Read_File")
+        context.setUserProperty("CLICK_Main_ReadFile")
+        Toast.makeText(context, "CLICK_Main_ReadFile", Toast.LENGTH_SHORT).show()
         DocReaderActivity.start(context, myFile.path)
         context.showInterAd(BuildConfig.inter_read_file)
     }
