@@ -104,7 +104,6 @@ class FileAdapter(mList: ArrayList<MyFile>, context: Context) :
 
         holder.favorite_checked.setOnCheckedChangeListener { _, b ->
             context.setUserProperty("CLICK_Favourite")
-            Toast.makeText(context, "CLICK_Favourite", Toast.LENGTH_SHORT).show()
             myFile.isFavorite = b
             if (b && !checkFavourite(myFile.path)) {
                 App.database?.favoriteDAO()?.add(myFile)
@@ -160,7 +159,6 @@ class FileAdapter(mList: ArrayList<MyFile>, context: Context) :
                         when (item.title) {
                             "Share" -> {
                                 context?.setUserProperty("CLICK_Main_Share")
-                                Toast.makeText(context, "CLICK_Main_Share", Toast.LENGTH_SHORT).show()
                                 AppUtils.sharefile(File(myFile.path), context)
                             }
                             "Rename" -> {
@@ -372,7 +370,6 @@ class FileAdapter(mList: ArrayList<MyFile>, context: Context) :
 
     private fun showDetail(myFile: MyFile) {
         context.setUserProperty("CLICK_Main_Details")
-        Toast.makeText(context, "CLICK_Main_Details", Toast.LENGTH_SHORT).show()
         DetailDialog.start(context, myFile.path, object : OnActionCallback {
             override fun callback(key: String?, vararg data: Any?) {
                 if (key.equals("ok")) {
@@ -414,7 +411,6 @@ class FileAdapter(mList: ArrayList<MyFile>, context: Context) :
                     )
                 )
                 context.setUserProperty("FINISH_Rename")
-                Toast.makeText(context, "FINISH_Rename", Toast.LENGTH_SHORT).show()
             }
 
         })
@@ -422,7 +418,6 @@ class FileAdapter(mList: ArrayList<MyFile>, context: Context) :
 
     private fun showRead(myFile: MyFile) {
         context.setUserProperty("CLICK_Main_ReadFile")
-        Toast.makeText(context, "CLICK_Main_ReadFile", Toast.LENGTH_SHORT).show()
         DocReaderActivity.start(context, myFile.path)
         context.showInterAd(BuildConfig.inter_read_file)
     }

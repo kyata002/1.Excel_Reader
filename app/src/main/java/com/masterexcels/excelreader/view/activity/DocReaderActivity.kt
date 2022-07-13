@@ -130,7 +130,6 @@ open class DocReaderActivity : BaseDocActivity() {
 
     fun shareFileRead(){
         setUserProperty("CLICK_Read_Share")
-        Toast.makeText(this, "CLICK_Read_Share", Toast.LENGTH_SHORT).show()
         CommonUtils.getInstance().shareFile(this, File(path))
     }
 

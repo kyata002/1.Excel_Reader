@@ -58,7 +58,6 @@ class SplashActivity(override val layoutId: Int = R.layout.activity_splash) : Ba
     private fun startMain() {
         if ("android.intent.action.VIEW" == intent.action) {
             setUserProperty("OPEN_File_FromDevice")
-            Toast.makeText(this, "OPEN_File_FromDevice", Toast.LENGTH_SHORT).show()
             val fileUri: Uri?
             val data: Uri? = intent.data
             fileUri = data

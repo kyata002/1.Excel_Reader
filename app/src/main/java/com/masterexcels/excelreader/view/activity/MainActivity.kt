@@ -83,7 +83,6 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
             val back = Intent(this, SettingActivity::class.java)
             startActivity(back)
             setUserProperty("CLICK_Main_Settings")
-            Toast.makeText(this, "CLICK_Main_Settings", Toast.LENGTH_SHORT).show()
         }
         btn_allfile.setOnClickListener {
             clickAllAfile()
@@ -219,7 +218,6 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
                 if (p0!!.isNotEmpty()) {
                     clear_bt.setImageResource(R.drawable.ic_btn_clear)
                     setUserProperty("SEARCH_File")
-                    Toast.makeText(this@MainActivity, "SEARCH_File", Toast.LENGTH_SHORT).show()
                 } else {
                     clear_bt.setImageResource(0)
                 }
@@ -373,7 +371,6 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         if (checkPermission()) {
             clickAllAfile()
             setUserProperty("ACCEPT_File_Permission")
-            Toast.makeText(this, "ACCEPT_File_Permission", Toast.LENGTH_SHORT).show()
         } else {
             PermissionDialog.start(this, "permission", object : OnActionCallback {
                 override fun callback(key: String?, vararg data: Any?) {
